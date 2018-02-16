@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.answer">
+		
+	<select id="getAnswerListByInput" parameterType="dto.answer.ShowAnswerInput" resultType="dto.answer.ShowAnswerResult">
+		select pictureURL as answerPersonPictureURL,name as answerName,context as answerContext,time as answertime
+		from questionAnswer inner join user on user.id=questionAnswer.userID
+		where questionAnswer.questionID=#{questionID}
+		limit #{start},#{showLimit}
+	</select>
+
+	<insert id="addAnswer" parameterType="dto.answer.AddAnswer">
+		insert into questionAnswer values(null,#{userID},#{questionID},#{time},#{context})
+	</insert>
+	
+</mapper>
+
+

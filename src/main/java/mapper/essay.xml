@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.essay">
+	<select id="getPageNumber" parameterType="dto.eassy.SearchEassyCondition" resultType="_int">
+		select count(*)/#{showLimit} from essay where state=true
+	</select>
+	
+	<select id="getEssayContentList" parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
+		select id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,SUBSTIRN(context,1,100)as eassyContent,name as eassyPersonName
+		,user.pictureURL as eassyPersonPicture,state as eassyState,(select count(*)  from essaycomment where essay.id=essaycomment.essayID) as eassyCommentCount
+		from essay inner join user on user.id=essay.userID
+		where essay.state=true
+		order by time desc
+		limit #{start},#{showLimit}
+	</select>
+	
+	<select id="getEssayDetailsByEssayID" parameterType="_int" resultType="dto.eassy.EssayDetails">
+		select essay.id as essayID,context,essay.pictureURL as essayPictureURL,user.pictureURL as personPictureURL,essayHeader,country,time,validate
+		from user inner join essay on user.id=essay.userID
+		where essay.id=#{_parameter}
+	</select>
+	
+	<delete id="deleteEssayCommentByUser" parameterType="dto.eassy.EssayDeleteInput">
+		delete from essayComment where essayID=#{essayID}
+	</delete>
+	
+	<delete id="deleteEssayByUser" parameterType="dto.eassy.EssayDeleteInput">
+		delete from essay where id=#{essayID} and userID=#{userID}
+	</delete>
+	
+	<select id="getPageNumber" parameterType="dto.eassy.SearchEssayByUser" resultType="_int">
+		select count(*)/#{showLimit}
+		from essay
+		where userID=#{userID}
+		order by time desc
+		limit #{start},#{showLimit}
+	</select>
+	
+	<select id="getUserEssayResult"  parameterType="dto.eassy.SearchEssayByUser" resultType="dto.eassy.UserEssayResult">
+		select pictureURL as essayPicture,essayHeader,context as essayContent,country as essayCountry,essay.id as essayID,name as essayPersonName,state as essayStatus,(select count(*) from essayComment where essayComment.essayID=essay.id) as commentCount
+		from essay inner join user on user.id=essay.userID
+		where userID=#{userID}
+	</select>
+	
+	<update id="userUpdateEssay" parameterType="domain.essay.Essay" >
+		update essay set eassyHeader=#{eassyHeader},context=#{context} where userID=#{userID} and id=#{essayID}
+	</update>
+	
+</mapper>
+
+

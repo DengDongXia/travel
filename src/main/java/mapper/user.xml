@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.user">
+	<select id="getUserByEmail" parameterType="string" resultType="domain.user.User">
+		select * from user where email=#{email,jdbcType=VARCHAR}
+	</select>
+	<insert id="insertUser" parameterType="domain.user.User" >
+		insert into user(email,name,password,timestamp) values(#{email},#{name},#{password},#{timestamp})
+	</insert>
+	<insert id="insertUserRole" parameterType="_int" >
+		insert into userrole values(#{_parameter},3);
+	</insert>
+	
+</mapper>
+
+
+

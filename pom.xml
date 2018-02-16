@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.other</groupId>
+  <artifactId>travel</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>travel Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <!--用于设置相关的依赖包版本的参数 -->
+	<properties>
+		<!-- spring版本号 -->    
+	       <spring.version>4.0.2.RELEASE</spring.version>    
+	       <!-- mybatis版本号 -->    
+	       <mybatis.version>3.2.6</mybatis.version>    
+	       <!-- log4j日志文件管理包版本 -->    
+	       <slf4j.version>1.7.7</slf4j.version>    
+	       <log4j.version>1.2.17</log4j.version>    
+	</properties>
+  <dependencies>
+  <!-- 引入spring相关的包 -->
+  	<!-- 引入spring的核心jar包 -->
+    	<dependency>    
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-core</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+        <dependency>    
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-aop</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+    <!--  用于引入springMVC应用的相关的jar包-->
+        <dependency>    
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-web</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+        <!-- 该包的相关配置会致使spring-core、spring-beans、spring-context等依赖包的引入 -->  
+        <dependency>
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-webmvc</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+        <!-- 该包的引入用于对spring-context的相关功能提供额外的扩展，如邮件服务等  -->
+        <dependency>
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-context-support</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+   	<!-- 引入spring对事务的支持，事务的相关处理以及实现的相关jar包 -->
+        <dependency>    
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-tx</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+    <!-- 引入spring对jdbc的管理功能 -->
+        <dependency>    
+            <groupId>org.springframework</groupId>    
+            <artifactId>spring-jdbc</artifactId>    
+            <version>${spring.version}</version>    
+        </dependency>
+  <!-- 引入mybatis相关的包 -->
+  		<!-- mybatis核心包 -->    
+        <dependency>    
+            <groupId>org.mybatis</groupId>    
+            <artifactId>mybatis</artifactId>    
+            <version>${mybatis.version}</version>    
+        </dependency>
+        <!-- mybatis-spring进行整合的包 -->    
+        <dependency>    
+            <groupId>org.mybatis</groupId>    
+            <artifactId>mybatis-spring</artifactId>    
+            <version>1.2.2</version>    
+        </dependency>
+  <!-- 引入日志文件管理相关的包 -->
+    	<!-- 引入log4j的相关jar包 -->
+    	<dependency>    
+            <groupId>log4j</groupId>    
+            <artifactId>log4j</artifactId>    
+            <version>${log4j.version}</version>    
+        </dependency>
+  		<!-- 引入slf4j的相关jar包 -->
+        <dependency>    
+            <groupId>org.slf4j</groupId>    
+            <artifactId>slf4j-api</artifactId>    
+            <version>${slf4j.version}</version>    
+        </dependency> 
+  		<dependency>    
+            <groupId>org.slf4j</groupId>    
+            <artifactId>slf4j-log4j12</artifactId>    
+            <version>${slf4j.version}</version>    
+        </dependency>
+        <dependency>
+      		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      		<version>4.11</version>
+     	 	<scope>test</scope>
+    	</dependency>
+  		<!-- 引入json解析的相关jar包 -->
+        <dependency>    
+            <groupId>org.codehaus.jackson</groupId>    
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>    
+        </dependency>
+    <!-- 引入数据库连接池相关的druid包 -->
+   		<dependency>  
+          	<groupId>com.alibaba</groupId>
+          	<artifactId>druid</artifactId>
+          	<version>1.0.31</version>
+        </dependency>
+        <!-- 引入mysql连接的JDBC -->
+        <dependency>    
+            <groupId>mysql</groupId>    
+            <artifactId>mysql-connector-java</artifactId>    
+            <version>5.1.30</version>
+        </dependency>
+        <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.0-b01</version>
+        <scope>provided</scope>
+       	</dependency>
+        <!-- 引入与base64编码相关的jar包，用于进行后台密码的编码处理 -->
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+	<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.9</version>
+	</dependency>
+	<!-- 引入邮件发送的相关的java包 -->
+	 <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.7</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>travel</finalName>
+  </build>
+</project>

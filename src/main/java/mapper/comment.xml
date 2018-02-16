@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.comment">
+
+	<insert id="userComplain" parameterType="domain.comment.Comment" >
+		insert into essayComment(userID,essayID,context,time) values(#{userID},#{essayID},#{context},#{time})
+	</insert>
+	
+	<select id="getCommentPageNumber" parameterType="dto.comment.SearchCommentListInput" resultType="_int">
+		select count(*)/#{showLimit} from essayComment where essayID=#{essayID}
+	</select>
+	
+	<select id="getCommentListByCondition" parameterType="dto.comment.SearchCommentListInput"  resultType="dto.comment.UserCommentResult">
+		select  id as commentID,context as commentContext,time as commentDate,pictureURL as commentPersonPicture,name as commentPersonName
+		from user inner join essayComment on user.id=essayComment.userID
+		where essayID=#{essayID} 
+		order by time desc 
+		limit #{start},#{showLimit}
+	</select>
+	
+	<insert id="addEssayComment" parameterType="domain.comment.Comment">
+		insert into essayComment values(null,#{userID},#{essayID},#{context},#{time})
+	</insert>
+	
+</mapper>
+
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.manager">
+	<select id="getManagerByEmail" parameterType="string" resultType="domain.user.User">
+		select * from user inner join userrole on user.id=userrole.userId where user.email=#{_parameter} and roleID=1
+	</select>
+	
+	<update id="updateManagerStatus" parameterType="string" >
+		update user set locked=true where id=#{_parameter}
+	</update>
+	
+	<update id="updateManagerMessage" parameterType="dto.manager.UpdateManagerInput">
+		update user set email=#{email},name=#{name},quote=#{quote},pictureURL=#{pictureURL} where managerID=#{managerID}
+	</update>
+	
+	<select id="getUserByCondition" parameterType="string" resultType="dto.manager.UserSearchResult">
+		select id as userID,name as userName,locked as userStates,pictureURL as userPicture,account as userAccount from account inner join user on account.userID=user.id
+		where user.id=#{_parameter} or user.email=#{_parameter} or user.name=#{_parameter}
+	</select>
+	
+	<update id="updateUserMessage" parameterType="dto.manager.UserSearchResult">
+		update user set name=#{userName},locked=#{userStatus}  where user.id=#{userID}
+	</update>
+	
+	<update id="updateUserAccount" parameterType="dto.manager.UserSearchResult">
+		update account set account=#{userAccount} where userID=#{userID}
+	</update>
+	
+	<select id="getEssayByCondition" parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
+		select essay.id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,context as eassyContent,name as eassyPersonName
+		,user.pictureURL as eassyPersonPicture,state as eassyState,(select count(*)  from essaycomment where essay.id=essaycomment.essayID) as eassyCommentCount
+		from essay inner join user on user.id=essay.userID
+		<where>
+			<choose>
+				<when test="#{condition}!=null">
+					id=#{condition} or essayHeader = #{condition}
+				</when>
+				<otherwise>
+					essay.state=false
+				</otherwise>
+			</choose>
+		</where>
+		order by time desc
+		limit #{start},#{showLimit}
+	</select>
+	
+	<select id="getEssayPageNumber"  parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
+		select count(*)/#{showLimit} from essay
+		<where>
+			<choose>
+				<when test="#{condition}!=null">
+					id=#{condition} or essayHeader = #{condition}
+				</when>
+				<otherwise>
+					essay.state=false
+				</otherwise>
+			</choose>
+		</where>
+		order by time desc
+	</select>
+	
+	<update id="updateEssayByManager" parameterType="dto.eassy.EssayUpdateInput">
+		update essay set state=#{state},validate=#{validate} where id=#{id}
+	</update>
+	
+	<select id="getCommentByCommentID" parameterType="_int" resultType="dto.comment.ManagerComment">
+		select id,userID,time,context,name as userName,pictureURL as userPicture from essayComment inner join user on user.id=essayComment.userID where essayComment.id=#{_parameter}
+	</select>
+	
+	<delete id="deleteComment" parameterType="_int" >
+		delete from essayComment where id=#{_parameter}
+	</delete>
+	
+	
+	
+</mapper>
