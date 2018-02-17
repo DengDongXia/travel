@@ -51,4 +51,21 @@ public class PageRedirectController
 		return "redirect:jsp/essayUpdate";
 	}
 	
+	@RequestMapping("/user/index")
+	public String redirectToUserIndex()
+	{
+		return "redirect:jsp/index";
+	}
+	
+	@RequestMapping("/manager/index")
+	public String redirectToManagerIndex()
+	{
+		return "redirect:jsp/manager/index";
+	}
+	
+	@RequestMapping("/superManager/index")
+	public String redirectToSuperManagerIndex()
+	{
+		return "redirect:jsp/superManager/index";
+	}
 }

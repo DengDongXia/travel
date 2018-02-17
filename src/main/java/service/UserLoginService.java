@@ -18,5 +18,5 @@ public interface UserLoginService
 	 * @param input 用户输入的数据
 	 * @return 验证的结果
 	 */
-	public abstract UserLoginResult checkValidateCode(HttpSession session,UserLoginInput input);
+	public abstract UserLoginResult checkUserLogin(HttpSession session,UserLoginInput input);
 }

@@ -70,7 +70,7 @@ public class UserController
 	@ResponseBody
 	public UserLoginResult userLogin(@RequestBody UserLoginInput input,HttpSession session)
 	{
-		return userLoginService.checkValidateCode(session, input);
+		return userLoginService.checkUserLogin(session, input);
 	}
 	
 	//用户的注销操作

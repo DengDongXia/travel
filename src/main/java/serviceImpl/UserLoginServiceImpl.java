@@ -21,7 +21,7 @@ public class UserLoginServiceImpl implements UserLoginService
 	@Autowired
 	private PasswordSecurity passwordSecurity;//用户密码的相关的加密类
 	
-	public UserLoginResult checkValidateCode(HttpSession session,UserLoginInput input)
+	public UserLoginResult checkUserLogin(HttpSession session,UserLoginInput input)
 	{
 		boolean validateCodeResult=this.checkUserValidateCode(input, session);
 		User user=this.getUserByEmail(input);
