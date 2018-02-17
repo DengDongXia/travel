@@ -49,9 +49,9 @@ public class EssayServiceImpl implements EssayService
 		return essays.deleteEssayByUser(input);
 	}
 	
-	public int getPageNumber(SearchEssayByUser input)
+	public int getPageNumbers(SearchEssayByUser input)
 	{
-		return essays.getPageNumber(input);
+		return essays.getPageNumbers(input);
 	}
 	
 	public List<UserEssayResult> getEssayContentList(SearchEssayByUser input)

@@ -36,7 +36,7 @@
 	<bean id="emailSender" class="utilImpl.email.EmailSender"  init-method="initMailSender">
 		<property name="mailSender" ref="mailSender" />
 		<property name="host" value="${email.host}"/>
-		<property name="port" value="${email.port})"/>
+		<property name="port" value="${email.port}"/>
 		<property name="userName" value="${email.userName}"/>
 		<property name="password" value="${email.password}"/>
 	</bean>

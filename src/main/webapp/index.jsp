@@ -7,6 +7,6 @@
 <title>旅游推荐论坛</title>
 </head>
 <body>
-
+	<h1>哇，哈哈哈哈</h1>
 </body>
 </html>

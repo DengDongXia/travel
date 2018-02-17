@@ -28,7 +28,7 @@
 		delete from essay where id=#{essayID} and userID=#{userID}
 	</delete>
 	
-	<select id="getPageNumber" parameterType="dto.eassy.SearchEssayByUser" resultType="_int">
+	<select id="getPageNumbers" parameterType="dto.eassy.SearchEssayByUser" resultType="_int">
 		select count(*)/#{showLimit}
 		from essay
 		where userID=#{userID}

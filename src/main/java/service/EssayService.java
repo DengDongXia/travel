@@ -63,7 +63,7 @@ public interface EssayService
 	 * @param input 用户的输入对象
 	 * @return 可进行的分页的数目
 	 */
-	public abstract int getPageNumber(SearchEssayByUser input);
+	public abstract int getPageNumbers(SearchEssayByUser input);
 	
 	/**
 	 * 更新文章内容

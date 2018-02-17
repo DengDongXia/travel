@@ -56,7 +56,7 @@ public interface Essay
 	 * @param input 用户的输入相关参数
 	 * @return 分页的数目
 	 */
-	public abstract int getPageNumber(SearchEssayByUser input);
+	public abstract int getPageNumbers(SearchEssayByUser input);
 	
 	/**
 	 * 用于获取用户所发布的对应的攻略

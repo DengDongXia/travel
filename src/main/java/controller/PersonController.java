@@ -43,7 +43,7 @@ public class PersonController
 		Map<String,Object> result =new HashMap<String,Object>();
 		input.setStart();
 		result.put("content",essayService.getEssayContentList(input));
-		result.put("pageNumber",essayService.getPageNumber(input));
+		result.put("pageNumber",essayService.getPageNumbers(input));
 		return result;
 	}
 	
