@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 
 import util.validate.RandomString;
@@ -40,18 +42,19 @@ public class ValidateCodeImpl implements ValidateCode
 			return randomString.randomString(this.object.getFontNumber());
 		}
 		/**
-		 * 用于根据输入的字符串的信息，生成一张二维码，并将其输出到指定的输出端中
+		 * 用于根据输入的字符串的信息，生成一张二维码，并将其经过base64编码后输出到指定的输出端中
 		 */
-		public void outputValidateCode(HttpServletResponse response,String validateCodeString)
+		public String outputValidateCode(String validateCodeString)
 		{
-			// 设置相应类型,告诉浏览器输出的内容为图片
+			/*// 设置相应类型,告诉浏览器输出的内容为图片
 			response.setContentType("image/jpeg");
 			// 设置响应头信息，告诉浏览器不要缓存此内容
 	        response.setHeader("Pragma", "No-cache");
 	        response.setHeader("Cache-Control", "no-cache");
 	        response.setDateHeader("Expire", 0);
 			//获取相关信息用于生成验证码，同时将验证码输出到前端中
-			getRandcode(response,validateCodeString);
+*/			byte[] data= getRandcode(validateCodeString);
+			return Base64.encodeBase64String(data);
 		}
 		
 		 /**
@@ -104,7 +107,7 @@ public class ValidateCodeImpl implements ValidateCode
 		/**
 		 * 生成随机图片，并将其输出到前端
 		 */
-		public void getRandcode(HttpServletResponse response,String validateCodeString)
+		public byte[] getRandcode(String validateCodeString)
 		{
 			// BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
 			BufferedImage image = new BufferedImage(this.object.getWidth(), this.object.getHeight(),BufferedImage.TYPE_INT_BGR);
@@ -126,14 +129,16 @@ public class ValidateCodeImpl implements ValidateCode
 				drowString(g,validateCodeString,i);
 			}
 			g.dispose();
+			ByteArrayOutputStream out=new ByteArrayOutputStream();
 			try
 			{
 				// 将内存中的图片通过流动形式输出到客户端
-				ImageIO.write(image, "JPEG", response.getOutputStream());
+				ImageIO.write(image, "JPEG", out);
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
+			return out.toByteArray();
 		}
 }

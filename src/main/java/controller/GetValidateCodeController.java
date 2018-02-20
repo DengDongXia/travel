@@ -1,6 +1,8 @@
 package controller;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,10 @@ public class GetValidateCodeController
 	 * @param session 相关的存储验证码的session对象
 	 */
 	@RequestMapping("/identifyCode")
-	public void getValidateCodeAndOupt(HttpServletResponse response,HttpSession session)
+	public Map<String,String> getValidateCodeAndOupt(HttpSession session)
 	{
-		validate.getValidateCodeAndOutput(response, session);
+		Map<String,String> result=new HashMap<String,String>();
+		result.put("image",validate.getValidateCodeAndOutput(session));
+		return result;
 	}
 }

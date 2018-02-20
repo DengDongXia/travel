@@ -1,5 +1,6 @@
 package controller;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class UserController
 	@ResponseBody
 	public Map<String,Boolean> getUserRegisterEmailValidate(@RequestBody String email,HttpSession session)
 	{
-		email="3466588497@qq.com";
+		email=URLDecoder.decode(email);
 		String validateCode=userRegisterEmail.getValidateCode(session);
 		System.out.println(validateCode);
 		boolean result=userRegisterEmail.sendValidateCodeToEmail(validateCode, email);
@@ -73,6 +74,17 @@ public class UserController
 	public UserLoginResult userLogin(@RequestBody UserLoginInput input,HttpSession session)
 	{
 		return userLoginService.checkUserLogin(session, input);
+	}
+	
+	@RequestMapping("/isLogin")
+	@ResponseBody
+	public Map<String,Object>  isLogin(HttpSession session)
+	{
+		Map<String,Object> result=new HashMap<String,Object>();
+		User user=userLoginService.getLoginCheck(session);
+		result.put("isLogin",user.getEmail()!=null);
+		result.put("content", user);
+		return result;
 	}
 	
 }

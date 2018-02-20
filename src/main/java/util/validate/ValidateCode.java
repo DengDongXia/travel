@@ -14,7 +14,7 @@ public interface ValidateCode
 	 * @param response 用于发送到对方的响应对象
 	 * @param validateCodeString 用于生成验证码的字符串的内容
 	 */
-	public abstract void outputValidateCode(HttpServletResponse response,String validateCodeString);
+	public abstract String outputValidateCode(String validateCodeString);
 	/**
 	 * 用于获取随机生成的二维码
 	 * @return 二维码的字符串

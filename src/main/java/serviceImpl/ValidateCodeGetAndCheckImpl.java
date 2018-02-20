@@ -21,12 +21,12 @@ public class ValidateCodeGetAndCheckImpl implements ValidateCodeGetAndCheck
 		return input.toUpperCase().equals(sessionValidate.toUpperCase());
 	}
 
-	public void getValidateCodeAndOutput(HttpServletResponse response,HttpSession session)
+	public String getValidateCodeAndOutput(HttpSession session)
 	{
 		String validateCode=validate.getRandomString();
 		System.out.println("验证码:"+validateCode);
 		session.setAttribute("validate",validateCode);
-		validate.outputValidateCode(response, validateCode);
+		return validate.outputValidateCode(validateCode);
 	}
 
 }

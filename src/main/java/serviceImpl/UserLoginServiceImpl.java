@@ -91,4 +91,17 @@ public class UserLoginServiceImpl implements UserLoginService
 	{
 		return userLogin.getUserByEmail(input.getEmail());
 	}
+	
+	/**
+	 * 用于验证用户的登录情况
+	 * @Param session 用户的相关的session对象
+	 * @return 用户的信息
+	 */
+	public User getLoginCheck(HttpSession session)
+	{
+		User user=(User)session.getAttribute("user");
+		if(user==null)
+			user=new User();
+		return user;
+	}
 }

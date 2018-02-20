@@ -23,5 +23,5 @@ public interface ValidateCodeGetAndCheck
 	 * @param response 输出对象
 	 * @param session 保存对象
 	 */
-	public abstract void getValidateCodeAndOutput(HttpServletResponse response,HttpSession session);
+	public abstract String getValidateCodeAndOutput(HttpSession session);
 }
