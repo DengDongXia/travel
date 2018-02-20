@@ -1,0 +1,280 @@
+@charset 'utf-8';
+
+.main{
+	position: relative;
+}
+
+
+.main-content{
+	margin-left: -15px;
+	margin-right: -15px;
+	background-color: #f3f5f7;
+}
+
+.personal-info,.all-funtion{
+	padding: 0;
+	margin-top: 15px;
+	background-color: #fff;
+}
+
+.personal-info{
+	padding: 20px 40px;
+}
+
+.img-bg,.info,.add-strategy{
+	display: inline-block;
+}
+
+.img-bg{
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	border-radius: 75px;
+	box-shadow: 3px 3px 7px #999;
+}
+
+.img-bg img{
+	height: 100%;
+	width: auto;
+}
+
+.info{
+	padding-top: 80px;
+	padding-left: 0;
+	font-size: 20px;
+}
+
+.info .name{
+	line-height: 40px;
+	font-size: 24px;
+	color: #333;
+}
+
+.info .integral span{
+	color: #F94B4B;
+}
+
+.add-strategy{
+	margin-top: 90px;
+	padding: 5px 5px 5px 35px;
+	border-radius: 10px;
+	border: 1px solid #87d54d;
+	color: #87d54d;
+	background: url(../images/add-strategy-g.png) no-repeat;
+	background-size: 30px;	
+}
+
+.add-strategy:hover{
+
+	border: 1px solid #F94B4B;
+	color: #F94B4B;
+	background: url(../images/add-strategy.png) no-repeat;
+	background-size: 30px;
+	cursor: pointer;
+}
+
+/*功能部分样式*/
+
+.all-funtion .lists{
+	padding: 20px 0;
+}
+
+.all-funtion .lists h5,.all-funtion .lists p{
+	line-height: 50px;
+	padding-left: 30px;
+}
+
+.all-funtion .lists h5{
+	margin: 0;
+	color: #999;
+	border-bottom: 1px solid #ececec;
+}
+
+.lists p{
+	cursor: pointer;
+}
+
+.lists p:hover{
+	/*background-color: #F94B4B;*/
+	color: #F94B4B;
+}
+
+.list-content{
+	padding: 20px;
+	min-height: 195px;
+	border-left: 1px solid #ececec;
+}
+
+.contents .title{
+	padding-bottom: 20px;
+	text-align: center;
+	border-bottom: 1px solid #ececec;
+	font-size: 20px;
+}
+
+.add-custom-made{
+	padding: 30px;
+	margin-top: 30px;
+	border: 1px solid #999999;
+	border-radius: 10px;
+	text-align: center;
+	background: url(../images/add-custom-made.png) no-repeat center 50%;
+	background-size: 40px; 
+	cursor: pointer;
+}
+
+.add-custom-made:hover{
+	border: 1px solid #F94B4B;
+	background: url(../images/add-custom-made-r.png) no-repeat center 50%;
+	background-size: 40px; 
+}
+
+.custom-made ul{
+	margin-top: 30px;
+	border-top: 1px solid #ececec;
+}
+
+.contents li{
+	padding: 15px;
+	border-bottom: 1px solid #ececec;
+}
+
+.contents li:hover{
+	background-color: #f8f8f8;
+}
+
+.contents li h4:hover{
+	color: #f94b4b;
+}
+
+.content{
+	width: 75%;
+	min-height: 110px;	
+	display: inline-block;
+}
+
+.content h4{
+	padding-left: 15px;
+	line-height: 30px;
+	border-left: 3px solid #f94b4b;
+	cursor: pointer;
+}
+
+.content p{
+	color: #666;
+	text-align: right;
+}
+
+.content .tag{
+	display: inline-block;
+	margin-right: 15px;
+	padding-left: 10px; 
+	padding-right: 10px; 
+	line-height: 30px;
+	border-radius: 10px;
+	background-color: #f3f5f7; 
+}
+
+.content h5{
+	padding-left: 15px;
+	color: #999;
+}
+
+.about{
+	width: 25%;
+	padding-top: 20px;
+	float: right;
+	color: #999;
+	font-size: 14px;
+}
+
+.about p{
+	text-align: center;
+	line-height: 30px;
+}
+
+.about p:first-child{
+	color: #87d54d;
+	/*font-size: 18px;*/
+}
+.about p:first-child span{
+	cursor: pointer;
+}
+
+.about .delete{
+	color: #f94b4b;
+	margin-right: 20px;
+}
+
+.all-funtion .lists .choose{
+	background-color: #F94B4B;
+	color: #fff;
+}
+
+/*.published,.custom-made{
+	display: none;
+}
+
+.show{
+	display: block;
+}*/
+
+
+/*特色定制，即遮罩层部分样式*/
+.main .custom-made-question{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(0,0,0,0.5);
+}
+
+/*.main .show-input{
+	display: block;
+}
+*/
+.custom-made-question h4{
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+	border-bottom:  1px solid #ececec;
+}
+
+.form-bg{
+	width: 60%;
+	margin: 50px auto 0 auto;
+	padding: 20px;
+	background-color: #fff;
+}
+
+.form-bg form{
+	line-height: 30px;
+}
+
+.form-control{
+	width: 77%;
+	box-shadow: none;
+}
+
+.form-control:focus{
+	box-shadow: none;
+	border: 1px solid #F94B4B;
+}
+
+.publish{
+	text-align: right;
+	padding-right: 20%;
+}
+
+.publish button{
+	border: 1px solid #F94B4B;
+	color: #F94B4B;
+}
+
+.publish button:hover{
+	background-color: #F94B4B;
+	color: #fff;
+}

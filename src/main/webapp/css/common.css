@@ -1,0 +1,110 @@
+@charset 'utf-8';
+/*该文件用于表示每个网页都具有的基本样式表*/
+*{
+  padding: 0;
+  margin: 0;
+}
+h1, h2,{margin-top: 0;}
+ul, ol {margin: 0;}
+p {margin: 0;}
+/*sans-serif  There are no serif fonts in western language, corresponding to the black body in Chinese characters. These types of fonts are usually mechanical and uniform lines, and they often have the same curvature, straight lines, and sharp corners.*/
+html, body{
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+  background:#fff; 
+}
+body a{
+  transition:0.5s all;
+  -webkit-transition:0.5s all;
+  -moz-transition:0.5s all;
+  -o-transition:0.5s all;
+  -ms-transition:0.5s all;
+}
+
+ul{
+  list-style: none;
+}
+
+/*导航栏*/
+.header{
+  background-color: #ffffff;
+}
+
+.header-logo,.header-right{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.logo img{
+  width: 49%;
+  height: auto;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.top-menu{
+  width: 100%;
+}
+.top-menu ul{
+  /*width: 44%;*/
+	padding:0;
+	list-style:none;
+  float: right;
+}
+.top-menu ul li{
+	display:inline-block;
+	float:left;
+}
+.top-menu ul li a{
+	text-decoration: none;
+    color:#555;
+    text-transform: uppercase;
+    padding:15px 20px;
+    float: left;
+    font-size: 0.85em;
+    font-weight: 400;
+}
+
+.top-menu ul li i{
+	  color:#555;
+    text-align: center;
+    display: block;
+    font-size: 15px;
+    line-height: 1.5em;
+}
+
+.top-menu ul li .active i{
+    color:#fff;
+}
+
+.top-menu ul li:hover i{
+  color: #fff;
+	transform: rotateY(360deg);
+	-webkit-transform: rotateY(360deg);
+	-moz-transform: rotateY(360deg);
+	-o-transform: rotateY(360deg);
+	-webkit-transition: 0.8s;
+	-moz-transition: 0.8s;
+	-o-transition: 0.8s;
+	transition: 0.8s;
+}
+
+.top-menu ul li a.active{
+	color: #fff;
+    background:#87d54d;
+    padding: 15px 20px;
+}
+.top-menu ul li a:hover{
+	color:#fff;
+	background:#F94B4B;
+}
+
+
+/*脚部*/
+footer{
+  width: 100%;
+  height: 200px;
+  border-top: 15px solid #f3f5f7;
+  background-color: #242424;
+  color: #959595; 
+}

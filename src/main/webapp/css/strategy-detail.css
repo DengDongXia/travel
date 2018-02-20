@@ -1,0 +1,178 @@
+@charset 'utf-8';
+.custom-made,.offer-strategy{
+	margin-left: -15px;
+	margin-right: -15px;
+	background-color: #f3f5f7;
+}
+.content-title{
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #fff;
+	border-top: 15px solid #f3f5f7;
+	text-align: center;
+}
+
+.question{
+	padding: 20px 40px;
+	background-color: #fff;
+}
+
+.custom-made .question{
+	border-top: 1px solid #ececec;
+
+}
+
+.custom-made .head-img span{
+	display: inline-block;
+	vertical-align: top;
+	padding-top: 40px;
+	padding-left: 10px;
+}
+
+.head-img .name{
+	color: #F94B4B;
+}
+
+.head-img .time{
+	color: #999;
+}
+
+.img-bg{
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50px;
+}
+
+.img-bg img{
+	height: 100%;
+	width: auto;
+}
+
+.custom-made .img-bg{
+	display: inline-block;
+}
+
+.custom-made .question-text,.custom-made .other-text,.custom-made .input{
+	padding: 20px;
+	margin-left: 80px;
+	margin-right: 80px;
+}
+
+.custom-made .other-text{
+	padding-bottom: 0;
+}
+
+.custom-made .question-text{
+	border: 1px solid #ececec;
+	text-align: justify;
+}
+
+.custom-made .other-text{
+	text-align: right;
+}
+
+.custom-made .question-text img{
+	width: 40px;
+	height: auto;
+}
+
+.custom-made .question-text h3{
+	line-height: 40px;
+	color: #333;
+	font-size: 24px;
+	margin: 0;
+}
+
+.question-text h4,.question-text p{
+	line-height: 30px;
+	text-indent: 2em;
+	color: #444;
+}
+
+.other-text span{
+	color: #999;
+}
+
+.other-text .offer{
+	margin-left: 20px;
+	color: #F94B4B;
+}
+
+.custom-made .input textarea{
+	width: 100%;
+	padding: 1%;
+	line-height: 30px;
+	background-color: #f3f5f7;
+	border-radius: 5px;
+	color: #999;
+}
+
+.custom-made .input p{
+	text-align: right;
+}
+
+.custom-made .input button{
+	width: 10%;
+	padding: 5px;
+	background-color: #87d54d;
+	color: #fff;
+	border: none;
+}
+/*评论部分*/
+
+.offer-strategy{
+	padding-top: 15px;
+}
+
+.offer-strategy h3{
+	margin: 0;
+	padding: 20px;
+	background-color: #fff;
+	border-bottom: 1px solid #ececec;
+}
+
+.offer-strategy li{
+	display: flow-root;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ececec;
+}
+
+.offer-strategy .head-img{
+	float: left;
+	width: 10%;
+	min-height: 78px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.offer-strategy .img-bg{
+	margin: 0 auto;
+}
+
+.offer-strategy .img-bg{
+	width: 50px;
+	height: 50px;
+	margin-bottom: 5px;
+}
+
+.offer-strategy .question-text{
+	display: inline-block;
+	text-align: justify;
+	width: 90%;
+	padding-right: 2%;
+}
+
+.offer-strategy .name{
+	font-size: 14px;
+	color: #999;
+}
+
+.offer-strategy .time{
+	margin: 0;
+	text-align: right;
+	color: #999;
+}
