@@ -1,0 +1,156 @@
+@charset 'utf-8';
+
+.main-img-bg{
+	position: relative;
+	width: 100%;
+	height: 400px;
+	overflow: hidden;
+}
+
+.main-img-bg img{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	vertical-align: bottom;
+}
+
+.author{
+	position: absolute;
+	left: 150px;
+	bottom: 0;
+	width: 12%;
+	padding: 15px;
+	box-shadow: 2px -2px 15px #333;
+	background-color: #fff;
+	border-left: 1px solid #999;
+	border-top: 1px solid #999;
+	border-right: 1px solid #999;
+	border-radius: 15px 15px 0 0;
+	text-align: center;
+}
+
+.author .img-bg{
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	overflow: hidden;
+	border-radius: 50px;
+}
+
+.author .img-bg img{
+	position: unset;
+	height: 100%;
+	width: auto;
+}
+
+.author span{
+	line-height: 30px;
+	color: #666;
+}
+
+.content{
+	background-color: #f3f5f7;
+}
+
+.input,.all-comment,.strategy-content{
+	padding: 20px;
+	margin-top: 15px;
+	background-color: #fff;
+}
+
+.input form input{
+	width: 80%;	
+	line-height: 30px;
+	padding: 3px;
+}
+
+.input button{
+	width: 20%;
+	line-height: 35px;
+	padding: 3px;
+	border: none;
+	background-color: #87d54d;
+	color: #fff;
+}
+
+
+
+.strategy-text img{
+	width: 100%;
+	height: auto;
+}
+
+.all-comment h4{
+	margin: 0;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ececec;
+}
+	
+.all-comment ul li{
+	font-size: 14px;
+	color: #666;
+	padding-top: 15px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ececec;
+}
+
+.all-comment ul li span{
+	line-height: 30px;
+}
+
+.all-comment ul li span:first-child{
+	color: #F94B4B;
+}
+
+.get-comment{
+	margin-top: 20px;
+	text-align: center;
+}
+
+.get-comment span{
+	display: inline-block;
+	padding: 5px;
+	border: 1px solid #ececec;
+	cursor: pointer;
+}
+
+.get-comment span:hover{
+	color: #F94B4B;
+}
+
+.about-strategy span{
+	color: #666;
+}
+
+.about-strategy .tag{
+	display: inline-block;
+	margin-right: 15px;
+	padding-left: 10px; 
+	padding-right: 10px; 
+	line-height: 30px;
+	border-radius: 10px;
+	background-color: #f3f5f7;
+	/*color: #F94B4B;*/
+}
+
+.strategy-text h3{
+	line-height: 50px;
+}
+
+.strategy-text h4{
+	text-indent: 2em;
+	line-height: 30px;
+	text-align: justify;
+	color: #444;
+}
+
+/*.comment{
+	width: 40%;
+	float: left;
+}
+
+.strategy-content{
+	width: 60%;
+	float: left;
+}*/
