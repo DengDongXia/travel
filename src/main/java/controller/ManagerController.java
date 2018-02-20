@@ -63,7 +63,7 @@ public class ManagerController
 	
 	@RequestMapping("/picture/submit")
 	@ResponseBody
-	public Map<String,Object> updateManagerPicture(@RequestPart("picture")Part part,@RequestParam("managerID")String managerID)
+	public Map<String,Object> updateManagerPicture(@RequestBody @RequestPart("picture")Part part,@RequestParam("managerID")String managerID)
 	{
 		Map<String,Object> result=new HashMap<String,Object>();
 		Picture picture=pictureOperatorService.makePictureByPart(part);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.CommentService;
@@ -59,7 +60,7 @@ public class CommentController
 	
 	@RequestMapping("/picture/submit")
 	@ResponseBody
-	public Map<String,Object> addEssayCommentPicture(@RequestBody Part part,@RequestParam("userID") String userID,@RequestParam("essayID") String essayID)
+	public Map<String,Object> addEssayCommentPicture(@RequestBody @RequestPart("picture") Part part,@RequestParam("userID") String userID,@RequestParam("essayID") String essayID)
 	{
 		Picture picture=pictureOperatorService.makePictureByPart(part);
 		String pictureName=userID+essayID+(int)(Math.random()*100000);

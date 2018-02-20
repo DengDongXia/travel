@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,7 +47,7 @@ public class PageRedirectController
 		return "redirecr:jsp/questionUpdate";
 	}
 	
-	@RequestMapping("/essay/update")
+	@RequestMapping("/essay/updateRedirect")
 	public String updateEssayByUser()
 	{
 		return "redirect:jsp/essayUpdate";
@@ -67,5 +69,13 @@ public class PageRedirectController
 	public String redirectToSuperManagerIndex()
 	{
 		return "redirect:jsp/superManager/index";
+	}
+	
+	//用户的注销操作
+	@RequestMapping("/user/logout")
+	public String Userlogout(HttpSession session)
+	{
+		session.invalidate();
+		return "redirect:user/index";
 	}
 }

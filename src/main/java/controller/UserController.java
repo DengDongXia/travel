@@ -58,7 +58,9 @@ public class UserController
 	@ResponseBody
 	public Map<String,Boolean> getUserRegisterEmailValidate(@RequestBody String email,HttpSession session)
 	{
+		email="3466588497@qq.com";
 		String validateCode=userRegisterEmail.getValidateCode(session);
+		System.out.println(validateCode);
 		boolean result=userRegisterEmail.sendValidateCodeToEmail(validateCode, email);
 		Map<String,Boolean> map=new HashMap<String,Boolean>();
 		map.put("getIdentifyCodeResult",result);
@@ -71,14 +73,6 @@ public class UserController
 	public UserLoginResult userLogin(@RequestBody UserLoginInput input,HttpSession session)
 	{
 		return userLoginService.checkUserLogin(session, input);
-	}
-	
-	//用户的注销操作
-	@RequestMapping("/logout")
-	public String Userlogout(HttpSession session)
-	{
-		session.invalidate();
-		return "redirect:user/index";
 	}
 	
 }

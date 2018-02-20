@@ -16,9 +16,10 @@ import util.email.UserRegister;
 @Service
 public class UserRegisterEmailValidateImpl implements UserRegisterEmailValidate
 {
-	//用于注入相关的类
+	
 	@Autowired
-	private UserRegister userEmailSender;
+	private UserRegister userEmailSender;//用于注入相关的邮件发送类
+	
 	public String getValidateCode(HttpSession session)
 	{
 		return userEmailSender.getEmailRandomValidate(session);

@@ -32,7 +32,37 @@
 		<property name="charset" value="utf-8"/>
 	</bean>
 	<!-- 用于配置相关的邮件发送类的信息 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" />
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" >
+		<property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">10000</prop>
+                <prop key="mail.debug">true</prop>
+                <!-- <prop key="mail.transport.protocol">smtps</prop> -->
+                <!-- <prop key="mail.smtp.EnableSSL.enable">false</prop> -->
+              	<prop key="mail.smtp.starttls.enable">false</prop>
+              	<prop key="mail.smtp.ssl.enable">false</prop>
+              	<prop key="mail.smtp.socketFactory.fallback">false</prop>
+              	<!-- <prop key="mail.smtp.ssl.trust">${email.host}</prop> -->
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            </props>
+        </property>
+        <!-- <property name="defaultEncoding" >
+        	<value>UTF-8</value>
+        </property> 
+        <property name="host">  
+            <value>${email.host}</value>  
+        </property>  
+        <property name="port">
+        	<value>${email.port}</value>
+        </property>
+        <property name="username">  
+            <value>${email.userName}</value>  
+        </property>  
+        <property name="password">  
+            <value>${email.password}</value>  
+        </property>   -->
+	</bean>
 	<bean id="emailSender" class="utilImpl.email.EmailSender"  init-method="initMailSender">
 		<property name="mailSender" ref="mailSender" />
 		<property name="host" value="${email.host}"/>

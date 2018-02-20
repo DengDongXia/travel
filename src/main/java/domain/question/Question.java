@@ -15,6 +15,15 @@ public class Question
 	private boolean state;//提问的状态
 	private String context;//提问的内容
 	private int answerID;//提问的采纳的回答的ID
+	private String header;//提问的标题
+	public String getHeader()
+	{
+		return header;
+	}
+	public void setHeader(String header)
+	{
+		this.header = header;
+	}
 	public int getId()
 	{
 		return id;

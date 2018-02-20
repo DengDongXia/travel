@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.AnswerService;
@@ -35,15 +36,17 @@ public class AnswerController
 	
 	@RequestMapping("/show")
 	@ResponseBody
-	public List<ShowAnswerResult> getAnswerListByInput(@RequestBody ShowAnswerInput input)
+	public Map<String,List<ShowAnswerResult>> getAnswerListByInput(@RequestBody ShowAnswerInput input)
 	{
 		input.setStart();
-		return answerService.getAnswerListByInput(input);
+		Map<String,List<ShowAnswerResult>> result=new HashMap<String,List<ShowAnswerResult>>();
+		result.put("content",answerService.getAnswerListByInput(input));
+		return result;
 	}
 	
 	@RequestMapping("/picture/submit")
 	@ResponseBody
-	public Map<String,Object> answerPictureSubmit(@RequestBody Part part,@RequestParam("userID") String userID,@RequestParam("questionID")String questionID)
+	public Map<String,Object> answerPictureSubmit(@RequestBody @RequestPart("picture") Part part,@RequestParam("userID") String userID,@RequestParam("questionID")String questionID)
 	{
 		Map<String,Object> result=new HashMap<String,Object>();
 		Picture picture=pictureOperatorService.makePictureByPart(part);

@@ -41,7 +41,7 @@ public class SuperManagerServiceImpl implements SuperManagerService
 		//用于获取管理员的相关的数据列表
 		int pageNumber=superManager.getPageNumber(limit);
 		result.put("pageNumber",pageNumber);
-		result.put("Userdata", managerList);
+		result.put("content", managerList);
 		return result;
 	}
 	

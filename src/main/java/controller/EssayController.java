@@ -39,14 +39,14 @@ public class EssayController
 	}
 	
 	//用于获取文章的相关细节的JSON数据
-	@RequestMapping("")
+	@RequestMapping("/getEssayDetails")
 	@ResponseBody
-	public EssayDetails  getEssayDetailsByEssayID(@RequestParam int essayID)
+	public EssayDetails  getEssayDetailsByEssayID(@RequestBody int essayID)
 	{
 		return essayService.getEssayDetailsByEssayID(essayID);
 	}
 
-	@RequestMapping("/updateSave")
+	@RequestMapping("/update")
 	@ResponseBody
 	public Map<String,Object> userUpdateEssay(@RequestBody Essay essay)
 	{

@@ -31,9 +31,11 @@ public class PersonController
 	
 	@RequestMapping("/question")
 	@ResponseBody
-	public List<ShowQuestion> getQuestionListByInput(SearchQuestionListInput input)
+	public Map<String,List<ShowQuestion>> getQuestionListByInput(SearchQuestionListInput input)
 	{
-		return questionService.getQuestionList(input);
+		Map<String,List<ShowQuestion>> result =new HashMap<String,List<ShowQuestion>>();
+		result.put("content", questionService.getQuestionList(input));
+		return result;
 	}
 	
 	@RequestMapping("/essay")

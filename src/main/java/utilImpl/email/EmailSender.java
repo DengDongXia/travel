@@ -71,6 +71,7 @@ public class EmailSender
         }
         catch(Exception e)
         {
+        	e.printStackTrace();
         	result=false;
         }
         return result;

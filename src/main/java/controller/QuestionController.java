@@ -68,7 +68,7 @@ public class QuestionController
 	}
 	
 	//用于提问的详细内容的请求
-	@RequestMapping("")
+	@RequestMapping("/getDetail")
 	@ResponseBody
 	public ShowQuestionDetail showQuestionDetails(@RequestBody String questionID)
 	{

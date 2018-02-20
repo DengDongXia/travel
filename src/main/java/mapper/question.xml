@@ -3,7 +3,7 @@
 <mapper namespace="dao.question">
 
 	<insert id="addQuestion" parameterType="domain.question.Question">
-		insert into question values(null,#{userID},#{time},#{state},#{context},null)
+		insert into question values(null,#{userID},#{time},#{state},#{context},null,#{header})
 	</insert>
 	
 	<select id="getPageNumberByInput" parameterType="dto.question.SearchQuestionListInput" resultType="_int">

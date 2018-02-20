@@ -8,7 +8,7 @@ public class SearchEassyCondition
 {
 	private int pageIndex;//进行分页查询的当前页
 	private int showLimit;//每页显示的数目
-	private String condition;//搜索的条件(文章的ID)，当其为null时，将按照未进行认证的文章进行显示
+	private String condition;//搜索的条件(文章的ID)，当其为null时，将按照进行认证的文章进行显示
 	private int start;//根据其他参数的结果，得到limit语句的参数
 	public int getPageIndex()
 	{
