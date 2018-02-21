@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.essay.Essay">
 	<select id="getPageNumber" parameterType="dto.eassy.SearchEassyCondition" resultType="_int">
-		select count(*)/#{showLimit} from essay where state=true
+		select count(*)/#{showLimit}+1 from essay where state=true
 	</select>
 	
 	<select id="getEssayContentList" parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
-		select id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,SUBSTIRN(context,1,100)as eassyContent,name as eassyPersonName
+		select essay.id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,SUBSTRING(context,1,100)as eassyContent,name as eassyPersonName
 		,user.pictureURL as eassyPersonPicture,state as eassyState,(select count(*)  from essaycomment where essay.id=essaycomment.essayID) as eassyCommentCount
 		from essay inner join user on user.id=essay.userID
 		where essay.state=true

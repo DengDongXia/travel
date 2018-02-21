@@ -40,7 +40,7 @@ public class SearchEassyCondition
 	}
 	public void setStart()//用于设置limit语句的相关参数
 	{
-		this.start=this.pageIndex*this.showLimit;
+		this.start=(this.pageIndex-1)*this.showLimit;
 	}
 	
 }
