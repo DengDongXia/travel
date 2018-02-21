@@ -9,8 +9,9 @@
 	function getIdentifyCode() {
 		$.ajax({
 			type:  "POST",
-			url: "/user/emailIdentifyCode",
+			url: "http://localhost:8080/travel/user/emailIdentifyCode",
 			dataType: 'json',
+			contentType:'application/json',
 			data: JSON.stringify({email : $('#input-email').val()}),
 		})
 		.done(function(data) {
@@ -21,7 +22,7 @@
 	// 处理data的函数
 	function setData(da) {
 		
-		if(da.getIdentifyCodeResult == 'true'){
+		if(da.getIdentifyCodeResult == true){
 			 	setTip(1);   //传入1表示发送成功
 		}else{
 			 	setTip(0);   //传入0表示发送失败
@@ -71,9 +72,10 @@
     } 
     // 异步提交表单数据
     $.ajax({
-    	url: '/register',
+    	url: 'http://localhost:8080/travel/user/register',
     	type: 'POST',
     	dataType: 'json',
+    	contentType:'application/json',
     	data: JSON.stringify({
     		email: $("#input-email").val(),
 			password: $("#input-password").val(),
@@ -82,21 +84,21 @@
 		}),
     })
     .done(function() {
-    	if(data.identifyCodeResult == 'true' && data.existEmail == 'true' && data.password == 'true'){
+    	if(data.identifyCodeResult == true && data.existEmail == true && data.password == true){
 				alert("注册成功！");
 				location.href = "../login.jsp";   //当后端注册成功后,返回true,跳转到登录界面
 			}else{
-				if(data.existEmail == 'false'){
+				if(data.existEmail == false){
 					$("#tag").find(".error").remove();	
 				    var text = "<div class='error form-group'><span>邮箱已存在</span></div>" ;
 					$("#tag").append(text);
 				}
-				else if(data.password == 'false'){
+				else if(data.password == false){
 					$("#tag").find(".error").remove();	
 				    var text = "<div class='error form-group'><span>请确认密码的一致性</span></div>" ;
 					$("#tag").append(text);
 				}
-				else if(data.identifyCodeResult == 'false'){
+				else if(data.identifyCodeResult == false){
 					$("#tag").find(".error").remove();	
 				    var text = "<div class='error form-group'><span>验证码错误</span></div>" ;
 					$("#tag").append(text);
