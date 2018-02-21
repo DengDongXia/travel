@@ -25,7 +25,7 @@ public class UserLoginServiceImpl implements UserLoginService
 	{
 		boolean validateCodeResult=this.checkUserValidateCode(input, session);
 		User user=this.getUserByEmail(input);
-		boolean emailResult= user==null;
+		boolean emailResult= (user!=null);
 		boolean passwordResult=this.checkUserPassword(input, user);
 		boolean accountState=this.checkLocked(user);
 		UserLoginResult result=new UserLoginResult(emailResult,validateCodeResult,passwordResult,accountState);

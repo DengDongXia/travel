@@ -23,8 +23,15 @@ public interface Users
 	public abstract int insertUser(User user);
 	/**
 	 * 往数据库的用户数据角色表中插入相关的数据
-	 * @param userId
-	 * @return
+	 * @param userId 用户ID
+	 * @return 数据库受影响的行数
 	 */
 	public abstract int insertUserRole(int userId); 
+	
+	/**
+	 * 往数据库中的用户积分表中插入相关的数据
+	 * @param userId 用户ID
+	 * @return 数据库受影响的行数
+	 */
+	public abstract int insertUserAccount(int userId);
 }

@@ -45,7 +45,7 @@ public class UserController
 		boolean validateCodeResult=userRegisterService.checkValidateCode(session, input);
 		boolean repeatedPasswordResult=userRegisterService.checkPasswordRepeated(input);
 		boolean existEmail=userRegisterService.existEmail(input);
-		UserRegisterResult result=new UserRegisterResult(validateCodeResult,repeatedPasswordResult,existEmail);
+		UserRegisterResult result=new UserRegisterResult(validateCodeResult,repeatedPasswordResult,!existEmail);
 		if(!existEmail&&repeatedPasswordResult&&validateCodeResult)
 		{
 			User user=userRegisterService.makeUser(input);

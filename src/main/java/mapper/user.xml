@@ -8,9 +8,11 @@
 		insert into user(email,name,password,timestamp) values(#{email},#{name},#{password},#{timestamp})
 	</insert>
 	<insert id="insertUserRole" parameterType="_int" >
-		insert into userrole values(#{_parameter},3);
+		insert into userrole values(#{_parameter},3)
 	</insert>
-	
+	<insert id="insertUserAccount" parameterType="_int">
+		insert into account(userID) values(#{_parameter})
+	</insert>
 </mapper>
 
 

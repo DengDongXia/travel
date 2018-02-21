@@ -16,11 +16,11 @@ public class UserRegisterResult
 		this.password=password;
 		this.existEmail=existEmail;
 	}
-	public boolean isRepeateEmail()
+	public boolean isExistEmail()
 	{
 		return existEmail;
 	}
-	public void setRepeateEmail(boolean existEmail)
+	public void setExistEmail(boolean existEmail)
 	{
 		this.existEmail = existEmail;
 	}

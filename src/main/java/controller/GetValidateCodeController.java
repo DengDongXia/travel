@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ValidateCodeGetAndCheck;
 
@@ -29,6 +30,7 @@ public class GetValidateCodeController
 	 * @param session 相关的存储验证码的session对象
 	 */
 	@RequestMapping("/identifyCode")
+	@ResponseBody
 	public Map<String,String> getValidateCodeAndOupt(HttpSession session)
 	{
 		Map<String,String> result=new HashMap<String,String>();
