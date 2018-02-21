@@ -5,7 +5,6 @@
 <head>
 	<meta charset="utf-8" />
 	<title>注册--Nicko--景点旅游推荐论坛系统</title>
-	<script src="js/jquery-1.11.1.min.js"></script>
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href='http://fonts.useso.com/css?family=Roboto' rel='stylesheet:100,300,400,500,600,700,800,900' type='text/css'>
 	<link rel="stylesheet" href="fonts/css/font-awesome.min.css">

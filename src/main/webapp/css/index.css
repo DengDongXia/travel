@@ -101,7 +101,41 @@
   display: block;
 }
 
+/*切换页面*/
+#switchPage{
+  width: 30%;
+  margin: 10px auto;
+  font-size: 14px;
+  text-align: center;
+}
 
+#switchPage span{
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff;
+  line-height: 35px;
+  border:1px solid #dddddd;
+  text-align: center;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+#switchPage span:hover{
+  color: #F94B4B;
+  border-color: #F94B4B;
+}
+
+#switchPage #lastPage,#switchPage #nextPage{
+  width: 70px;
+}
+
+#switchPage #nowPage{
+  width: 35px;
+  background-color: #555;
+  color: #ffffff;
+}
+/*以上切换页面样式*/
 
 
 /*以下部分先忽略*/
@@ -255,6 +289,9 @@ ul.callbacks_tabs.callbacks1_tabs {
   font-size: 2em;
   margin: 1em 0 5em;
 }
+
+
+
 /*-- responsive-mediaquries --*/
 @media(max-width:1024px){
 	.caption {

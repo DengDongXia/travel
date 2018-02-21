@@ -8,7 +8,7 @@
 	// 发起请求，获取后台数据，发送邮箱验证码
 	function getIdentifyCode() {
 		$.ajax({
-			url: "/data/emailIdentifyCode",
+			url: "http://localhost:8080/travel/user/emailIdentifyCode",
 			// url: "http://localhost:8080/travel/user/emailIdentifyCode",
 			type:  "POST",
 			contentType:"application/json",
@@ -85,7 +85,7 @@
 			emailValidateCode: $("#verification").val()
 		}),
     })
-    .done(function() {
+    .done(function(data) {
     	if(data.identifyCodeResult == true && data.existEmail == true && data.password == true){
 				alert("注册成功！");
 				location.href = "http://localhost:8080/travel/login.jsp";   //当后端注册成功后,返回true,跳转到登录界面

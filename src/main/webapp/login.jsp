@@ -23,8 +23,7 @@
 						  	  <label>登录</label>
 						  </div>
 						  <div class="form-group">
-						      <input type="text" class="input form-control required" id="input-email" placeholder="邮箱" />
-						       
+						      <input type="text" class="input form-control required" id="input-email" placeholder="邮箱" /> 
 						  </div>
 						  <div class="form-group">
 						      <input type="password" class="input form-control required" id="input-password" placeholder="密码" />
@@ -32,7 +31,7 @@
 						  <div class="form-group">
 						      <div class="input">
 							      <input type="text" id="verification" class="verificationInput form-control required"  placeholder="验证码">
-							      <button type="button" id="getPicVerification" class=" verificationInput form-control">图片验证码</button>
+							      <img src="" alt="图片验证码" id="getPicVerification" class=" verificationInput form-control">
 						      </div>
 						  </div>
 						  <div class="input form-group">
