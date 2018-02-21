@@ -57,12 +57,13 @@ public class UserController
 	//用于获取邮箱验证码
 	@RequestMapping("/emailIdentifyCode")
 	@ResponseBody
-	public Map<String,Boolean> getUserRegisterEmailValidate(@RequestBody String email,HttpSession session)
+	public Map<String,Boolean> getUserRegisterEmailValidate(@RequestBody Map<String,Object> email,HttpSession session)
 	{
-		email=URLDecoder.decode(email);
+	  	String emailString=URLDecoder.decode((String)email.get("email"));
+		System.out.println(emailString);
 		String validateCode=userRegisterEmail.getValidateCode(session);
 		System.out.println(validateCode);
-		boolean result=userRegisterEmail.sendValidateCodeToEmail(validateCode, email);
+		boolean result=userRegisterEmail.sendValidateCodeToEmail(validateCode, emailString);
 		Map<String,Boolean> map=new HashMap<String,Boolean>();
 		map.put("getIdentifyCodeResult",result);
 		return map;
