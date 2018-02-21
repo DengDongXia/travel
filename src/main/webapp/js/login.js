@@ -66,8 +66,8 @@
 					$("#verification").parent().append(text);
 				}
 				else{
-					location.href="../index.jsp";
 					alert("登录成功！");
+					location.href="http://localhost:8080/travel/index.jsp";
 				}
 			}
 	})
