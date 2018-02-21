@@ -83,6 +83,7 @@ public class UserController
 	{
 		Map<String,Object> result=new HashMap<String,Object>();
 		User user=userLoginService.getLoginCheck(session);
+		session.setMaxInactiveInterval(60*60*1);//设置相应的最长不活动时间为1小时
 		result.put("isLogin",user.getEmail()!=null);
 		result.put("content", user);
 		return result;
