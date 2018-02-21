@@ -39,7 +39,7 @@
 							  <input type="button" id="registerButton"  class="btn btn-default" value="登录" />
 						  </div>
 						  <div id="loginImmediately" class="form-group">
-							  <a href="register.html"><label>立即注册</label></a>
+							  <a href="http://localhost:8080/travel/register.jsp"><label>立即注册</label></a>
 						  </div>
 					</form>
 				</div>
