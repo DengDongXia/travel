@@ -14,7 +14,7 @@
 			// data: {param1: 'value1'},
 		})
 		.done(function(data) {
-			$('#getPicVerification').attr('src', data.image);
+			$('#getPicVerification').attr('src', window.URL.createObjectURL(data.image));
 		})
 		.fail(function() {
 			console.log("error");
