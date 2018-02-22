@@ -6,7 +6,23 @@
 
 	//异步请求图片验证码
 	function getPicCode(argument) {
-		$.ajax({
+		var xmlhttp;
+		xmlhttp=new XMLHttpRequest();
+		xmlhttp.open("GET","http://localhost:8080/travel/login/identifyCode",true);
+		xmlhttp.responseType = "blob";
+		xmlhttp.onload = function(){
+		    if (this.status == 200) {
+		        var blob = this.response;
+		        $('#getPicVerification').onload = function(e) {
+		            window.URL.revokeObjectURL(url); 
+		        };
+		        url = window.URL.createObjectURL(blob);
+    			$('#getPicVerification').attr('src', url);
+		        // document.body.appendChild(img); 
+		    }
+		}
+		xmlhttp.send();
+		/*$.ajax({
 			url: 'http://localhost:8080/travel/login/identifyCode',
 			type: 'POST',
 			dataType: 'json',
@@ -21,7 +37,7 @@
 		})
 		.always(function() {
 			console.log("complete");
-		});
+		});*/
 		
 	}
 

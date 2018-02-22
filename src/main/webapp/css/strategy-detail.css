@@ -92,6 +92,25 @@
 	color: #444;
 }
 
+.question-text .accept{
+	font-size: 24px;
+}
+
+.question-text .accept .answerTime{
+	font-size: 16px;
+	margin-left: 30px;
+}
+
+.question-text .answer{
+	padding:10px 60px;
+	font-size: 18px;
+}
+
+.question-text .answer a{
+	color: #87d54d;
+	margin-right: 10px;
+}
+
 .other-text span{
 	color: #999;
 }
@@ -175,4 +194,29 @@
 	margin: 0;
 	text-align: right;
 	color: #999;
+}
+
+/*按钮部分内容*/
+#pageButton{
+	padding-top: 20px;
+	text-align: center;
+}
+
+#pageButton span{
+	line-height: 30px;
+	margin: 15px 10px;
+	padding: 5px 15px;
+	border: 1px solid #ececec;
+	cursor: pointer;
+}
+
+#pageButton span:hover{
+	border-color: #F94B4B;
+	color: #F94B4B;
+}
+/*按钮部分内容*/
+
+.notComment{
+	text-align: center;
+	margin-top: 30px;
 }

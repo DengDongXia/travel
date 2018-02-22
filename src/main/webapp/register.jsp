@@ -18,7 +18,7 @@
 		 <div class="col-md-6 register-form">
 			 <div class="panel panel-default">
 				<div class="login-main panel-body">
-					<form action="user/register" method="post">
+					<form action="" method="post">
 						  <div class="mainLabel form-group">
 						  	  <label>注册</label>
 						  </div>

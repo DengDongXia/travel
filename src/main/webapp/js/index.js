@@ -45,21 +45,38 @@ function getUser(argument) {
 // 对后台返回的用户登录信息进行处理
 function dealingUserData(data) {
 	if(data.isLogin == false){
-		var login = "<li><a href='login.html'><i class='fa fa-meh-o'> </i>登录</a></li>";
-		var register = "<li><a target='_blank' href='register.html'><i class='fa fa-plus'> </i>注册</a></li>";
+		var login = "<li><a href='http://localhost:8080/travel/login.jsp'><i class='fa fa-meh-o'> </i>登录</a></li>";
+		var register = "<li><a target='_blank' href='http://localhost:8080/travel/register.jsp'><i class='fa fa-plus'> </i>注册</a></li>";
 		$('#top-menu').append(login+register);
 	}else{
-		var personal = "<li><a href='personal.html'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
-		personal += "<li><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
+		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
+	$('#logout').click(function(event) {
+		$.ajax({
+			url: 'http://localhost:8080/travel/user/logout',
+			type: 'post',
+			dataType: 'json',
+		})
+		.done(function(data) {
+			
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			// console.log("complete");
+		});
+		
+	});
 }
 
 // 发起请求，获取后台数据
 function getData(pageIndex) {
 	$.ajax({
-		// url: 'data/index.json',
-		url: 'http://localhost:8080/travel/essay/show',
+		url: 'data/index.json',
+		// url: 'http://localhost:8080/travel/essay/show',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
@@ -89,7 +106,7 @@ function setData(data) {
 	$.each(data.content, function(index, val) {
 		var imgPart = "<div class='img-part'><img src='"+val.eassyPicture+"' alt='攻略一图片'/><h2 class='get'>查看攻略</h2></div> ";
 		var textPart = "<div class='tip-text'><h3>"+val.eassyHeader+"</h3><h4>"+val.eassyContent+"</h4></div>";
-		var liPart = "<li class='tip-content'><a href='detail.html?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div></a></li>";
+		var liPart = "<li class='tip-content'><a href='detail.jsp?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div></a></li>";
 		ul.append(liPart);
 	});
 	// 修改切换页面的按钮
@@ -99,6 +116,7 @@ function setData(data) {
 		if(nowPage != 1){
 			pageText += "<span class='page' id='lastPage'>上一页</span>";
 		}
+		// 插入当前选中的按钮
 		pageText += "<span class='page' id='nowPage'>"+parseInt(nowPage)+"</span>";
 		for(var i = nowPage+1;i < (nowPage+3);i++){
 			if(i<data.pageNumber){
@@ -147,8 +165,3 @@ function setData(data) {
 		});
 	changeImg();
 }
-
-
-/*以下为按钮切换页面*/
-
-/*以上为按钮切换页面*/
