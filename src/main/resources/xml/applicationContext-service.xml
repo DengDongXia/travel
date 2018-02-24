@@ -60,9 +60,4 @@
 		<property name="saveLocation" value="${picture.location}"/>
 		<property name="pictureURLPrefix" value="${picture.URLPrefix}"/>
 	</bean>
-	<!-- 用于配置文章(攻略)的相关配置类的信息 -->
-	<bean id="essayOperatorServiceImpl" class="serviceImpl.EssayOperatorServiceImpl">
-		<property name="direction" value="${essay.direction}" />
-		<property name="path" value="${essay.path}"/>
-	</bean>
 </beans>
