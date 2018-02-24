@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.CommentService;
-import service.PictureOperatorService;
+import service.PictureSubmit;
 import util.picture.Picture;
 import domain.comment.Comment;
 import dto.comment.SearchCommentListInput;
@@ -29,7 +29,6 @@ public class CommentController
 {
 	@Autowired
 	private CommentService commentService;//注入评论相关的服务类对象
-	private PictureOperatorService pictureOperatorService;//注入评论的图片上传的相关的服务类
 	
 	@RequestMapping("/complain")
 	@ResponseBody
@@ -58,17 +57,4 @@ public class CommentController
 		return result;
 	}
 	
-	@RequestMapping("/picture/submit")
-	@ResponseBody
-	public Map<String,Object> addEssayCommentPicture(@RequestBody @RequestPart("picture") Part part,@RequestParam("userID") String userID,@RequestParam("essayID") String essayID)
-	{
-		Picture picture=pictureOperatorService.makePictureByPart(part);
-		String pictureName=userID+essayID+(int)(Math.random()*100000);
-		picture.setName(pictureName);
-		boolean saveResult=pictureOperatorService.saveCommentPicture(picture);
-		Map<String,Object> result=new HashMap<String,Object>();
-		result.put("submitResult", saveResult);
-		result.put("pictureURL", pictureName);
-		return result;
-	}
 }

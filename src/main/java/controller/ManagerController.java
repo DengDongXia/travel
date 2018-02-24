@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ManagerService;
-import service.PictureOperatorService;
+import service.PictureSubmit;
 import service.SuperManagerService;
 import util.picture.Picture;
 import dto.comment.ManagerComment;
@@ -34,8 +34,6 @@ public class ManagerController
 	private ManagerService managerService;//管理员相关的服务类对象
 	@Autowired
 	private SuperManagerService superManagerService;//超级管理员相关的服务类对象
-	@Autowired
-	private PictureOperatorService pictureOperatorService;//图像相关的操作类对象
 	
 	@RequestMapping("/loginCheck")
 	@ResponseBody
@@ -61,18 +59,6 @@ public class ManagerController
 		return superManagerService.updateManagerMessage(input);
 	}
 	
-	@RequestMapping("/picture/submit")
-	@ResponseBody
-	public Map<String,Object> updateManagerPicture(@RequestBody @RequestPart("picture")Part part,@RequestParam("managerID")String managerID)
-	{
-		Map<String,Object> result=new HashMap<String,Object>();
-		Picture picture=pictureOperatorService.makePictureByPart(part);
-		picture.setName(managerID);
-		boolean saveResult=pictureOperatorService.savePersonPicture(picture);
-		result.put("saveResult", saveResult);
-		result.put("pictureURL", "/picture/"+picture.getName()+picture.getSuffix());
-		return result;
-	}
 	
 	@RequestMapping("/user/seacher")
 	@ResponseBody

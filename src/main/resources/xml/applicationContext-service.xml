@@ -56,11 +56,9 @@
 		<property name="password" value="${email.password}"/>
 	</bean>
 	<!-- 用于配置图像的相关配置类的信息 -->
-	<bean id="pictureOperatorServiceImpl" class="serviceImpl.PictureOperatorServiceImpl">
-		<property name="direction" value="${picture.direction}"/>
-		<property name="userPath" value="${picture.userPath}"/>
-		<property name="commentPath" value="${picture.commentPath}"/>
-		<property name="essayPath" value="${picture.essayPath}"/>
+	<bean id="pictureSubmit" class="utilImpl.picture.PictureSubmit">
+		<property name="saveLocation" value="${picture.location}"/>
+		<property name="pictureURLPrefix" value="${picture.URLPrefix}"/>
 	</bean>
 	<!-- 用于配置文章(攻略)的相关配置类的信息 -->
 	<bean id="essayOperatorServiceImpl" class="serviceImpl.EssayOperatorServiceImpl">
