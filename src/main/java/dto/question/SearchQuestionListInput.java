@@ -44,7 +44,7 @@ public class SearchQuestionListInput
 	}
 	public void setStart()
 	{
-		this.start = this.showLimit*this.pageIndex;
+		this.start = this.showLimit*(this.pageIndex-1);
 	}
 	
 }

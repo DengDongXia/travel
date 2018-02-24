@@ -72,4 +72,10 @@ public interface EssayService
 	 */
 	public abstract boolean updateEssay(Essay essay);
 	
+	/**
+	 * 新增文章的内容
+	 * @param essay 文章的相关信息
+	 * @return 新增的结果
+	 */
+	public abstract boolean addEssay(Essay essay);
 }

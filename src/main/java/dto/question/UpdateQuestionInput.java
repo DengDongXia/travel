@@ -9,6 +9,15 @@ public class UpdateQuestionInput
 	private int userID;//对其进行更新操作的用户的ID
 	private int questionID;//对其更新的问题的ID
 	private String context;//更新的文章的内容
+	private String questionHeader;//更新其文章的标题
+	public String getQuestionHeader()
+	{
+		return questionHeader;
+	}
+	public void setQuestionHeader(String questionHeader)
+	{
+		this.questionHeader = questionHeader;
+	}
 	public int getUserID()
 	{
 		return userID;

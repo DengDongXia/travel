@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.user.Users">
 	<select id="getUserByEmail"  parameterType="string"  resultType="domain.user.User">
-		select * from user where email=#{email,jdbcType=VARCHAR}
+		select user.id as id,user.email as email,user.name as name,user.password as password,user.timestamp as timestamp,user.quote as quote,user.locked as locked,user.pictureURL as pictureURL,account.account as account,userrole.roleID as userRole
+		from user inner join account on account.userId=user.id inner join userrole on userrole.userID=user.id
+		where email=#{email,jdbcType=VARCHAR}
 	</select>
 	<insert id="insertUser" parameterType="domain.user.User" >
 		insert into user(email,name,password,timestamp) values(#{email},#{name},#{password},#{timestamp})
@@ -13,6 +15,10 @@
 	<insert id="insertUserAccount" parameterType="_int">
 		insert into account(userID) values(#{_parameter})
 	</insert>
+	<update id="updateUserMessage" parameterType="dto.user.UpdateUserMessageInput">
+		update user set name=#{name},quote=#{quote}<if test="#{pictureURL}!=null">,pictureURL=#{pictureURL}</if> where id=#{userId}
+	</update>
+	
 </mapper>
 
 

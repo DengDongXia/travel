@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.EssayService;
@@ -61,6 +60,15 @@ public class EssayController
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
 		result.put("essayDeleteResult",essayService.deleteEssayByUser(input)&&essayService.deleteEssayCommentByUser(input));
+		return result;
+	}
+	
+	@RequestMapping("/addEssay")
+	@ResponseBody
+	public Map<String,Boolean> addEssay(Essay essay)
+	{
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		result.put("addEssayResult", essayService.addEssay(essay));
 		return result;
 	}
 	

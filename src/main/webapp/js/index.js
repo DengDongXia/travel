@@ -75,8 +75,8 @@ function dealingUserData(data) {
 // 发起请求，获取后台数据
 function getData(pageIndex) {
 	$.ajax({
-		url: 'data/index.json',
-		// url: 'http://localhost:8080/travel/essay/show',
+		/*url: 'data/index.json',*/
+		url: 'http://localhost:8080/travel/essay/show',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',

@@ -71,4 +71,11 @@ public interface Essay
 	 * @return 更新的结果
 	 */
 	public abstract boolean userUpdateEssay(domain.essay.Essay essay);
+	
+	/**
+	 * 新增文章的内容
+	 * @param essay 文章的相关内容信息
+	 * @return 受影响的行数
+	 */
+	public abstract int addEssay(domain.essay.Essay essay);
 }

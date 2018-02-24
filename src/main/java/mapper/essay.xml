@@ -46,6 +46,10 @@
 		update essay set eassyHeader=#{eassyHeader},context=#{context},country=#{country} where userID=#{userID} and id=#{essayID}
 	</update>
 	
+	<insert id="addEssay" parameterType="domain.essay.Essay" >
+		insert into essay(userID,country,time,essayHeader,pictureURL,context) values(#{userID},#{country},#{time},#{essayHeader},#{pictureURL},#{context})
+	</insert>
+	
 </mapper>
 
 

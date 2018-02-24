@@ -1,6 +1,7 @@
 package dao.user;
 
 import domain.user.User;
+import dto.user.UpdateUserMessageInput;
 
 /**
  * 用于用户相关的操作
@@ -34,4 +35,11 @@ public interface Users
 	 * @return 数据库受影响的行数
 	 */
 	public abstract int insertUserAccount(int userId);
+	
+	/**
+	 * 用于更新其用户相关的信息
+	 * @param input 用户的输入对象
+	 * @return 受影响的行数
+	 */
+	public abstract int updateUserMessage(UpdateUserMessageInput input);
 }

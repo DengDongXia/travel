@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import service.UserLoginService;
 import service.UserRegisterEmailValidate;
 import service.UserRegisterService;
+import service.UserUpdateService;
 import domain.user.User;
+import dto.user.UpdateUserMessageInput;
 import dto.user.UserLoginInput;
 import dto.user.UserLoginResult;
 import dto.user.UserRegisterInput;
@@ -36,6 +38,8 @@ public class UserController
 	private UserRegisterService userRegisterService;//用户注册的数据库相关服务
 	@Autowired
 	private UserLoginService userLoginService;//用户登录的数据库相关服务
+	@Autowired
+	private UserUpdateService updateMessageService;//用于用户更新其相应的个人信息的服务类
 	
 	//用于验证用户的注册
 	@RequestMapping("/register")
@@ -86,6 +90,15 @@ public class UserController
 		session.setMaxInactiveInterval(60*60*1);//设置相应的最长不活动时间为1小时
 		result.put("isLogin",user.getEmail()!=null);
 		result.put("content", user);
+		return result;
+	}
+	
+	@RequestMapping("/updatePersonMessage")
+	@ResponseBody
+	public Map<String,Boolean> updatePersonMessage(@RequestBody UpdateUserMessageInput input)
+	{
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		result.put("updateResult", updateMessageService.updateUserMessage(input));
 		return result;
 	}
 	

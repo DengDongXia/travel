@@ -9,8 +9,8 @@ $().ready(function() {
 var userId;
 function getAuthorData() {
 	$.ajax({
-		url: 'data/isLogin.json',
-		// url: 'http://localhost:8080/travel/user/isLogin',
+		/*url: 'data/isLogin.json',*/
+		 url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
 	})
@@ -75,8 +75,8 @@ $('#my-question').click(function(event) {
 var nowEssayPage = 1;//用于记录个人文章攻略的页数
 function getEssay(nowPage) {
 	$.ajax({
-		url: 'data/personalEssay.json',
-		// url: 'http://localhost:8080/travel/person/essay',
+		/*url: 'data/personalEssay.json',*/
+		 url: 'http://localhost:8080/travel/person/essay',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
@@ -172,8 +172,8 @@ function deleteEssayObj(obj) {
 var nowQuestionPage = 1;//用于记录个人文章攻略的页数
 function getQuestion(nowPage) {
 	$.ajax({
-		url: 'data/personalQuestion.json',
-		// url: 'http://localhost:8080/travel/person/question',
+	/*	url: 'data/personalQuestion.json',*/
+		 url: 'http://localhost:8080/travel/person/question',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
@@ -330,8 +330,8 @@ $('#submitQuestion').click(function(event) {
 		alert("请将要进行的特色定制的标题和内容均填上");
 	}else{
 		$.ajax({
-			url: 'data/addQuestionRes.json',
-			// url: 'http://localhost:8080/travel/question/add',
+//			url: 'data/addQuestionRes.json',
+			 url: 'http://localhost:8080/travel/question/add',
 			type: 'post',
 			dataType: 'json',
 			contentType:'application/json',

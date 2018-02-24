@@ -1,4 +1,5 @@
 package serviceImpl;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,11 @@ public class EssayServiceImpl implements EssayService
 	public boolean updateEssay(domain.essay.Essay essay)
 	{
 		return essays.userUpdateEssay(essay);
+	}
+
+	public boolean addEssay(domain.essay.Essay essay)
+	{
+		essay.setTime(new Date());
+		return essays.addEssay(essay)==1;
 	}
 }
