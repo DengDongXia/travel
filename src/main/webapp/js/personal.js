@@ -1,21 +1,57 @@
 $().ready(function() {
 	getAuthorData();  //加载用户信息
-	getEssay();    //加载该用户对应已发表的攻略
-	// getQuestion(); //加载该用户对应已发表的特色定制
+	getEssay(1);    //加载该用户对应已发表的攻略
+	// getQuestion(1); //加载该用户对应已发表的特色定制
 });
 
 //加载用户信息,并进行插入页面
+// 判断用户是否登陆，加载用户id
+var userId;
 function getAuthorData() {
-	$.getJSON('data/userdata.json', function(data) {
-		// 图标菜单处更新
-		uId = data[0].userId;
-		var personal = "<li><a href='personal.html' class='active'><i class='fa fa-meh-o'> </i>"+data[0].userName+"</a></li>";
-		$('#top-menu').append(personal);
-		// 插入用户的资料
-		$("#userPic").append("<img src='"+data[0].personPicture+"'>");
-		$("#userInfo").append("<p class='name'>昵称："+data[0].userName+"</p><p class='integral'>积分：<span>"+data[0].integration+"</span></p>");
+	$.ajax({
+		url: 'data/isLogin.json',
+		// url: 'http://localhost:8080/travel/user/isLogin',
+		type: 'post',
+		dataType: 'json',
+	})
+	.done(function(data) {
+		if(data.isLogin == true){
+			userId = data.content.id;  //获取当前用户的id
+			getUserData(userId);
+		}
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		// console.log("complete");
 	});
 }
+
+// 通过UserId获取该用户更多的信息
+function getUserData(id) {
+	$.ajax({
+		// url: 'data/isLogin.json',
+		url: 'http://localhost:8080/travel/manager/user/seacher',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			condition: id
+		}),
+	})
+	.done(function(data) {
+			$("#userPic").append("<img src='"+data.userPicture+"'>");
+			$("#userInfo").append("<p class='name'>昵称："+data.userName+"</p><p class='integral'>积分：<span>"+data.userAccount+"</span></p>");
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		// console.log("complete");
+	});
+}
+
 
 // 对两个功能键进行判断
 // 当点击发布的攻略按钮时，触发以下事件
@@ -23,7 +59,7 @@ $('#strategy').click(function(event) {
 	$('#my-question').removeClass('choose');   //移除.lists中p对应的类choose
 	$('#list-content').empty();  //删除id为list-content的元素的所有子节点
 	$(this).addClass('choose');     //为当前点击的对象添加类choose
-	getEssay(); //调用该函数，异步请求该用户已发表的攻略
+	getEssay(1); //调用该函数，异步请求该用户已发表的攻略
 });
 
 // 当点击我的特色定制按钮时，触发以下事件
@@ -31,35 +67,129 @@ $('#my-question').click(function(event) {
 	$('#strategy').removeClass('choose');   //移除.lists中p对应的类choose
 	$('#list-content').empty();  //删除id为list-content的元素的所有子节点
 	$(this).addClass('choose');     //为当前点击的对象添加类choose
-	getQuestion(); //调用该函数，异步请求该用户已进行的特色定制
+	getQuestion(1); //调用该函数，异步请求该用户已进行的特色定制
 });
 
+/*以下为用户个人攻略文章部分*/
 //加载该用户对应已发表的攻略
-function getEssay() {
-	$.getJSON('data/personalEssay.json', function(data) {
+var nowEssayPage = 1;//用于记录个人文章攻略的页数
+function getEssay(nowPage) {
+	$.ajax({
+		url: 'data/personalEssay.json',
+		// url: 'http://localhost:8080/travel/person/essay',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"userID":userId,
+			"showLimit":5,
+			"pageIndex": nowPage
+		}),
+	})
+	.done(function(data) {
+		$("#list-content").children().remove();
 		$("#list-content").append("<div class='published contents' id='content'><h4 class='title'>已发布的攻略</h4><div class='custom-made-contents'><ul id='list-bg'></ul></div></div>");
-		$.each(data, function(index, val) {
-			 var link = "<a href='detail.html?essayId="+val.essayId+"'>";
-			 var text = link+"<div class='content'><h4>"+val.essayContent+"</h4><p><span class='tag'>"+val.essayTag+"</span><span>"+val.essayTime+"</span></p></div></a>";
-			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><span>编辑</span></p><p>评论数: <span>"+val.essayCount+"</span></p></div>";
+		$.each(data.content, function(index, val) {
+			 var link = "<a href='detail.jsp?essayId="+val.essayID+"'>";
+			 var text = link+"<div class='content'><h4>"+val.essayHeader+"</h4><p><span class='tag'>"+val.essayCountry+"</span><span>来自 "+val.essayPersonName+"</span></p></div></a>";
+			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><span>编辑</span></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		// 当点击删除按钮时，触发删除事件,将要删除的列表的id传回后台
-
 		$('.delete').click(function(event) {
-			deleteObj($(this),'essayId');
-		});
+			deleteEssayObj($(this));
+		});	
+		// 增加按钮
+		if(data.content.length > 5){
+			$('#pageButton').remove();  
+			var button = "<p id='pageButton'><span id='firstPage'>首页</span><span id='lastPage'>上一页</span><span id='nextPage'>下一页</span><span id='endPage'>尾页</span>共"+data.pageNumber+"页<p>";
+			 $("#list-bg").append(button);
+			// 给按钮绑定时间
+			$('#pageButton').find('span').click(function(event) {
+				if($(this).is('#lastPage')){
+					if(nowEssayPage >1){
+						nowEssayPage = nowEssayPage - 1;
+					}
+				}
+				else if($(this).is('#nextPage')){
+					if(nowEssayPage < data.pageNumber){
+						nowEssayPage = nowEssayPage + 1;
+					}
+				}
+				else if($(this).is('#firstPage')){
+					nowEssayPage = 1;
+				}
+				else{
+					nowEssayPage = data.pageNumber;
+				}
+				getEssay(nowEssayPage);
+			});
+		}
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		// console.log("complete");
 	});
 }
 
+// 删除对应攻略文章的函数
+function deleteEssayObj(obj) {
+	var id = getId(obj,'essayId'); //获取文章的id
+	$.ajax({
+		url: 'data/delete.json',
+		// url: 'http://localhost:8080/travel/essay/delete',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"userID":userId,
+			"essayID":id
+		}),
+	})
+	.done(function(data) {
+		// 判断是否删除成功，如若成功则删除对应的文章
+		if(data.essayDeleteResult == true){
+			obj.parent().parent().parent().remove();
+		}else{
+			alert("删除失败");
+		}
+
+	})
+	.fail(function(data) {
+		alert("删除失败");
+	})
+	.always(function() {
+		// console.log("complete");
+	});
+}
+/*以上为用户个人攻略文章部分*/
+
+
+/*以下为用户个人提问部分*/
 //加载该用户对应已发表的特色定制
-function getQuestion() {
-	$.getJSON('data/personalQuestion.json', function(data) {
+var nowQuestionPage = 1;//用于记录个人文章攻略的页数
+function getQuestion(nowPage) {
+	$.ajax({
+		url: 'data/personalQuestion.json',
+		// url: 'http://localhost:8080/travel/person/question',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"userID":userId,
+			"showLimit":5,
+			"pageIndex": nowPage
+		}),
+	})
+	.done(function(data) {
+		$("#list-content").children().remove();
 		$("#list-content").append("<div class='published contents' id='question'><h4 class='title'>我的特色定制</h4><div class='custom-made-contents'><div id='add' class='add-custom-made' title='新增特色定制'></div><ul id='list-bg'></ul></div></div>");
-		$.each(data, function(index, val) {
-			 var link = "<a href='strategy-detail.html?questionId="+val.questionId+"'>";
+		$.each(data.content, function(index, val) {
+			 var link = "<a href='strategy-detail.jsp?questionId="+val.questionID+"'>";
 			 var text=link+"<div class='content'><h4>"+val.questionHeader+"</h4><h5>"+val.questionContent+"</h5></div></a>";
-			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><span>编辑</span></p><p>回答数: <span>"+val.questionCount+"</span></p><p>"+val.questionTime+"</p></div>";
+			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><span class='edit'>编辑</span></p><p>回答数: <span>"+val.questionAnswerCount+"</span></p><p>"+val.questionTime+"</p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		// 当点击新增特色定制按钮时，弹出输入遮罩层界面,该代码需放在被处理页面异步加载并渲染完成之后
@@ -77,13 +207,114 @@ function getQuestion() {
 
 		// 当点击删除按钮时，触发删除事件,将要删除的列表的id传回后台
 		$('.delete').click(function(event) {
-			deleteObj($(this),'questionId');
+			deleteQuestionObj($(this));
 		});
 
+		// 当点击编辑按钮时，跳转到进行特色定制的页面,将要编辑的列表的id传回后台
+		$('.edit').click(function(event) {
+			editQuestionObj($(this));
+		});
+
+		// 增加按钮
+		if(data.content.length > 5){
+			$('#pageButton').remove();  
+			var button = "<p id='pageButton'><span id='firstPage'>首页</span><span id='lastPage'>上一页</span><span id='nextPage'>下一页</span><span id='endPage'>尾页</span>共"+data.pageNumber+"页<p>";
+			 $("#list-bg").append(button);
+			// 给按钮绑定时间
+			$('#pageButton').find('span').click(function(event) {
+				if($(this).is('#lastPage')){
+					if(nowQuestionPage >1){
+						nowQuestionPage = nowQuestionPage - 1;
+					}
+				}
+				else if($(this).is('#nextPage')){
+					if(nowQuestionPage < data.pageNumber){
+						nowQuestionPage = nowQuestionPage + 1;
+					}
+				}
+				else if($(this).is('#firstPage')){
+					nowQuestionPage = 1;
+				}
+				else{
+					nowQuestionPage = data.pageNumber;
+				}
+				getQuestion(nowQuestionPage);
+			});
+		}
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		// console.log("complete");
 	});
 }
 
-// 获取要跳转的地址对应的列表的id
+// 删除对应提问（特色定制）的函数
+function deleteQuestionObj(obj) {
+	var id = getId(obj,'questionId'); //获取该提问的id
+	$.ajax({
+		url: 'data/questionDelete.json',
+		// url: 'http://localhost:8080/travel/question/delete',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"userID":userId,
+			"questionID":id
+		}),
+	})
+	.done(function(data) {
+		// 判断是否删除成功，如若成功则删除对应的文章
+		if(data.questionDeleteResult == true){
+			obj.parent().parent().parent().remove();
+		}else{
+			alert("删除失败");
+		}
+
+	})
+	.fail(function(data) {
+		alert("删除失败");
+	})
+	.always(function() {
+		// console.log("complete");
+	});
+}
+
+// 更新对应提问（特色定制）的函数
+/*function editQuestionObj(obj) {
+	var id = getId(obj,'questionId'); //获取该提问的id
+	$.ajax({
+		url: 'data/questionDelete.json',
+		// url: 'http://localhost:8080/travel/question/delete',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"userID":userId,
+			"questionID":id
+		}),
+	})
+	.done(function(data) {
+		// 判断是否删除成功，如若成功则删除对应的文章
+		if(data.questionDeleteResult == true){
+			obj.parent().parent().parent().remove();
+		}else{
+			alert("删除失败");
+		}
+
+	})
+	.fail(function(data) {
+		alert("删除失败");
+	})
+	.always(function() {
+		// console.log("complete");
+	});
+}*/
+/*以上为用户个人提问部分*/
+
+
+// 获取要跳转的地址对应的列表的文章id
 function getId(obj,name) {
 	var link = obj.parent().parent().parent().find('a').prop('href');  //获取要跳转的地址
 	var items = link.split('?');     //将地址从?进行分开
@@ -93,29 +324,39 @@ function getId(obj,name) {
     return id;
 }
 
-// 删除对应文章的函数
-function deleteObj(obj,idType) {
-	var id = getId(obj,idType);
-			$.ajax({
-				url: 'data/delete.json',
-				// url: 'essay/delete.json',
-				type: 'post',
-				dataType: 'json',
-				data: {id: id,userId:uId}
-			})
-			.done(function(data) {
-				// 判断是否删除成功，如若成功则删除对应的文章
-				if(data[0].result == "true"){
-					obj.parent().parent().parent().remove();
-				}else{
-					alert("删除失败");
-				}
+/*提交问题（特色定制）*/
+$('#submitQuestion').click(function(event) {
+	if($('#questionTitle').val() == '' || $('#questionContent').val() == ''){
+		alert("请将要进行的特色定制的标题和内容均填上");
+	}else{
+		$.ajax({
+			url: 'data/addQuestionRes.json',
+			// url: 'http://localhost:8080/travel/question/add',
+			type: 'post',
+			dataType: 'json',
+			contentType:'application/json',
+			data: JSON.stringify({
+				"userID":userId,
+				"context":$('#questionContent').val(),
+				"header":$('#questionTitle').val()
+			}),
+		})
+		.done(function(data) {
+			// 判断是否删除成功，如若成功则删除对应的文章
+			if(data.questionAddResult == true){
+				$('#custom-made-question').hide();
+				getQuestion(1); //加载该用户对应已发表的特色定制
+			}else{
+				alert("发表出错");
+			}
 
-			})
-			.fail(function(data) {
-				alert("删除失败");
-			})
-			.always(function() {
-				console.log("complete");
-			});
-}
+		})
+		.fail(function(data) {
+			alert("发表出错");
+		})
+		.always(function() {
+			// console.log("complete");
+		});
+	}
+});
+/*提交问题（特色定制）*/

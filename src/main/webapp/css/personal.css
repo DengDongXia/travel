@@ -250,7 +250,7 @@
 	background-color: #fff;
 }
 
-.form-bg form{
+.form-bg{
 	line-height: 30px;
 }
 
@@ -278,3 +278,23 @@
 	background-color: #F94B4B;
 	color: #fff;
 }
+
+/*按钮部分内容*/
+#pageButton{
+	padding-top: 20px;
+	text-align: center;
+}
+
+#pageButton span{
+	line-height: 30px;
+	margin: 15px 5px;
+	padding: 5px 15px;
+	border: 1px solid #ececec;
+	cursor: pointer;
+}
+
+#pageButton span:hover{
+	border-color: #F94B4B;
+	color: #F94B4B;
+}
+/*按钮部分内容*/

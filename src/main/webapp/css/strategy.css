@@ -1,4 +1,7 @@
 @charset 'utf-8';
+body{
+	background-color: #f3f5f7;
+}
 .all-question{
 	margin-left: -15px;
 	margin-right: -15px;
@@ -121,4 +124,8 @@
 
 .adopted h1{
 	color: #87d54d;
+}
+
+#switchPage{
+	margin-top: 30px;
 }

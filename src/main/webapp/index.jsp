@@ -21,14 +21,14 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-4 header-logo">
 			  <div class="logo">
-				<a href="index.html"><img src="images/nickoLogo.png" alt=""/></a>
+				<a href="index.jsp"><img src="images/nickoLogo.png" alt=""/></a>
 			  </div>
 			</div>
 			<div class="col-md-6 header-right">
 				<div class="top-menu">
 					<ul id="top-menu">
-						<li><a class="active scroll" href="index.html"><i class="fa fa-home"></i>首页</a></li>
-						<li><a href="strategy.html"><i class="fa fa-star"> </i> 特色定制</a></li>
+						<li><a class="active scroll" href="index.jsp"><i class="fa fa-home"></i>首页</a></li>
+						<li><a href="strategy.jsp"><i class="fa fa-star"> </i> 特色定制</a></li>
 						<!-- <li><a href="personal.html"><i class="fa fa-meh-o"> </i>个人中心</a></li>
 						<li><a href="login.html"><i class="fa fa-meh-o"> </i>登录</a></li>
 						<li><a target="_blank" href="register.html"><i class="fa fa-plus"> </i>注册</a></li> -->
