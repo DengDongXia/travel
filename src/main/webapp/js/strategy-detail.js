@@ -7,8 +7,8 @@ $().ready(function() {
 // 发起请求，判断当前用户是否登录
 function getUser(argument) {
 	$.ajax({
-		url: 'data/isLogin.json',
-		// url: 'http://localhost:8080/travel/user/isLogin',
+		// url: 'data/isLogin.json',
+		url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
 	})
@@ -62,8 +62,8 @@ function dealingUserData(data) {
 function getQuestionText() {
 	//将文章id异步传到后台，进行相关处理后，返回对应的文章
 	$.ajax({
-		url: 'data/questionDetail.json',
-		// url: 'http://localhost:8080/travel/question/getDetail',
+		// url: 'data/questionDetail.json',
+		url: 'http://localhost:8080/travel/question/getDetail',
 		type: 'get',
 		dataType: 'json',
 		contentType:'application/json',
@@ -97,8 +97,8 @@ function getUrlQuestionId(name) {
 page = 1;  //记录当前评论所在的页号
 function getQuestionAnswer(nowPage) {
 	$.ajax({
-			url: 'data/questionComment.json',
-			// url: 'http://localhost:8080/travel/answer/show',
+			// url: 'data/questionComment.json',
+			url: 'http://localhost:8080/travel/answer/show',
 			type: 'get',
 			dataType: 'json',
 			contentType:'application/json',

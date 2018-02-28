@@ -59,7 +59,7 @@
 	background-color: #fff;
 }
 
-.input form input{
+.input input{
 	width: 80%;	
 	line-height: 30px;
 	padding: 3px;
@@ -134,6 +134,17 @@
 	/*color: #F94B4B;*/
 }
 
+.about-strategy .authen{
+	display: inline-block;
+	margin-left: 15px;
+	padding-left: 10px; 
+	padding-right: 10px; 
+	line-height: 30px;
+	border-radius: 10px;
+	background-color: #87d54d;
+	color: #fff;
+}
+
 .strategy-text h3{
 	line-height: 50px;
 }
@@ -154,3 +165,22 @@
 	width: 60%;
 	float: left;
 }*/
+
+/*评论方面的样式*/
+.commentOtherInfo{
+	text-align: right;
+}
+
+#commentID{
+	display: none;
+}
+
+.delete,.tip{
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.delete:hover,.tip:hover{
+	color: #F94B4B;
+}
+/*评论方面的样式*/

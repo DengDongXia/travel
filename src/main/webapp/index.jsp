@@ -68,9 +68,10 @@
 			<div class="col-md-10">
 				<ul class="tip-bg">
 					<!-- 注释部分应由ajax请求获取 -->
-					<!-- <li class="tip-content">
+					<li class="tip-content">
 						<a href="detail.html">
 							<div class="tip">
+								<span class='authen'>已认证</span>
 								<div class="img-part">
 									<img src="images/tip1.jpeg">
 									<h2 class="get">查看攻略</h2>
@@ -80,11 +81,14 @@
 									<h4>“为什么去印度？”
 				这大概是我定下印度行程之后被无数人质疑的问题。
 				或许是出于双子座天生泛滥的好奇心；
+				或许是对于异域风的执我定下印度行程之后被无数人质疑的问题。
+				或许是出于双子座天生泛滥的好奇心；
 				或许是对于异域风的执着迷恋...</h4>
 								</div>									
 							</div>
+							<div class="otherInfo"><span>地区：法国巴黎</span><span>来自：么么哒</span><span>评论数：20</span></div>
 						</a>
-					</li> -->
+					</li>
 					
 				</ul>
 			</div>

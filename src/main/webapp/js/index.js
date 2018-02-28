@@ -1,7 +1,67 @@
 $().ready(function($) {	
 	getUser();   //获取用户是否登录的信息
-	getData(1);	//获取第一页的数据
 });
+
+function getUser() {
+	$.ajax({
+		// url: 'data/isLogin.json',
+		url: 'http://localhost:8080/travel/user/isLogin',
+		type: 'post',
+		dataType: 'json',
+		contentType:'application/json',
+	})
+	.done(function(data) {
+		isLogin = data.isLogin;
+		if(data.isLogin == true ){
+			dealingUserData(data);
+			getData(1);	//获取第一页的数据
+		}else{
+			window.location.href = 'http://localhost:8080/travel/login.jsp';
+		}
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		// console.log("complete");
+	});
+	
+}
+
+// 对后台返回的用户登录信息进行处理
+var userRole; //记录登录的用户的的身份
+var userId; //记录用户id
+function dealingUserData(data) {
+	if(data.isLogin == false){
+		var login = "<li><a href='http://localhost:8080/travel/login.jsp'><i class='fa fa-meh-o'> </i>登录</a></li>";
+		var register = "<li><a target='_blank' href='http://localhost:8080/travel/register.jsp'><i class='fa fa-plus'> </i>注册</a></li>";
+		$('#top-menu').append(login+register);
+	}else{
+		userRole = data.content.userRole;   //1表示为管理员
+		userId = data.content.id;
+		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
+		$('#top-menu').append(personal);
+	}
+	$('#logout').click(function(event) {
+		$.ajax({
+			url: 'http://localhost:8080/travel/user/logout',
+			type: 'post',
+			dataType: 'json',
+			contentType:'application/json'
+		})
+		.done(function(data) {
+			// 后端跳转页面
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			// console.log("complete");
+		});
+		
+	});
+}
 
 // 自动调整文本框背景大小
 function ajdustText() {
@@ -23,59 +83,10 @@ function changeImg() {
 	});
 }
 
-// 发起请求，判断当前用户是否登录
-function getUser(argument) {
-	$.ajax({
-		url: 'http://localhost:8080/travel/user/isLogin',
-		type: 'post',
-		dataType: 'json',
-	})
-	.done(function(data) {
-		dealingUserData(data);
-	})
-	.fail(function() {
-		console.log("error");
-	})
-	.always(function() {
-		// console.log("complete");
-	});
-	
-}
-
-// 对后台返回的用户登录信息进行处理
-function dealingUserData(data) {
-	if(data.isLogin == false){
-		var login = "<li><a href='http://localhost:8080/travel/login.jsp'><i class='fa fa-meh-o'> </i>登录</a></li>";
-		var register = "<li><a target='_blank' href='http://localhost:8080/travel/register.jsp'><i class='fa fa-plus'> </i>注册</a></li>";
-		$('#top-menu').append(login+register);
-	}else{
-		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
-		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
-		$('#top-menu').append(personal);
-	}
-	$('#logout').click(function(event) {
-		$.ajax({
-			url: 'http://localhost:8080/travel/user/logout',
-			type: 'post',
-			dataType: 'json',
-		})
-		.done(function(data) {
-			
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			// console.log("complete");
-		});
-		
-	});
-}
-
 // 发起请求，获取后台数据
 function getData(pageIndex) {
 	$.ajax({
-		/*url: 'data/index.json',*/
+		// url: 'data/index.json',
 		url: 'http://localhost:8080/travel/essay/show',
 		type: 'post',
 		dataType: 'json',
@@ -103,10 +114,16 @@ nowPage = 1; //定义一个全局变量保存当前页面数
 function setData(data) {
 	var ul = $(".tip-bg");
 	ul.children().remove();  //移除上一次的请求的页面
+	// 插入所有文章
 	$.each(data.content, function(index, val) {
-		var imgPart = "<div class='img-part'><img src='"+val.eassyPicture+"' alt='攻略一图片'/><h2 class='get'>查看攻略</h2></div> ";
+		var imgPart ="";
+		if(val.eassyState == true){
+			imgPart += "<span class='authen'>已认证</span>";
+		}
+		    imgPart += "<div class='img-part'><img src='"+val.eassyPicture+"' alt='攻略一图片'/><h2 class='get'>查看攻略</h2></div> ";
 		var textPart = "<div class='tip-text'><h3>"+val.eassyHeader+"</h3><h4>"+val.eassyContent+"</h4></div>";
-		var liPart = "<li class='tip-content'><a href='detail.jsp?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div></a></li>";
+		var other = "<div class='otherInfo'><span>地区："+val.eassyCountry+"</span><span>来自："+val.eassyPersonName+"</span><span>评论数："+val.eassyCommentCount+"</span></div>";
+		var liPart = "<li class='tip-content'><a href='detail.jsp?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div>"+other+"</a></li>";
 		ul.append(liPart);
 	});
 	// 修改切换页面的按钮

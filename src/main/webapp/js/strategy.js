@@ -40,6 +40,7 @@ function dealingUserData(data) {
 			url: 'http://localhost:8080/travel/user/logout',
 			type: 'post',
 			dataType: 'json',
+			contentType:'application/json'
 		})
 		.done(function(data) {
 			// 后端跳转页面
