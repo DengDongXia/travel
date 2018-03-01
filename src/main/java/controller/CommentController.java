@@ -42,8 +42,8 @@ public class CommentController
 	public Map<String,Object> getCommentList(@RequestBody SearchCommentListInput input)
 	{
 		Map<String,Object> result =new HashMap<String,Object>();
-		result.put("pageNumber",commentService.getCommentPageNumber(input));
 		input.setStart();
+		result.put("pageNumber",commentService.getCommentPageNumber(input));
 		result.put("content",commentService.getCommentListByCondition(input));
 		return result;
 	}

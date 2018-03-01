@@ -15,7 +15,7 @@ public class EssayDetails
 	private String personPictureURL;//攻略的发布人的图像
 	private String essayHeader;//攻略的标题
 	private String country;//攻略描述的国家
-	private Date time;//攻略的发布时间
+	private String time;//攻略的发布时间
 	private boolean validate;//攻略的认证情况
 	public int getEssayID()
 	{
@@ -65,11 +65,11 @@ public class EssayDetails
 	{
 		this.country = country;
 	}
-	public Date getTime()
+	public String getTime()
 	{
 		return time;
 	}
-	public void setTime(Date time)
+	public void setTime(String time)
 	{
 		this.time = time;
 	}

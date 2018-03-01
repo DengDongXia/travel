@@ -1,5 +1,6 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,9 @@ public class CommentServiceImpl implements CommentService
 	public Map<String, Boolean> userComplain(domain.comment.Comment input)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		input.setTime(new Date());
+		String time=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").format(new Date());
+		time=time.substring(0, time.length()-2);//用于省去末尾的毫秒的情况
+		input.setTime(time);
 		boolean commentResult=comments.userComplain(input);
 		result.put("complainResult",commentResult);
 		return result;
@@ -39,7 +42,9 @@ public class CommentServiceImpl implements CommentService
 	
 	public boolean addEssayComment(domain.comment.Comment input)
 	{
-		input.setTime(new Date());
+		String time=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").format(new Date());
+		time=time.substring(0, time.length()-2);//用于省去末尾的毫秒的情况
+		input.setTime(time);
 		return comments.addEssayComment(input);
 	}
 	

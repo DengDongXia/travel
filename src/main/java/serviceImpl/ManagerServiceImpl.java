@@ -33,13 +33,13 @@ public class ManagerServiceImpl implements ManagerService
 	{
 		boolean validateCodeResult=this.checkUserValidateCode(input, session);
 		User manager=this.getManagerByEmail(input);
-		boolean emailResult= manager==null;
+		boolean emailResult= manager!=null;
 		boolean passwordResult=this.checkUserPassword(input, manager);
 		boolean accountState=this.checkLocked(manager);
 		UserLoginResult result=new UserLoginResult(emailResult,validateCodeResult,passwordResult,accountState);
 		//当通过验证的时候，将查询到的用户数据保存到session中
 		if(result.isPass())
-			session.setAttribute("manager", manager);
+			session.setAttribute("user", manager);
 		return result;
 	}
 	
@@ -113,11 +113,13 @@ public class ManagerServiceImpl implements ManagerService
 		boolean updateResult=true;
 		try
 		{
+			update.setUserStatus(!update.isUserStatus());
 			manager.updateUserMessage(update);
-			manager.updateUserAcount(update);
+			manager.updateUserAccount(update);
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			updateResult=false;
 		}
 		Map<String,Boolean> result=new HashMap<String,Boolean>();

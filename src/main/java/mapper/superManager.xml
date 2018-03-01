@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.superManager.superManagers">
+<mapper namespace="dao.superManager.SuperManagers">
 	
 	<select id="getSuperManagerByEmail" parameterType="string" resultType="domain.user.User">
-		select * from user inner join userrole on user.id=userrole.userId where user.email=#{_parameter} and roleID=2
+		select id,email,name,password,timestamp,quote,locked,pictureURL,roleID as userRole
+		from user inner join userrole on user.id=userrole.userId 
+		where user.email=#{_parameter} and roleID=2
 	</select>
 	
 	<insert id="insertManagerToUser" parameterType="domain.user.User">
@@ -18,12 +20,21 @@
 		select id from user where email=#{_parameter}
 	</select>
 	
-	<select id="getAllManager" parameterType="dto.manager.ManagerShow" resultType="hashmap">
-		select id as managerID,quote as managerQuote,name as managerName,pictureURL as managerPicture,locked as managerStatus from user inner join userrole on user.id=userrole.userID where userrole.roleID=1 <if test="#{condation}!=null"> and (name=#{condition} or email=#{condition} or id=#{condition})</if> order by timestamp ASC limit #{start},#{limit}
+	<select id="getAllManager" parameterType="dto.manager.ManagerShow" resultType="dto.manager.AllManagerMessage">
+		select id as managerID,quote as managerQuote,name as managerName,pictureURL as managerPicture,locked as managerStatus 
+		from user inner join userrole on user.id=userrole.userID 
+		where userrole.roleID=1 
+		<if test="condition != null and condition !='' "> 
+			and (name=#{condition} or email=#{condition} or id=#{condition})
+		</if> 
+		order by timestamp ASC 
+		limit #{start},#{limit}
 	</select>
 	
 	<select id="getPageNumber"  parameterType="dto.manager.ManagerShow" resultType="_int">
-		select count(*)/#{limit} from user inner join userrole on user.id=userrole.userID where roleID=1
+		select CEIL(count(*)/#{limit}) 
+		from user inner join userrole on user.id=userrole.userID 
+		where roleID=1
 	</select>
 	
 </mapper>

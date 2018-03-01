@@ -32,11 +32,11 @@
 		from essay inner join user on user.id=essay.userID
 		<where>
 			<choose>
-				<when test="#{condition}!=null">
-					id=#{condition} or essayHeader = #{condition}
+				<when test="condition!=null and condition != '' ">
+					essay.id=#{condition} or essay.essayHeader = #{condition}
 				</when>
 				<otherwise>
-					essay.state=false
+					essay.managerState=false
 				</otherwise>
 			</choose>
 		</where>
@@ -44,11 +44,12 @@
 		limit #{start},#{showLimit}
 	</select>
 	
-	<select id="getEssayPageNumber"  parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
-		select count(*)/#{showLimit} from essay
+	<select id="getEssayPageNumber"  parameterType="dto.eassy.SearchEassyCondition" resultType="_int">
+		select CEIL(count(*)/#{showLimit})
+		from essay
 		<where>
 			<choose>
-				<when test="#{condition}!=null">
+				<when test=" condition!=null and conditon !='' ">
 					id=#{condition} or essayHeader = #{condition}
 				</when>
 				<otherwise>
@@ -60,7 +61,7 @@
 	</select>
 	
 	<update id="updateEssayByManager" parameterType="dto.eassy.EssayUpdateInput">
-		update essay set state=#{state},validate=#{validate} where id=#{id}
+		update essay set state=#{state},validate=#{validate},managerState=true where id=#{id}
 	</update>
 	
 	<select id="getCommentByCommentID" parameterType="_int" resultType="dto.comment.ManagerComment">

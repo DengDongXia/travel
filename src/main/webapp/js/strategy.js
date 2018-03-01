@@ -7,8 +7,8 @@ $().ready(function() {
 // 发起请求，判断当前用户是否登录
 function getUser(argument) {
 	$.ajax({
-		url: 'data/isLogin.json',
-		// url: 'http://localhost:8080/travel/user/isLogin',
+//		url: 'data/isLogin.json',
+		url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
 	})
@@ -58,8 +58,8 @@ function dealingUserData(data) {
 // 页面加载后进行异步请求数据
 function getStrategy(pageIndex) {
 	$.ajax({
-		url: 'data/strategy.json',
-		// url: 'http://localhost:8080/travel/question/show',
+//		url: 'data/strategy.json',
+		url: 'http://localhost:8080/travel/question/show',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',

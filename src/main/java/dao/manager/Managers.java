@@ -57,7 +57,7 @@ public interface Managers
 	 * @param update 用户更新的信息
 	 * @throws Exception 抛出的异常
 	 */
-	public abstract void updateUserAcount(UserSearchResult update)throws Exception;
+	public abstract void updateUserAccount(UserSearchResult update)throws Exception;
 	
 	/**
 	 * 根据管理员的输入情况，筛选出相应的文章的情况

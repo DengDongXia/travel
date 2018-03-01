@@ -12,7 +12,7 @@ public class ShowAnswerResult
 	private String answerPersonPictureURL;//用户的头像的URL
 	private String answerName;//用户的昵称
 	private String answerContext;//回答的内容
-	private Date answertime;//回答的时间
+	private String answertime;//回答的时间
 	public String getAnswerPersonPictureURL()
 	{
 		return answerPersonPictureURL;
@@ -37,11 +37,11 @@ public class ShowAnswerResult
 	{
 		this.answerContext = answerContext;
 	}
-	public Date getAnswertime()
+	public String getAnswertime()
 	{
 		return answertime;
 	}
-	public void setAnswertime(Date answertime)
+	public void setAnswertime(String answertime)
 	{
 		this.answertime = answertime;
 	}

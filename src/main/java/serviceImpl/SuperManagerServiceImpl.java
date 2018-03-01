@@ -17,6 +17,7 @@ import dao.superManager.SuperManagers;
 import domain.user.User;
 import dto.manager.AddManagerInput;
 import dto.manager.AddManagerResult;
+import dto.manager.AllManagerMessage;
 import dto.manager.ManagerShow;
 import dto.manager.UpdateManagerInput;
 import dto.user.UserLoginInput;
@@ -34,10 +35,8 @@ public class SuperManagerServiceImpl implements SuperManagerService
 	public Map<String,Object> getAllManager(ManagerShow limit)
 	{
 		Map<String,Object> result=new HashMap<String,Object>();
-		//用于更新获取到的相关数据，将其转化成为数据库中limit语句的参数的值
-		limit.changeLimitData();
 		//用于获取管理员的数目
-		List<Map<String, ?>> managerList=superManager.getAllManager(limit);
+		List<AllManagerMessage> managerList=superManager.getAllManager(limit);
 		//用于获取管理员的相关的数据列表
 		int pageNumber=superManager.getPageNumber(limit);
 		result.put("pageNumber",pageNumber);
@@ -102,13 +101,13 @@ public class SuperManagerServiceImpl implements SuperManagerService
 	{
 		boolean validateCodeResult=this.checkUserValidateCode(input, session);
 		User superManager=this.getSuperManagerByEmail(input);
-		boolean emailResult= superManager==null;
+		boolean emailResult= superManager!=null;
 		boolean passwordResult=this.checkUserPassword(input, superManager);
 		boolean accountState=this.checkLocked(superManager);
 		UserLoginResult result=new UserLoginResult(emailResult,validateCodeResult,passwordResult,accountState);
 		//当通过验证的时候，将查询到的用户数据保存到session中
 		if(result.isPass())
-			session.setAttribute("superManager", superManager);
+			session.setAttribute("user", superManager);
 		return result;
 	}
 	/**
@@ -132,7 +131,7 @@ public class SuperManagerServiceImpl implements SuperManagerService
 	 */
 	private boolean checkUserValidateCode(UserLoginInput input,HttpSession session)
 	{
-		return input.getValidateCode().equals((String)session.getAttribute("validate"));
+		return input.getValidateCode().equalsIgnoreCase((String)session.getAttribute("validate"));
 	}
 	
 	/**

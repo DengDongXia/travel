@@ -1,9 +1,11 @@
 package dao.superManager;
 
 import java.util.List;
-import java.util.Map;
+
 import domain.user.User;
+import dto.manager.AllManagerMessage;
 import dto.manager.ManagerShow;
+
 
 /**
  * 用于超级管理员相关的数据库操作的对象
@@ -45,7 +47,7 @@ public interface SuperManagers
 	 * @param limit 分页的限制条件
 	 * @return 所有管理员所组成的列表
 	 */
-	public abstract List<Map<String,?>> getAllManager(ManagerShow limit);
+	public abstract List<AllManagerMessage> getAllManager(ManagerShow limit);
 	
 	/**
 	 * 用于获取数据库中管理员的数据的分页数目

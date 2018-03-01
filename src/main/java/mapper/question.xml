@@ -7,7 +7,7 @@
 	</insert>
 	
 	<select id="getPageNumberByInput" parameterType="dto.question.SearchQuestionListInput" resultType="_int">
-		select CEIL(count(*)/#{showLimit}) from question where state=true
+		select CEIL(count(*)/#{showLimit}) from question
 	</select>
 	
 	<select id="getQuestionListByInput" parameterType="dto.question.SearchQuestionListInput" resultType="dto.question.ShowQuestion">
@@ -29,7 +29,7 @@
 	</delete>
 	
 	<update id="updateQuestion" parameterType="dto.question.UpdateQuestionInput">
-		update questionAnswer set context=#{context},questionHeader=#{questionHeader} where userID=#{userID} and questionID=#{questionID}
+		update question set context=#{context},questionHeader=#{questionHeader} where userID=#{userID} and id=#{questionID}
 	</update>
 	
 	<select id="getQuestionDetailsByQuestionID" parameterType="string" resultType="dto.question.ShowQuestionDetail">

@@ -71,7 +71,7 @@ function getEssay() {
 	$.ajax({
 		// url: 'data/detail.json',
 		url: 'http://localhost:8080/travel/essay/getEssayDetails',
-		type: 'get',
+		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
 		data: JSON.stringify({
@@ -124,7 +124,7 @@ function getComments(nowPage) {
 	$.ajax({
 		// url: 'data/eassayComment.json',
 		url: 'http://localhost:8080/travel/comments/essay',
-		type: 'get',
+		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
 		data: JSON.stringify({
@@ -254,25 +254,25 @@ $('#comment-input').focus(function(event) {
 		window.location.href = "http://localhost:8080/travel/login.jsp";
 	}else{
 		$("#send").click(function() {
-			// 获取当前评论时间
+/*			// 获取当前评论时间
 			var myDate = new Date();
 			//获取当前年
 			var year=myDate.getFullYear();
 			//获取当前月
 			var month=myDate.getMonth()+1;
 			//获取当前日
-			var date=myDate.getDate(); 
+			var date=myDate.getDate(); */
 			$.ajax({
 				// url: 'data/deleteComment.json',
 				url: 'http://localhost:8080/travel/comments/add',
-				type: 'get',
+				type: 'post',
 				dataType: 'json',
 				contentType:'application/json',
 				data: JSON.stringify({
 					"userID":userId,
 					"essayID":getUrlEssayId('essayId'),
-					"context": $("#comment").val(),
-					"time":year+":"+month+":"+date,
+					"context": $("#comment-input").val(),
+/*					"time":year+":"+month+":"+date,*/
 				}),
 			})
 			.done(function(data) {

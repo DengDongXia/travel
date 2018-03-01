@@ -64,11 +64,11 @@ function getQuestionText() {
 	$.ajax({
 		// url: 'data/questionDetail.json',
 		url: 'http://localhost:8080/travel/question/getDetail',
-		type: 'get',
+		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
 		data: JSON.stringify({
-			questionID: parseInt(getUrlQuestionId('questionId'))
+			"questionID": parseInt(getUrlQuestionId('questionId'))
 		}),
 	})
 	.done(function(data) {
@@ -99,21 +99,24 @@ function getQuestionAnswer(nowPage) {
 	$.ajax({
 			// url: 'data/questionComment.json',
 			url: 'http://localhost:8080/travel/answer/show',
-			type: 'get',
+			type: 'post',
 			dataType: 'json',
 			contentType:'application/json',
 			data: JSON.stringify({
-				questionID : parseInt(getUrlQuestionId('questionId')),
-				pageIndex : nowPage,
-				showLimit : 5
+				"questionID" : parseInt(getUrlQuestionId('questionId')),
+				"pageIndex": nowPage,
+				"showLimit": 5
 			}),
 	})
 	.done(function(data) {
 		$("#comments").children().remove();
 		if(data.content.length > 0){
 			$.each(data.content, function(index, val) {
-				var user ="<div class='head-img'><div class='img-bg'><img src='"+val.commentUserPic+"'></div><span class='name'>"+val.commentUser+"</span></div>"; 
+				/*var user ="<div class='head-img'><div class='img-bg'><img src='"+val.commentUserPic+"'></div><span class='name'>"+val.commentUser+"</span></div>"; 
 				var question = "<div class='question-text'><p>"+val.commentContent+"</p><p class='time'>"+val.commentTime+"</p></div>";
+				*/
+				var user ="<div class='head-img'><div class='img-bg'><img src='"+val.answerPersonPictureURL+"'></div><span class='name'>"+val.answerName+"</span></div>"; 
+				var question = "<div class='question-text'><p>"+val.answerContext+"</p><p class='time'>"+val.answertime+"</p></div>";
 				$("#comments").append("<li>"+user+question+"</li>");
 			});
 			if(data.content.length > 5){
@@ -162,7 +165,7 @@ $("#offer").click(function() {
 	}else{
 		$.ajax({
 			url: 'http://localhost:8080/travel/answer/add',
-			type: 'get',
+			type: 'post',
 			dataType: 'json',
 			contentType:'application/json',
 			data: JSON.stringify({

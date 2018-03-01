@@ -42,6 +42,8 @@ public class SuperManagerController
 	@ResponseBody
 	public Map<String,Object> showManagers(@RequestBody ManagerShow limit)
 	{
+		//用于更新获取到的相关数据，将其转化成为数据库中limit语句的参数的值
+		limit.changeLimitData();
 		return superManagerService.getAllManager(limit);
 	}
 	

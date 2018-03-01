@@ -13,7 +13,7 @@ public class Comment
 	private int userID;//评论的用户ID
 	private int essayID;//评论的文章ID
 	private String context;//输入的内容
-	private Date time;//时间
+	private String time;//时间
 	public int getId()
 	{
 		return id;
@@ -46,11 +46,11 @@ public class Comment
 	{
 		this.context = context;
 	}
-	public Date getTime()
+	public String getTime()
 	{
 		return time;
 	}
-	public void setTime(Date time)
+	public void setTime(String time)
 	{
 		this.time = time;
 	}

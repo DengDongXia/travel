@@ -77,7 +77,7 @@ $('#submitQuestion').click(function(event) {
 			data: JSON.stringify({
 				"userID":userId,
 				"questionID": getUrlQuestionId('questionId'),
-				"header":$('#questionTitle').val(),
+				"questionHeader":$('#questionTitle').val(),
 				"context":$('#questionContent').val()
 			}),
 		})

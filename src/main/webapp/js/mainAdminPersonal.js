@@ -13,7 +13,7 @@ function getAuthorData() {
 	})
 	.done(function(data) {
 		if(data.isLogin != true){
-			window.lcation.href = 'http://localhost:8080/travel/login.jsp';
+			window.location.href = 'http://localhost:8080/travel/login.jsp';
 		}else{
 			if(data.content.userRole != 2){
 				window.location.href = 'http://localhost:8080/travel/login.jsp';
@@ -42,7 +42,7 @@ function search(nowPage,condition) {
 	$('#user-info-bg').children().remove();
 	$.ajax({
 		// url: 'data/managerInfos.json',
-		url: 'http://localhost:8080/travel/manager/show',
+		url: 'http://localhost:8080/travel/manager/superManager/show',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
@@ -56,7 +56,7 @@ function search(nowPage,condition) {
 		$.each(data.content, function(index, val) {
 			var text = "<span class='number'>"+val.managerID+"</span><span class='user-pic'><div class='img-bg' id='userPic'><img src='"+val.managerPicture+"'></div></span>";
 		    text += "<span class='user-name'>"+val.managerName+"</span>";
-		    if(val.managerStatus == true){
+		    if(val.managerStatus == false){
 		    	text += "<span class='user-status'>正常</span>";
 		    }else{
 		    	text += "<span class='user-status'>冻结</span>";

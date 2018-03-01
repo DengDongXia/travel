@@ -24,7 +24,10 @@ function getAuthorData() {
 			pic = data.content.pictureURL;
 			email = data.content.email;
 			$("#userPic").append("<img src='"+data.content.pictureURL+"'>");
-			$("#userInfo").append("<p class='name'><label>昵称：</label>"+data.content.name+"</p><p class='integral'><label>积分：</label><span>"+data.content.account+"</span></p>");
+			var messages="<p class='name'><label>昵称：</label>"+data.content.name+"</p>";
+			if(data.content.account !=null)
+				messages+="<p class='integral'><label>积分：</label><span>"+data.content.account+"</span></p>";
+			$("#userInfo").append(messages);
 			$("#userInfo").append("<p class='integral'><label>个性签名：</label>"+data.content.quote+"</p>");
 			getEssay(1);    //加载该用户对应已发表的攻略
 		}
@@ -74,10 +77,10 @@ function getEssay(nowPage) {
 		$("#list-content").children().remove();
 		$("#list-content").append("<div class='published contents' id='content'><h4 class='title'>已发布的攻略</h4><div class='custom-made-contents'><ul id='list-bg'></ul></div></div>");
 		$.each(data.content, function(index, val) {
-			 var link = "<a href='detail.jsp?essayId="+val.essayID+"'>";
-			 var text = link+"<div class='content'><h4>"+val.essayHeader+"</h4><p><span class='tag'>"+val.essayCountry+"</span><span>来自 "+val.essayPersonName+"</span></p></div></a>";
+			 var link = "<a href='detail.jsp?essayId="+val.eassyID+"'>";
+			 var text = link+"<div class='content'><h4>"+val.eassyHeader+"</h4><p><span class='tag'>"+val.eassyCountry+"</span><span>来自 "+val.eassyPersonName+"</span></p></div></a>";
 			 var other = "<div class='about'><p><span class='delete audit' id='noPass'>不通过</span><span class='audit' id='pass'>审核通过</span></p>";
-			 	other += "<p><label class='authen'><input type='checkbox'> 已得到旅游认证</label></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
+			 	other += "<p><label class='authen'><input type='checkbox'> 已得到旅游认证</label></p><p>评论数: <span>"+val.eassyCommentCount+"</span></p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		/*// 当点击删除按钮时，触发删除事件,将要删除的列表的id传回后台

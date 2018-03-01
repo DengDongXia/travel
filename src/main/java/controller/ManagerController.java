@@ -62,9 +62,17 @@ public class ManagerController
 	
 	@RequestMapping("/user/seacher")
 	@ResponseBody
-	public UserSearchResult managerGetUser(@RequestBody String condition)
+	public Map<String,Object> managerGetUser(@RequestBody Map<String,String> condition)
 	{
-		return managerService.getUserByCondition(condition);
+		String conditionString=condition.get("condition");
+		UserSearchResult user=managerService.getUserByCondition(conditionString);
+		Map<String,Object> result=new HashMap<String,Object>();
+		result.put("userID",user.getUserID());
+		result.put("userName",user.getUserName());
+		result.put("userStatus",user.isUserStatus());
+		result.put("userAccount",user.getUserAccount());
+		result.put("userPicture",user.getUserPicture());
+		return result;
 	}
 	
 	@RequestMapping("/user/update")

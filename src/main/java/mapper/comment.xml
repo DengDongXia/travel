@@ -7,11 +7,11 @@
 	</insert>
 	
 	<select id="getCommentPageNumber" parameterType="dto.comment.SearchCommentListInput" resultType="_int">
-		select count(*)/#{showLimit} from essayComment where essayID=#{essayID}
+		select CEIL(count(*)/#{showLimit}) from essayComment where essayID=#{essayID}
 	</select>
 	
 	<select id="getCommentListByCondition" parameterType="dto.comment.SearchCommentListInput"  resultType="dto.comment.UserCommentResult">
-		select  id as commentID,context as commentContext,time as commentDate,pictureURL as commentPersonPicture,name as commentPersonName
+		select  essaycomment.id as commentID,context as commentContext,time as commentDate,pictureURL as commentPersonPicture,name as commentPersonName
 		from user inner join essayComment on user.id=essayComment.userID
 		where essayID=#{essayID} 
 		order by time desc 

@@ -53,6 +53,6 @@ public class ManagerShow
 	 */
 	public void changeLimitData()
 	{
-		this.start=this.pageIndex*this.limit;
+		this.start=(this.pageIndex-1)*this.limit;
 	}
 }
