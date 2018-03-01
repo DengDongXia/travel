@@ -39,9 +39,11 @@ public class UserRegisterServiceImpl implements UserRegisterService
 	public boolean insertUser(User user)
 	{
 		int insertUserResult=userRegister.insertUser(user);
-		User returnUser=userRegister.getUserByEmail(user.getEmail());
-		int insertUserRoleResult=userRegister.insertUserRole(returnUser.getId());
-		int insertUserAccount=userRegister.insertUserAccount(returnUser.getId());
+		System.out.println(user.getEmail());
+		int id=userRegister.getInsertUserId(user.getEmail());
+//		User returnUser=userRegister.getUserByEmail(user.getEmail());
+		int insertUserRoleResult=userRegister.insertUserRole(id);
+		int insertUserAccount=userRegister.insertUserAccount(id);
 		return insertUserResult!=0&&insertUserRoleResult!=0&&insertUserAccount!=0;
 	}
 

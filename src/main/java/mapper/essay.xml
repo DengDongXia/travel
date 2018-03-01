@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="getUserEssayResult"  parameterType="dto.eassy.SearchEssayByUser" resultType="dto.eassy.UserEssayResult">
-		select pictureURL as essayPicture,essayHeader,context as essayContent,country as essayCountry,essay.id as essayID,name as essayPersonName,state as essayStatus,(select count(*) from essayComment where essayComment.essayID=essay.id) as commentCount
+		select essay.pictureURL as essayPicture,essayHeader,context as essayContent,country as essayCountry,essay.id as essayID,name as essayPersonName,state as essayStatus,(select count(*) from essayComment where essayComment.essayID=essay.id) as commentCount
 		from essay inner join user on user.id=essay.userID
 		where userID=#{userID}
 	</select>

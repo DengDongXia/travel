@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.user.Users">
+	<select id="getInsertUserId" parameterType="string" resultType="_int">
+		select id
+		from user
+		where email=#{_parameter}
+	</select>
 	<select id="getUserByEmail"  parameterType="string"  resultType="domain.user.User">
 		select user.id as id,user.email as email,user.name as name,user.password as password,user.timestamp as timestamp,user.quote as quote,user.locked as locked,user.pictureURL as pictureURL,account.account as account,userrole.roleID as userRole
 		from user inner join account on account.userId=user.id inner join userrole on userrole.userID=user.id

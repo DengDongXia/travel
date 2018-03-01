@@ -14,5 +14,5 @@
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
 	<!-- 用于读取相关的配置文件的信息,配置文件db在该文件中使用，而文件validateCodeSize在验证码的生成那边所使用 -->
-	<context:property-placeholder location="classpath:properties/db.properties,classpath:properties/validateCodeSize.properties,classpath:properties/email.properties,classpath:properties/pictureLocation.properties,classpath:properties/essayLocation.properties"/>
+	<context:property-placeholder location="classpath:properties/db.properties,classpath:properties/validateCodeSize.properties,classpath:properties/email.properties,classpath:properties/pictureLocation.properties"/>
 </beans>

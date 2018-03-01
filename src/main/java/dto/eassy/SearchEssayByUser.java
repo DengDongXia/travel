@@ -40,7 +40,7 @@ public class SearchEssayByUser
 	}
 	public void setStart()
 	{
-		this.start = this.pageIndex*this.showLimit;
+		this.start = (this.pageIndex-1)*this.showLimit;
 	}
 	
 }

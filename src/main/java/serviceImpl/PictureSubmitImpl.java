@@ -1,9 +1,8 @@
 package serviceImpl;
 
-import javax.servlet.http.Part;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.PictureSubmit;
 import util.picture.Picture;
@@ -19,12 +18,12 @@ public class PictureSubmitImpl implements PictureSubmit
 		return pictureSubmitService.savePicture(picture);
 	}
 
-	public Picture makePictureObjectByPart(Part part)
+	public Picture makePictureObjectByPart(MultipartFile part)
 	{
-		byte[] data=new byte[(int)part.getSize()];
+		byte[] data=new byte[0];
 		try
 		{
-			part.getInputStream().read(data);
+			data=part.getBytes();
 		}
 		catch(Exception e)
 		{
@@ -33,7 +32,7 @@ public class PictureSubmitImpl implements PictureSubmit
 		Picture picture = new Picture();
 		picture.setData(data);
 		picture.setName(pictureSubmitService.generateName(picture));
-		String submitName=part.getSubmittedFileName();
+		String submitName=part.getOriginalFilename();
 		String suffix=(submitName.substring(submitName.lastIndexOf(".")));
 		picture.setSuffix(suffix);
 		return picture;

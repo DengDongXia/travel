@@ -42,4 +42,11 @@ public interface Users
 	 * @return 受影响的行数
 	 */
 	public abstract int updateUserMessage(UpdateUserMessageInput input);
+	
+	
+	/**
+	 * 获取新增用户的Id
+	 */
+	int getInsertUserId(String email);
+	
 }

@@ -57,6 +57,7 @@ public class EssayServiceImpl implements EssayService
 	
 	public List<UserEssayResult> getEssayContentList(SearchEssayByUser input)
 	{
+		System.out.println(input==null);
 		return essays.getUserEssayResult(input);
 	}
 	

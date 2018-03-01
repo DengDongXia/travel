@@ -3,14 +3,12 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Part;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.PictureSubmit;
 
@@ -23,7 +21,7 @@ public class PictureController
 	
 	@RequestMapping("submit")
 	@ResponseBody
-	public Map<String,String> savePicture(@RequestBody @RequestPart Part part)
+	public Map<String,String> savePicture(@RequestParam("pictures") MultipartFile part)
 	{
 		Map<String,String> result= new HashMap<String,String>();
 		result.put("pictureURL", pictureSubmitService.savePicture((pictureSubmitService.makePictureObjectByPart(part))));

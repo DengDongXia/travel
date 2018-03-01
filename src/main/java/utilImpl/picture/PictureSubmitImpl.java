@@ -5,11 +5,10 @@ import java.io.FileOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.catalina.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import util.picture.Picture;
 import util.picture.PictureSubmit;
-
 public class PictureSubmitImpl implements PictureSubmit
 {
 	private String saveLocation;//用于保存图像的位置
@@ -58,7 +57,8 @@ public class PictureSubmitImpl implements PictureSubmit
 		String hashString=null;
 		try
 		{
-			hashString = Base64.encode((MessageDigest.getInstance("MD5").digest(picture.getData())));
+			hashString = Base64.encodeBase64String(((MessageDigest.getInstance("MD5").digest(picture.getData()))));
+			hashString=hashString.substring(10);
 		}
 		catch (NoSuchAlgorithmException e)
 		{

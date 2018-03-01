@@ -27,7 +27,7 @@
 						       
 						  </div>
 						  <div class="form-group">
-						      <input typpassworde="password" name="" class="input form-control required" id="input-password" placeholder="密码" />
+						      <input type="password" name="" class="input form-control required" id="input-password" placeholder="密码" />
 						  </div>
 						   <div class="form-group">
 						      <input type="password" name="re-password" class="input form-control required" id="re-input-password" placeholder="确定密码" />

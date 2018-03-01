@@ -1,6 +1,6 @@
 package service;
 
-import javax.servlet.http.Part;
+import org.springframework.web.multipart.MultipartFile;
 
 import util.picture.Picture;
 
@@ -23,6 +23,6 @@ public interface PictureSubmit
 	 * @param part 输入对象
 	 * @return 相应的图片数据封装对象
 	 */
-	public abstract Picture makePictureObjectByPart(Part part);
+	public abstract Picture makePictureObjectByPart(MultipartFile part);
 	
 }

@@ -54,7 +54,7 @@ public class UserLoginServiceImpl implements UserLoginService
 	 */
 	private boolean checkUserValidateCode(UserLoginInput input,HttpSession session)
 	{
-		return input.getValidateCode().equals((String)session.getAttribute("validate"));
+		return input.getValidateCode().equalsIgnoreCase((String)session.getAttribute("validate"));
 	}
 	
 	/**

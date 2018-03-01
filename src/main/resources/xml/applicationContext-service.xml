@@ -56,7 +56,7 @@
 		<property name="password" value="${email.password}"/>
 	</bean>
 	<!-- 用于配置图像的相关配置类的信息 -->
-	<bean id="pictureSubmit" class="utilImpl.picture.PictureSubmit">
+	<bean id="pictureSubmit" class="utilImpl.picture.PictureSubmitImpl">
 		<property name="saveLocation" value="${picture.location}"/>
 		<property name="pictureURLPrefix" value="${picture.URLPrefix}"/>
 	</bean>

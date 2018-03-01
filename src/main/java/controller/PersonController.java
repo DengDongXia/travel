@@ -27,6 +27,7 @@ public class PersonController
 {
 	@Autowired
 	private QuestionService questionService;//用于注入提问相关的服务类
+	@Autowired
 	private EssayService essayService;//用于注入攻略相关的服务类对象
 	
 	@RequestMapping("/question")
