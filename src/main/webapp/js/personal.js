@@ -98,7 +98,7 @@ function getEssay(nowPage) {
 		$.each(data.content, function(index, val) {
 			 var link = "<a href='detail.jsp?essayId="+val.essayID+"'>";
 			 var text = link+"<div class='content'><h4>"+val.essayHeader+"</h4><p><span class='tag'>"+val.essayCountry+"</span><span>来自 "+val.essayPersonName+"</span></p></div></a>";
-			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='write-strategy.jsp?essayId="+val.essayID+"'><span class='edit'>编辑</span></a></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
+			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='http://localhost:8080/travel/updateStrategy.jsp?essayId="+val.essayID+"'><span class='edit'>编辑</span></a></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		// 当点击删除按钮时，触发删除事件,将要删除的列表的id传回后台
@@ -195,7 +195,7 @@ function getQuestion(nowPage) {
 		$.each(data.content, function(index, val) {
 			 var link = "<a href='strategy-detail.jsp?questionId="+val.questionID+"'>";
 			 var text=link+"<div class='content'><h4>"+val.questionHeader+"</h4><h5>"+val.questionContent+"</h5></div></a>";
-			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='updateQuestion.jsp?questionId="+val.questionID+"'><span class='edit'>编辑</span></a></p><p>回答数: <span>"+val.questionAnswerCount+"</span></p><p>"+val.questionTime+"</p></div>";
+			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='http://localhost:8080/travel/updateQuestion.jsp?questionId="+val.questionID+"'><span class='edit'>编辑</span></a></p><p>回答数: <span>"+val.questionAnswerCount+"</span></p><p>"+val.questionTime+"</p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		// 当点击新增特色定制按钮时，弹出输入遮罩层界面,该代码需放在被处理页面异步加载并渲染完成之后
