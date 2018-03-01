@@ -46,13 +46,14 @@
 							<div class="img-bg" id="userPic">
 								<!-- <img src="images/banner4.jpg"> -->
 							</div>
+							<p id="changeData">修改资料</p>
 						</div>
-						<div class="col-md-2 info" id="userInfo">
+						<div class="col-md-8 info" id="userInfo">
 							<!-- <p class="name">昵称：么么么哒</p>
 							<p class="integral">
 								积分：<span>10</span></p> -->
 						</div>
-						<div class="col-md-6"></div>
+						<!-- <div class="col-md-6"></div> -->
 						<div class="col-md-2">
 							<a href="write-strategy.jsp">
 							<div class="add-strategy">
@@ -166,8 +167,41 @@
 			</div>
 		</div>
 
+		<!-- 遮罩层部分，进行资料修改 -->
+		<div id="changDataBg" class="custom-made-question">
+			<div class="form-bg" id="changeData-bg">
+				<div class="form-horizontal">
+				<h4>修改个人资料</h4>
+				  <div class="form-group">
+				    <label for="title" class="col-sm-2 control-label">昵称</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="username" placeholder="请输入新的昵称">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="title" class="col-sm-2 control-label">个性签名</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="quote" placeholder="请输入新的个性签名">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="title" class="col-sm-2 control-label">头像</label>
+				    <div class="col-sm-10">
+				      <input type="file" class="form-control" name="userPic" id="userPic">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10 publish">
+				      <button type="submit" class="btn btn-default" id="changeUserData">修改</button>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="js/personal.js"></script>
 </body>
 </html>

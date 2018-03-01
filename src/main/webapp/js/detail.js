@@ -1,53 +1,84 @@
 $().ready(function() {
-	getUser();
-	getEssay();
-	getComments();
+	getUser();  //获取用户信息
 });
 
 // 发起请求，判断当前用户是否登录
+var isLogin; //记录用户的登录状态
 function getUser(argument) {
 	$.ajax({
-		url: 'data/userdata.json',
+		// url: 'data/isLogin.json',
+		url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
+		contentType:'application/json',
 	})
 	.done(function(data) {
-		dealingUserData(data);
+		isLogin = data.isLogin;
+		if(data.isLogin == true ){
+			dealingUserData(data);
+			getEssay();    //获取文章详情
+			getComments(1);  //获取该文章的评论
+		}else{
+			window.location.href = 'http://localhost:8080/travel/login.jsp';
+		}
 	})
 	.fail(function() {
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		// console.log("complete");
 	});
 	
 }
 
 // 对后台返回的用户登录信息进行处理
+var userRole; //记录登录的用户的的身份
+var userId; //记录用户id
 function dealingUserData(data) {
-	if(data[0].userId == null || data[0].userId == ''){
-		var login = "<li><a href='login.html'><i class='fa fa-meh-o'> </i>登录</a></li>";
-		var register = "<li><a target='_blank' href='register.html'><i class='fa fa-plus'> </i>注册</a></li>";
+	if(data.isLogin == false){
+		var login = "<li><a href='http://localhost:8080/travel/login.jsp'><i class='fa fa-meh-o'> </i>登录</a></li>";
+		var register = "<li><a target='_blank' href='http://localhost:8080/travel/register.jsp'><i class='fa fa-plus'> </i>注册</a></li>";
 		$('#top-menu').append(login+register);
 	}else{
-		if(data[0].userName == null || data[0].userName == ''){
-			var personal = "<li><a href='personal.html'><i class='fa fa-meh-o'> </i>个人中心</a></li>";
-		}else{
-			var personal = "<li><a href='personal.html'><i class='fa fa-meh-o'> </i>"+data[0].userName+"</a></li>";
-		}
+		userRole = data.content.userRole;   //1表示为管理员
+		userId = data.content.id;
+		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
+	$('#logout').click(function(event) {
+		$.ajax({
+			url: 'http://localhost:8080/travel/user/logout',
+			type: 'post',
+			dataType: 'json',
+			contentType:'application/json'
+		})
+		.done(function(data) {
+			// 后端跳转页面
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			// console.log("complete");
+		});
+		
+	});
 }
 
 // 页面加载后进行异步请求文章数据
-function getEssay(argument) {
-	/*$.ajax({
-		url: 'essay/detail.json',
+function getEssay() {
+	$.ajax({
+		// url: 'data/detail.json',
+		url: 'http://localhost:8080/travel/essay/getEssayDetails',
 		type: 'get',
 		dataType: 'json',
-		data: {essayId: getUrlEssayId('essayId')},
+		contentType:'application/json',
+		data: JSON.stringify({
+			"essayID": getUrlEssayId('essayId')
+		}),
 	})
-	.done(function() {
+	.done(function(data) {
 		dealingEssayData(data);
 	})
 	.fail(function() {
@@ -56,70 +87,109 @@ function getEssay(argument) {
 	.always(function() {
 		console.log("complete");
 	});
+}
 
-	//获取url中的参数
-       function getUrlEssayId(name) {
-           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-           var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-           // alert(r[1]);
-           if (r != null) return unescape(r[2]); return null; //返回参数值,即questionId的值
-       }*/
-	
-	// 未连接后台时
-	$.getJSON('data/detail.json', function(data) {
-		dealingEssayData(data);
-	});
-	// $.getJSON('essay/show', function(data) {
-	// });
+//获取url中的参数
+function getUrlEssayId(name) {
+   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+   var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+   // alert(r[1]);
+   if (r != null) return unescape(r[2]); return null; //返回参数值,即questionId的值
 }
 
 // 对请求返回的数据进行处理
 function dealingEssayData(data) {
+	// 插入文章标题图片
+	$('#headerPic').append('<img src="'+data.essayPictureURL+'">');
 	// 插入文章作者信息
-	$("#authorPicture").append("<img src='"+data[0].eassayPersonPictrue+"'>");
-	$("#authorPicture").parent().append("<span>"+data[0].eassayPersonName+"</span>");
+	$("#authorPicture").append("<img src='"+data.personPictureURL+"'>");
+	// $("#authorPicture").parent().append("<span>"+data.eassayPersonName+"</span>");
+	$("#authorPicture").parent().append("<span>么么哒（缺接口）</span>");
 	// 插入文章具体信息
-	$("#eassayTag").append("<span class='tag'>"+data[0].eassaycountry+"</span><span>"+data[0].eassayTime+"</span>");
-	$("#eassayContent").append("<h3>"+data[0].eassayHeader+"</h3><h4>"+data[0].eassayContent+"</h4><img src='"+data[0].eassayPicture+"' alt='攻略所示图片'>");
+	$("#eassayTag").append("<span class='tag'>"+data.country+"</span><span>"+data.time+"</span>");
+	// 当文章已进行认证时
+	if(data.validate == true){
+		$("#eassayTag").append("<span class='tag authen'>已认证</span>")
+	}
+	$("#eassayContent").append("<h3>"+data.essayHeader+"</h3>"+data.context);
 	// 插入评论信息
 
 }
 
+/*以下为评论部分内容*/
 // 页面加载后进行异步请求文章评论数据
-function getComments() {
-	$.getJSON('data/eassayComment.json', function(data) {
+function getComments(nowPage) {
+	$('#comments').find('li').remove();   //移除原来的评论
+	$('#getCommentButton').find('label').remove();
+	$.ajax({
+		// url: 'data/eassayComment.json',
+		url: 'http://localhost:8080/travel/comments/essay',
+		type: 'get',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"essayID": getUrlEssayId('essayId'),
+			"pageIndex":nowPage,
+			"showLimit":5
+		}),
+	})
+	.done(function(data) {
 		dealingCommentData(data);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
 	});
 }
 
 //处理返回的全部评论信息
+var sumPage;  //记录评论的总页数
 function dealingCommentData(data) {
-	$.each(data, function(index, val) {
-		 $("#comments").append("<li><span>"+val.commentUser+"</span><span>"+val.commentContent+"</span></li>");
+	$.each(data.content, function(index, val) {
+		var text = "<p><span>"+val.commentPersonName+": </span><span>"+val.commentContext+"</span></p>";
+		// 当用户为管理员时
+		if(userRole == 1){
+			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='delete'>删除</span><span class='date'>"+val.commentDate+"<span></p>";
+		}else if(userRole == 3){
+			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='date'>"+val.commentDate+"<span></p>";
+			// text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='tip'>举报</span><span class='date'>"+val.commentDate+"<span></p>";
+		}	
+		$("#comments").append("<li>"+text+"</li>");
 	});
+	$('#getCommentButton').append("<label>共"+data.pageNumber+"页</label>");
+	sumPage = data.pageNumber;  //记录总页数
+	// 给删除键绑定事件
+	$('.delete').click(function(event) {
+		var commentId = $(this).parents('li').find('#commentID').text();   //获取该评论id号
+		deleteComment($(this),commentId); //删除该评论
+	});
+	// 给举报键绑定举报事件
+	/*$('.tip').click(function(event) {
+		var commentId = $(this).parents('li').find('#commentID').text();   //获取该评论id号
+		accussComment($(this),commentId);  //举报该评论
+	});*/
 	
 }
 
-$('#comment-input').focus(function(event) {
+//删除该评论
+function deleteComment(obj,commentId) {
 	$.ajax({
-		url: 'data/userdata.json',
-		type: 'post',
+		// url: 'data/deleteComment.json',
+		url: 'http://localhost:8080/travel/manager/comment/delete',
+		type: 'get',
 		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"commentID":commentId
+		}),
 	})
 	.done(function(data) {
-		if(data[0].userId == null || data[0].userId == ''){
-			window.location.href = "login.html";
+		if(data.commentDeleteResult == true){
+			obj.parents('li').remove();  //移除这条评论
 		}else{
-		// 对提交的评论进行处理
-		$("#send").click(function() {
-			$.get('comments/picture/submit',{
-												//将对应评论的用户id传过去
-				comment : $("#comment").val(),   //将对应评论的内容传过去
-				userId : data[0].userId          //将进行评论的用户的id传过去
-			}, function(data) {  //回调函数对返回的值进行插入
-			    $("#comments").append("<li><span>"+data[0].commentUser+"</span><span>"+data[0].commentContent+"</span></li>");
-			});
-		});
+			alert("删除失败");
 		}
 	})
 	.fail(function() {
@@ -128,7 +198,98 @@ $('#comment-input').focus(function(event) {
 	.always(function() {
 		console.log("complete");
 	});
-	
+}
+
+// 给页面按钮绑定事件
+var nowPage = 1;  //记录当前页号
+$('#getCommentButton').find('span').click(function(event) {
+	if($(this).is('#next')){
+		if(nowPage != sumPage){
+			nowPage = nowPage + 1;
+		}else{
+			nowPage = sumPage;
+		}
+	}else{
+		if(nowPage != 1){
+			nowPage = nowPage - 1;
+		}else{
+			nowPage = 1;
+		}
+	}
+	getComments(nowPage);
+});
+
+ /*//举报该评论
+function accussComment(obj,commentId){
+	$.ajax({
+		url: 'data/deleteComment.json',
+		// url: 'http://localhost:8080/travel/manager/comment/delete',
+		type: 'get',
+		dataType: 'json',
+		contentType:'application/json',
+		data: JSON.stringify({
+			"commentID":commentId
+		}),
+	})
+	.done(function(data) {
+		if(data.complainResult == true){
+			obj.parents('li').remove();  //移除这条评论
+		}else{
+			alert("删除失败");
+		}
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}*/
+
+/*以上为评论部分内容*/
+
+// 评论输入框获得焦点后，触发一下函数
+$('#comment-input').focus(function(event) {
+	if(isLogin == false){
+		window.location.href = "http://localhost:8080/travel/login.jsp";
+	}else{
+		$("#send").click(function() {
+			// 获取当前评论时间
+			var myDate = new Date();
+			//获取当前年
+			var year=myDate.getFullYear();
+			//获取当前月
+			var month=myDate.getMonth()+1;
+			//获取当前日
+			var date=myDate.getDate(); 
+			$.ajax({
+				// url: 'data/deleteComment.json',
+				url: 'http://localhost:8080/travel/comments/add',
+				type: 'get',
+				dataType: 'json',
+				contentType:'application/json',
+				data: JSON.stringify({
+					"userID":userId,
+					"essayID":getUrlEssayId('essayId'),
+					"context": $("#comment").val(),
+					"time":year+":"+month+":"+date,
+				}),
+			})
+			.done(function(data) {
+				if(data.commentsResult == true){
+					alert("评论成功");
+				}else{
+					alert("评论失败");
+				}
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+		});
+	}
 });
 
 

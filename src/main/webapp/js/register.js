@@ -9,7 +9,6 @@
 	function getIdentifyCode() {
 		$.ajax({
 			url: "http://localhost:8080/travel/user/emailIdentifyCode",
-			// url: "http://localhost:8080/travel/user/emailIdentifyCode",
 			type:  "POST",
 			contentType:"application/json",
 			dataType: 'json',

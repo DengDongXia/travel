@@ -21,6 +21,18 @@
   float: left;
 }
 
+.tip-content{
+  border: 1px solid #ececec;
+}
+
+.all-tips ul li:hover{
+  background-color: #f8f8f8;
+}
+
+.tip-content a:hover{
+  text-decoration: none;
+}
+
 .tip{
   position: relative;
   width: 100%;
@@ -28,10 +40,23 @@
   overflow: hidden;
 }
 
+.tip .authen{
+  position: absolute;
+  left: 30px;
+  z-index: 99;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 35px;
+  height: auto;
+  background-color: #87d54d;
+  color: #fff;
+  border-radius: 0 0 4px 4px;
+}
+
 .tip .img-part{
   position: relative;
   width: 60%;
-  max-height: 230px;
+  height: 230px;
   overflow: hidden;
   float: left;
   text-align: center;
@@ -48,15 +73,15 @@
   color: #F94B4B;
 }
 
-.tip-text:hover{
+/*.tip-text:hover{
   background-color: #f8f8f8;
-}
+}*/
 
 .tip-text{
   width: 40%;
   float: left;
   padding: 3%;
-  border: 1px solid #ececec;
+  /*border: 1px solid #ececec;*/
   border-left: none;
 /*  -moz-box-shadow: 2px 2px 8px #666;
   -webkit-box-shadow: 2px 2px 8px #666;
@@ -76,7 +101,7 @@
 }
 
 .tip h4{
-  line-height: 25px;
+  line-height: 30px;
   color: #666;
   font-size: 14px;
   overflow: hidden;
@@ -99,6 +124,21 @@
 
 .tip img:hover + .get,.tip .get:hover{
   display: block;
+}
+
+.otherInfo{
+  color: #666;
+  font-size: 14PX;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.tip-content .otherInfo span{
+  margin: 0 10px;
+}
+
+.tip-content .otherInfo span:hover{
+  text-decoration: none;
 }
 
 /*切换页面*/

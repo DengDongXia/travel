@@ -5,39 +5,19 @@
 	});
 
 	//异步请求图片验证码
-	function getPicCode(argument) {
+	function getPicCode() {
 		var xmlhttp;
 		xmlhttp=new XMLHttpRequest();
 		xmlhttp.open("GET","http://localhost:8080/travel/login/identifyCode",true);
-		xmlhttp.responseType = "blob";
+		xmlhttp.responseType = "application/json";
 		xmlhttp.onload = function(){
 		    if (this.status == 200) {
 		        var blob = this.response;
-		        $('#getPicVerification').onload = function(e) {
-		            window.URL.revokeObjectURL(url); 
-		        };
-		        url = window.URL.createObjectURL(blob);
-    			$('#getPicVerification').attr('src', url);
-		        // document.body.appendChild(img); 
+		        var data = "data:image/jpeg;base64,"+$.parseJSON(blob).image;
+    			$('#getPicVerification').attr('src', data);
 		    }
 		}
 		xmlhttp.send();
-		/*$.ajax({
-			url: 'http://localhost:8080/travel/login/identifyCode',
-			type: 'POST',
-			dataType: 'json',
-			contentType:'application/json'
-			// data: {param1: 'value1'},
-		})
-		.done(function(data) {
-			$('#getPicVerification').attr('src', window.URL.createObjectURL(data.image));
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});*/
 		
 	}
 
@@ -83,7 +63,7 @@
 				}
 				else{
 					alert("登录成功！");
-					location.href="http://localhost:8080/travel/index.jsp";
+					window.location.href="http://localhost:8080/travel/index.jsp";
 				}
 			}
 	})
