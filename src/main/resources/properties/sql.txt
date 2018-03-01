@@ -1,0 +1,105 @@
+create database travel;
+
+-- 用于创建用户表
+create table user
+(
+	id int not null auto_increment comment '用户的ID',
+	email varchar(50) null comment '用户的邮箱，单用户为管理员的时候，允许其值为null',
+	name varchar(100) not null comment '昵称',
+	password varchar(32) not null comment '密码',
+	timestamp varchar(13) not null comment '时间戳，用于加密密码',
+	quote varchar(200) null default '哈哈哈哈!' comment '个性签名',
+	pictureURL varchar(200) not null default '' comment '用户图像的URL'
+	locked boolean default false comment '账号锁定状态，true为锁定',
+	primary key(id)
+)engine=InnoDB default charset=utf8;
+
+-- 用于创建角色表
+create table role
+(
+	id int not null auto_increment comment '角色类型的ID',
+	name varchar(50) not null comment '角色名',
+	available boolean default true comment '角色的使用可使用状态，true表示可用',
+	primary key (id)
+)engine=InnoDB default charset=utf8;
+
+-- 插入相关的角色数据
+insert into role(name) values('管理员'),('超级管理员'),('用户');
+
+-- 用于创建用户角色中间表
+create table userRole
+(
+	userID int not null comment '用户的ID',
+	roleID int not null comment '用户角色的ID',
+	primary key(userID,roleID)
+)engine=InnoDB default charset=utf8;
+
+-- 攻略表
+create table essay
+(
+	id int not null auto_increment comment '攻略的ID',
+	userID int not null comment '攻略发布人的ID',
+	state boolean not null default false comment '文章的审核状态，默认为未审核',
+	country varchar(30) null comment '攻略所描述的国家',
+	validate boolean not null default false comment '当地旅游认证状态，默认为未认证',
+	time datetime not null comment '攻略的发布时间',
+	context text not null comment '攻略的内容',
+	essayHeader varchar(100) not null comment '文章的标题',
+	managerState boolean not null default false comment '管理员审查的登记情况，true表示已经审查，false表示还没审查';
+	pictureURL varchar(200) not null default '/default' comment '文章标题的照片',
+	primary key (id)
+)engine=InnoDB default charset=utf8;
+
+-- 攻略评论表
+create table essayComment
+(
+	id int not null auto_increment comment '评论的ID',
+	userID int not null comment '评论人的用户ID',
+	essayID int not null comment '攻略的ID',
+	context text not null comment '攻略评论的内容',
+	time datetime not null comment '攻略评论的时间',
+	primary key (id)
+)engine=InnoDB default charset=utf8;
+
+-- 提问表
+create table question
+(
+	id int not null auto_increment comment '提问的ID',
+	userID int not null comment '提问发布人的用户ID',
+	time datetime not null comment '提问的发布时间',
+	state boolean not null default false comment '提问的状态，false表示未完成',
+	context text not null comment '提问的内容',
+	questionHeader varchar(300) not null comment '提问的标题',
+	answerID int null comment '所采纳的回答的ID',
+	primary key (id)
+)engine=InnoDB default charset=utf8;
+
+-- 提问回答表
+create table questionAnswer
+(
+	id int not null auto_increment comment '回答的ID',
+	userID int not null comment '回答的用户的ID',
+	questionID int not null comment '提问的ID',
+	time datetime not null comment '回答的发布时间',
+	context text not null comment '回答的内容',
+	primary key (id)
+)engine=InnoDB default charset=utf8;
+
+-- 用户积分表
+create table account
+(
+	userID int not null comment '用户的ID',
+	account int not null default 0 comment '用户的积分',
+	primary key (userID)
+)engine=InnoDB default charset=utf8;
+
+-- 用于创建用户举报的信息的记录表
+create table complain
+(
+	commentID int not null comment '所进行举报的评论的ID',
+	userID int not null comment '所进行举报的用户的ID',
+	reason text not null comment '所进行举报的原因',
+	state boolean not null default false comment '该举报信息的处理情况',
+	primary key(commentID,userID)
+)engine=InnoDB default charset=utf8;
+
