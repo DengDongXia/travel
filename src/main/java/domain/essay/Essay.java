@@ -1,7 +1,4 @@
 package domain.essay;
-
-import java.util.Date;
-
 /**
  * essay表的相关对象
  * @author 学徒
@@ -14,8 +11,8 @@ public class Essay
 	private boolean state;
 	private String country;
 	private boolean validate;
-	private Date time;
-	private String eassyHeader;
+	private String time;
+	private String essayHeader;
 	private String pictureURL;
 	private String context;
 	public String getPictureURL()
@@ -74,20 +71,20 @@ public class Essay
 	{
 		this.validate = validate;
 	}
-	public Date getTime()
+	public String getTime()
 	{
 		return time;
 	}
-	public void setTime(Date time)
+	public void setTime(String time)
 	{
 		this.time = time;
 	}
-	public String getEassyHeader()
+	public String getEssayHeader()
 	{
-		return eassyHeader;
+		return essayHeader;
 	}
-	public void setEassyHeader(String eassyHeader)
+	public void setEssayHeader(String essayHeader)
 	{
-		this.eassyHeader = eassyHeader;
+		this.essayHeader = essayHeader;
 	}
 }

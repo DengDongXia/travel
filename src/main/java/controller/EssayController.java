@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.EssayService;
 import domain.essay.Essay;
+import dto.eassy.AddEssayInput;
 import dto.eassy.EssayDeleteInput;
 import dto.eassy.EssayDetails;
 import dto.eassy.SearchEassyCondition;
@@ -49,6 +50,7 @@ public class EssayController
 	@ResponseBody
 	public Map<String,Object> userUpdateEssay(@RequestBody Essay essay)
 	{
+		System.out.println("ss"+essay.getEssayID());
 		Map<String,Object> result=new HashMap<String,Object>();
 		result.put("essayUpdateResult", essayService.updateEssay(essay));
 		return result;
@@ -59,16 +61,22 @@ public class EssayController
 	public Map<String,Boolean> deleteEssayByUser(@RequestBody EssayDeleteInput input)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("essayDeleteResult",essayService.deleteEssayByUser(input)&&essayService.deleteEssayCommentByUser(input));
+		result.put("essayDeleteResult",!(essayService.deleteEssayByUser(input)&&essayService.deleteEssayCommentByUser(input)));
 		return result;
 	}
 	
 	@RequestMapping("/addEssay")
 	@ResponseBody
-	public Map<String,Boolean> addEssay(Essay essay)
+	public Map<String,Boolean> addEssay(@RequestBody AddEssayInput essay)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("addEssayResult", essayService.addEssay(essay));
+		Essay essays=new Essay();
+		essays.setContext(essay.getContext());
+		essays.setCountry(essay.getCountry());
+		essays.setEssayHeader(essay.getEssayHeader());
+		essays.setPictureURL(essay.getPictureURL());
+		essays.setUserID(essay.getUserID());
+		result.put("addEssayResult", essayService.addEssay(essays));
 		return result;
 	}
 	

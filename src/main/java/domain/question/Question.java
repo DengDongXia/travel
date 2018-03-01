@@ -11,7 +11,7 @@ public class Question
 {
 	private int id;//提问的ID
 	private int userID;//提问的用户ID
-	private Date time;//提问的时间
+	private String time;//提问的时间
 	private boolean state;//提问的状态
 	private String context;//提问的内容
 	private int answerID;//提问的采纳的回答的ID
@@ -40,11 +40,11 @@ public class Question
 	{
 		this.userID = userID;
 	}
-	public Date getTime()
+	public String getTime()
 	{
 		return time;
 	}
-	public void setTime(Date time)
+	public void setTime(String time)
 	{
 		this.time = time;
 	}

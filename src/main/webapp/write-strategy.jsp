@@ -42,7 +42,7 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-10 form-bg">
 					<h4>编辑攻略的文章</h4>
-					<form class="form-horizontal">
+					<div class="form-horizontal">
 					  <div class="form-group">
 					    <label for="title" class="col-sm-2 control-label">标题</label>
 					    <div class="col-sm-10">
@@ -52,7 +52,7 @@
 					   <div class="form-group">
 					    <label for="pic" class="col-sm-2 control-label">标题照片</label>
 					    <div class="col-sm-10">
-						    <input type="file" id="headerpic" name='headerpic' class="form-control">
+						    <input type="file" id="headerpic" name='pic' class="form-control">
 					     </div>
 					  </div>
 					  <div class="form-group">
@@ -71,10 +71,10 @@
 					  </div>
 					  <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10 publish">
-					      <button type="submit" id="send" class="btn btn-default">发表攻略</button>
+					      <button type="button" id="send" class="btn btn-default">发表攻略</button>
 					    </div>
 					  </div>
-					</form>
+					</div>
 				</div>
 				<div class="col-md-1"></div>
 			</div>

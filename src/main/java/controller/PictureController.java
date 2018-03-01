@@ -21,10 +21,11 @@ public class PictureController
 	
 	@RequestMapping("submit")
 	@ResponseBody
-	public Map<String,String> savePicture(@RequestParam("pictures") MultipartFile part)
+	public Map<String,Object> savePicture(@RequestParam("pic") MultipartFile part)
 	{
-		Map<String,String> result= new HashMap<String,String>();
+		Map<String,Object> result= new HashMap<String,Object>();
 		result.put("pictureURL", pictureSubmitService.savePicture((pictureSubmitService.makePictureObjectByPart(part))));
+		result.put("saveResult", true);
 		return result;
 	}
 	

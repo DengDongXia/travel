@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class QuestionServiceImpl implements QuestionService
 	
 	public boolean addQuestion(Question input)
 	{
+		String time=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").format(new Date());
+		time=time.substring(0, time.length()-2);//用于省去末尾的毫秒的情况
+		input.setTime(time);
 		return questions.addQuestion(input);
 	}
 

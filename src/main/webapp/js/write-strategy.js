@@ -168,12 +168,13 @@ function addEassay(pic) {
 			"essayHeader":$('#title').val(),
 			"pictureURL":pic,
 			"context":$('#input-area').val()
-
 		}),
 	})
 	.done(function(data) {
-		isLogin = data.isLogin;
-		if(data.isLogin == true ){
+//		isLogin = data.isLogin;
+		if(isLogin == true ){
+			alert("文章添加成功");
+			window.location.href='http://localhost:8080/travel/personal.jsp';
 			dealingUserData(data);
 		}else{
 			window.location.href = 'http://localhost:8080/travel/login.jsp';

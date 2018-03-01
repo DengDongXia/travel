@@ -14,7 +14,7 @@ public class ShowQuestion
 	private String questionContent;//提问的内容
 	private String questionPersonName;//提问人的昵称
 	private String questionPersonPicture;//提问人的照片的URL
-	private Date questionTime;//提问的时间
+	private String questionTime;//提问的时间
 	private int questionAnswerCount;//提问的回答的数目
 	private int questionID;//提问的ID
 	public String getQuestionHeader()
@@ -57,11 +57,11 @@ public class ShowQuestion
 	{
 		this.questionPersonPicture = questionPersonPicture;
 	}
-	public Date getQuestionTime()
+	public String getQuestionTime()
 	{
 		return questionTime;
 	}
-	public void setQuestionTime(Date questionTime)
+	public void setQuestionTime(String questionTime)
 	{
 		this.questionTime = questionTime;
 	}

@@ -13,7 +13,7 @@
 	<select id="getQuestionListByInput" parameterType="dto.question.SearchQuestionListInput" resultType="dto.question.ShowQuestion">
 		select questionHeader,state as questionStatus,context as questionContent,name as questionPersonName,pictureURL as questionPersonPicture,time as questionTime,question.id as questionID,(select count(*) from questionAnswer where questionAnswer.questionID=question.id) as questionAnswerCount
 		from question inner join user on user.id=question.userID
-		<if test="#{userID}!=null">
+		<if test="userID!=0">
 			where question.userID=#{userID}
 		</if>
 		order by time desc
@@ -33,9 +33,11 @@
 	</update>
 	
 	<select id="getQuestionDetailsByQuestionID" parameterType="string" resultType="dto.question.ShowQuestionDetail">
-		SELECT questionHeader,state AS questionStatus,question.context AS questionContent,user.name AS questionPersonName,user.pictureURL AS questionPersonPicture,question.time AS questionTime,question.id AS questionID,(SELECT COUNT(*) FROM questionAnswer WHERE questionAnswer.questionID=question.id) AS questionAnswerCount
-		, users.pictureURL AS questionAnswerPersonURL,users.name AS questionAnswerPersonName,questionAnswer.context AS questionAnswerContent,questionAnswer.time AS questionAnswerTime
-		FROM question INNER JOIN questionAnswer ON question.answerID =questionAnswer.id INNER JOIN USER AS users ON questionAnswer.userID=users.id INNER JOIN USER ON question.userID=user.id
+		SELECT questionHeader,state AS questionStatus,question.context AS questionContent,user.name AS questionPersonName,user.pictureURL AS questionPersonPicture,question.time AS questionTime,question.id AS questionID,
+		(SELECT COUNT(*) FROM questionAnswer WHERE questionAnswer.questionID=question.id) AS questionAnswerCount
+		, users.pictureURL AS questionAnswerPersonURL,users.name AS questionAnswerPersonName,
+		questionAnswer.context AS questionAnswerContent,questionAnswer.time AS questionAnswerTime		
+		FROM question LEFT JOIN questionAnswer ON question.answerID =questionAnswer.id LEFT JOIN USER AS users ON questionAnswer.userID=users.id INNER JOIN USER ON question.userID=user.id
 		WHERE question.id=#{_parameter}
 	</select>
 	

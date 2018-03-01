@@ -70,9 +70,24 @@ public class QuestionController
 	//用于提问的详细内容的请求
 	@RequestMapping("/getDetail")
 	@ResponseBody
-	public ShowQuestionDetail showQuestionDetails(@RequestBody String questionID)
+	public Map<String,Object> showQuestionDetails(@RequestBody Map<String,String> questionID)
 	{
-		return questionService.getQuestionDetails(questionID);
+		String id=questionID.get("questionID");
+		ShowQuestionDetail detail=questionService.getQuestionDetails(id);
+		Map<String,Object> result=new HashMap<String,Object>();
+		result.put("questionHeader", detail.getQuestionHeader());
+		result.put("questionStatus", detail.isQuestionStatus());
+		result.put("questionContent", detail.getQuestionContent());
+		result.put("questionPersonName", detail.getQuestionPersonName());
+		result.put("questionPersonPicture", detail.getQuestionPersonPicture());
+		result.put("questionTime", detail.getQuestionTime());
+		result.put("questionAnswerCount", detail.getQuestionAnswerCount());
+		result.put("questionID", detail.getQuestionID());
+		result.put("questionAnswerPersonURL",detail.getQuestionAnswerPersonURL());
+		result.put("questionAnswerPersonName",detail.getQuestionAnswerPersonName());
+		result.put("questionAnswerContent", detail.getQuestionAnswerContent());
+		result.put("questionAnswerTime", detail.getQuestionAnswerTime());
+		return result;
 	}
 	
 	

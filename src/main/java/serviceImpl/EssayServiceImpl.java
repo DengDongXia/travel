@@ -1,4 +1,5 @@
 package serviceImpl;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +58,6 @@ public class EssayServiceImpl implements EssayService
 	
 	public List<UserEssayResult> getEssayContentList(SearchEssayByUser input)
 	{
-		System.out.println(input==null);
 		return essays.getUserEssayResult(input);
 	}
 	
@@ -68,7 +68,9 @@ public class EssayServiceImpl implements EssayService
 
 	public boolean addEssay(domain.essay.Essay essay)
 	{
-		essay.setTime(new Date());
+		String time=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").format(new Date());
+		time=time.substring(0, time.length()-2);//用于省去末尾的毫秒的情况
+		essay.setTime(time);
 		return essays.addEssay(essay)==1;
 	}
 }
