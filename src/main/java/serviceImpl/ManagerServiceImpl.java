@@ -64,7 +64,7 @@ public class ManagerServiceImpl implements ManagerService
 	 */
 	private boolean checkUserValidateCode(UserLoginInput input,HttpSession session)
 	{
-		return input.getValidateCode().equals((String)session.getAttribute("validate"));
+		return input.getValidateCode().equalsIgnoreCase((String)session.getAttribute("validate"));
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class ManagerServiceImpl implements ManagerService
 		boolean updateResult=true;
 		try
 		{
-			update.setUserStatus(!update.isUserStatus());
+			/*update.setUserStatus(update.isUserStatus());*/
 			manager.updateUserMessage(update);
 			manager.updateUserAccount(update);
 		}

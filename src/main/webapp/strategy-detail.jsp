@@ -28,10 +28,6 @@
 					<ul id="top-menu">
 						<li><a class="scroll" href="index.jsp"><i class="fa fa-home"></i>首页</a></li>
 						<li><a href="strategy.jsp"><i class="fa fa-star"> </i> 特色定制</a></li>
-						<!-- <li><a href="personal.html"><i class="fa fa-meh-o"> </i>个人中心</a></li>
-						<li><a href="login.html"><i class="fa fa-meh-o"> </i>登录</a></li>
-						<li><a target="_blank" href="register.html"><i class="fa fa-plus"> </i>注册</a></li>
-						<div class="clearfix"></div> -->
 					</ul>
 				 </div>
 			</div>
@@ -62,7 +58,7 @@
 							<!-- <form > -->
 								<textarea id="strategy-text"
 								placeholder="提供你的攻略，也许正合小主的心意哦"></textarea>
-								<p><button id="offer">发表攻略</button></p>
+								<p><button id="offer">发表评论</button></p>
 							<!-- </form> -->
 						</div>
 					</div>

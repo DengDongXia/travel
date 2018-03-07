@@ -12,12 +12,12 @@ function getUser() {
 	})
 	.done(function(data) {
 		isLogin = data.isLogin;
-		if(data.isLogin == true ){
-			dealingUserData(data);
-			getData(1);	//获取第一页的数据
-		}else{
-			window.location.href = 'http://localhost:8080/travel/login.jsp';
-		}
+		dealingUserData(data);
+		getData(1);	//获取第一页的数据
+//		if(data.isLogin == true ){	
+//		}else{
+//			window.location.href = 'http://localhost:8080/travel/login.jsp';
+//		}
 	})
 	.fail(function() {
 		console.log("error");
@@ -40,27 +40,9 @@ function dealingUserData(data) {
 		userRole = data.content.userRole;   //1表示为管理员
 		userId = data.content.id;
 		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
-		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
+		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
-	$('#logout').click(function(event) {
-		$.ajax({
-			url: 'http://localhost:8080/travel/user/logout',
-			type: 'post',
-			dataType: 'json',
-			contentType:'application/json'
-		})
-		.done(function(data) {
-			// 后端跳转页面
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			// console.log("complete");
-		});
-		
-	});
 }
 
 // 自动调整文本框背景大小

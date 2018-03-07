@@ -32,7 +32,7 @@ function dealingUserData(data) {
 		$('#top-menu').append(login+register);
 	}else{
 		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
-		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
+		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
 	$('#logout').click(function(event) {

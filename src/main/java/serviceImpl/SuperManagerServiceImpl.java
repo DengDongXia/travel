@@ -183,16 +183,22 @@ public class SuperManagerServiceImpl implements SuperManagerService
 		return result;
 	}
 	
-	public Map<String,Boolean> updateManagerMessage(UpdateManagerInput input)
+	public Map<String,Boolean> updateManagerMessage(UpdateManagerInput input,HttpSession session)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
 		result.put("managerUpdateResult",true);
 		try
 		{
 			manager.updateManagerMessage(input);
+			User user=(User)session.getAttribute("user");
+			user.setEmail(input.getEmail());
+			user.setName(input.getName());
+			user.setPictureURL(input.getPictureURL());
+			user.setQuote(input.getQuote());
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			result.put("managerUpdateResult",false);
 		}
 		return result;

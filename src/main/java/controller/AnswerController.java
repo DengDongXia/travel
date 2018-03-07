@@ -35,11 +35,12 @@ public class AnswerController
 	
 	@RequestMapping("/show")
 	@ResponseBody
-	public Map<String,List<ShowAnswerResult>> getAnswerListByInput(@RequestBody ShowAnswerInput input)
+	public Map<String,Object> getAnswerListByInput(@RequestBody ShowAnswerInput input)
 	{
 		input.setStart();
-		Map<String,List<ShowAnswerResult>> result=new HashMap<String,List<ShowAnswerResult>>();
+		Map<String,Object> result=new HashMap<String,Object>();
 		result.put("content",answerService.getAnswerListByInput(input));
+		result.put("pageNumber", answerService.getAnswerListPageNumber(input));
 		return result;
 	}
 	

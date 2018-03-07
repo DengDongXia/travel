@@ -28,4 +28,9 @@ public class AnswerServiceImpl implements AnswerService
 		input.setTime(new Date());
 		return answer.addAnswer(input);
 	}
+
+	public int getAnswerListPageNumber(ShowAnswerInput input)
+	{
+		return answer.getAnswerListPageNumber(input);
+	}
 }

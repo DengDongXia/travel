@@ -27,7 +27,7 @@
 				<div class="top-menu">
 					<ul id="top-menu">
 						<li><a class="active" href="mainAdminPersonal.jsp"><i class="fa fa-meh-o"> </i>超级管理员中心</a></li>
-						<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>
+						<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>
 					</ul>
 				 </div>
 			</div>
@@ -63,8 +63,9 @@
 							<div class='custom-made-contents'><p><input type='type' id='condition' placeholder='请输入要搜素的管理员的编号或名称'><span id='searchUser'>确定<span></p>
 							<p class='info-title'><span class='number'>编号</span><span class='user-pic'>头像</span><span class='user-name'>昵称</span><span class='user-status'>状态</span><span class='func'>操作</span></p>
 								<ul id='user-info-bg'>
-									<li class='info-title'><span class='number'>编号</span><span class='user-pic'>头像</span><span class='user-name'>昵称</span><span class='user-status'>状态</span><span class='func'>操作</span></li>
-								</ul>
+									<!-- <li class='info-title'><span class='number'>编号</span><span class='user-pic'>头像</span><span class='user-name'>昵称</span><span class='user-status'>状态</span><span class='func'>操作</span></li>
+								 -->
+								 </ul>
 							</div>
 						</div>
 					</div>

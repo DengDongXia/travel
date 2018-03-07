@@ -27,4 +27,11 @@ public interface Answer
 	 */
 	public abstract boolean addAnswer(AddAnswer input);
 	
+	/**
+	 * 用于获取其相应的分页数
+	 * @param input 用户的输入对象
+	 * @return 其相应的分页数
+	 */
+	int getAnswerListPageNumber(ShowAnswerInput input);
+	
 }

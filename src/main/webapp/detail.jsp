@@ -44,7 +44,7 @@
 					<div class="img-bg" id="authorPicture">
 						<!-- <img src="images/banner4.jpg"> -->
 					</div>
-					<span>作者：</span><!-- <span>么么么哒</span> -->
+					<!-- <span>作者：</span> -->
 				</div>
 			</div>
 		</div>

@@ -4,20 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ManagerService;
-import service.PictureSubmit;
 import service.SuperManagerService;
-import util.picture.Picture;
 import dto.comment.ManagerComment;
 import dto.eassy.EssayUpdateInput;
 import dto.eassy.SearchEassyCondition;
@@ -54,9 +50,9 @@ public class ManagerController
 	
 	@RequestMapping("/update")
 	@ResponseBody
-	public Map<String,Boolean> updateManagerMessage(@RequestBody UpdateManagerInput input)
+	public Map<String,Boolean> updateManagerMessage(@RequestBody UpdateManagerInput input,HttpSession session)
 	{
-		return superManagerService.updateManagerMessage(input);
+		return superManagerService.updateManagerMessage(input,session);
 	}
 	
 	
@@ -67,11 +63,19 @@ public class ManagerController
 		String conditionString=condition.get("condition");
 		UserSearchResult user=managerService.getUserByCondition(conditionString);
 		Map<String,Object> result=new HashMap<String,Object>();
-		result.put("userID",user.getUserID());
-		result.put("userName",user.getUserName());
-		result.put("userStatus",user.isUserStatus());
-		result.put("userAccount",user.getUserAccount());
-		result.put("userPicture",user.getUserPicture());
+		if(user!=null)
+		{
+			result.put("userID",user.getUserID());
+			result.put("userName",user.getUserName());
+			result.put("userStatus",user.isUserStatus());
+			result.put("userAccount",user.getUserAccount());
+			result.put("userPicture",user.getUserPicture());
+			result.put("live",true);
+		}
+		else 
+		{
+			result.put("live", false);
+		}
 		return result;
 	}
 	
@@ -110,10 +114,11 @@ public class ManagerController
 	
 	@RequestMapping("/comment/delete")
 	@ResponseBody
-	public Map<String,Boolean> deleteCommentByManager(@RequestParam int commentID)
+	public Map<String,Boolean> deleteCommentByManager(@RequestBody Map<String,Integer> commentID)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("commentDeleteResult", managerService.deleteComment(commentID));
+		int id=commentID.get("commentID");
+		result.put("commentDeleteResult", managerService.deleteComment(id));
 		return result;
 	}
 }

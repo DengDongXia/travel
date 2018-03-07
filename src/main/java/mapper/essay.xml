@@ -40,10 +40,12 @@
 		select essay.pictureURL as essayPicture,essayHeader,context as essayContent,country as essayCountry,essay.id as essayID,name as essayPersonName,state as essayStatus,(select count(*) from essayComment where essayComment.essayID=essay.id) as commentCount
 		from essay inner join user on user.id=essay.userID
 		where userID=#{userID}
+		ORDER BY TIME DESC
+		limit #{start},#{showLimit}
 	</select>
 	
 	<update id="userUpdateEssay" parameterType="domain.essay.Essay" >
-		update essay set eassyHeader=#{eassyHeader},context=#{context},country=#{country} where userID=#{userID} and id=#{essayID}
+		update essay set pictureURL=#{pictureURL},essayHeader=#{essayHeader},context=#{context},country=#{country} where userID=#{userID} and id=#{essayID}
 	</update>
 	
 	<insert id="addEssay" parameterType="domain.essay.Essay" >

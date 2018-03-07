@@ -194,20 +194,26 @@ function search() {
 		}),
 	})
 	.done(function(data) {
+		$("#user-info-bg").children().remove();
+		$('#user-info-bg').append("<li class='info-title'><span class='number'>编号</span><span class='user-pic'>头像</span><span class='user-name'>昵称</span><span class='user-status'>状态</span><span class='mark'>积分</span><span class='func'>操作</span></li>");
+		if(data.live == false){
+			$("#user-info-bg").append("<li style='text-align:center;'>暂时没有查到数据</li>");
+			return;
+		}
 		var text = "<span class='number'>"+data.userID+"</span><span class='user-pic'><div class='img-bg' id='userPic'><img src='"+data.userPicture+"'></div></span>";
 		    text += "<span class='user-name'>"+data.userName+"</span>";
 		    if(data.userStatus == true){
-		    	text += "<span class='user-status'>正常</span>";
-		    }else{
 		    	text += "<span class='user-status'>冻结</span>";
+		    }else{
+		    	text += "<span class='user-status'>正常</span>";
 		    }
 		    text += "<span class='mark'>"+data.userAccount+"</span><span class='func'>";
 		    if(data.userStatus == true){
-		    	text += "<label id='chageStatus'>冻结账号</label>";
-		    }else{
 		    	text += "<label id='chageStatus'>解冻账号</label>";
+		    }else{
+		    	text += "<label id='chageStatus'>冻结账号</label>";
 		    }
-			text += "<label id='clear'>积分清零</label></span>";
+			/*text += "<label id='clear'>积分清零</label></span>";*/
 		$("#user-info-bg").append("<li>"+text+"</li>");
 		// 给操作的两个按钮绑定事件
 		$('#chageStatus').click(function(event) {
@@ -287,38 +293,43 @@ $('#changeData').click(function(event) {
 	//获取用户的资料，并填写到表单中
 	$('#email').val(email);
 	$('#username').val(name);
-	$('#quote').val(quote);
+	$('#chageQuote').val(quote);
 });
 
 //点击修改按钮时，即提交修改的资料时
 $('#changeUserData').click(function(event) {
-	if($('#email').val() == ''  || $('#username').val() == '' || $('#quote').val(quote) == ''){
+	if($('#email').val() == ''  || $('#username').val() == '' || $('#chageQuote').val() == ''){
 		alert("请将表单填写完整再提交");
 		return;
+	}else{
+		if($('#chageUserPic').val() == ''){
+			submitForm(pic);   //提交表单
+		}else{
+			// 上传图片模块
+			$.ajaxFileUpload({
+					url: 'http://localhost:8080/travel/picture/submit', //用于文件上传的服务器端请求地址
+					secureuri: false, //是否需要安全协议，一般设置为false
+					fileElementId: 'chageUserPic', //文件上传域的ID
+					dataType: 'json', //返回值类型 一般设置为json
+					contentType:'application/json',
+					data: JSON.stringify({
+						"picture": $('#userPic').attr('name'),
+					}),
+					success: function (data, status)  //服务器成功响应处理函数
+					{
+						if(data.saveResult == true){
+							submitForm(data.pictureURL);   //提交表单
+						}else{
+							submitForm(pic);   //提交表单
+						}
+					},
+					error: function (data, status, e)//服务器响应失败处理函数
+					{
+						alert("图片上传失败，表单无法成功提交");
+					}
+				});
+		}
 	}
-	// 上传图片模块
-	$.ajaxFileUpload({
-			url: 'http://localhost:8080/trave/manager/picture/submit?managerID='+userId, //用于文件上传的服务器端请求地址
-			secureuri: false, //是否需要安全协议，一般设置为false
-			fileElementId: 'userPic', //文件上传域的ID
-			dataType: 'json', //返回值类型 一般设置为json
-			contentType:'application/json',
-			data: JSON.stringify({
-				"picture": $('#userPic').attr('name'),
-			}),
-			success: function (data, status)  //服务器成功响应处理函数
-			{
-				if(data.saveResult == true){
-					submitForm(data.pictureURL);   //提交表单
-				}else{
-					submitForm(data.pictureURL);   //提交表单
-				}
-			},
-			error: function (data, status, e)//服务器响应失败处理函数
-			{
-				alert("图片上传失败，表单无法成功提交");
-			}
-		});
 });
 
 // 修改数据传到后台
@@ -333,7 +344,7 @@ function submitForm(path) {
 				"managerID":userId,
 				"email":$('#email').val(),
 				"name": $('#username').val(),
-				"quote":$('#quote').val(),
+				"quote":$('#chageQuote').val(),
 				"pictureURL": path
 			}),
 		})
@@ -357,22 +368,3 @@ function submitForm(path) {
 }
 /*修改个人资料部分*/
 
-/*点击注销按钮，触发注销事件*/
-$('#logout').click(function(event) {
-	$.ajax({
-			url: 'http://localhost:8080/travel/user/logout',
-			type: 'post',
-			dataType: 'json',
-			contentType:'application/json',
-		})
-		.done(function(data) {
-			// 页面后端跳转
-		})
-		.fail(function(data) {
-			alert("注销失败");
-		})
-		.always(function() {
-			// console.log("complete");
-		});
-});
-/*点击注销按钮，触发注销事件*/

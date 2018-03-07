@@ -1,4 +1,8 @@
 /*登录部分*/
+$().ready(function() {
+	getPicCode();
+});
+
 	// 登录异步获取图片验证码
 	$('#getPicVerification').click(function(){
 		getPicCode();

@@ -68,7 +68,7 @@
 			<div class="col-md-10">
 				<ul class="tip-bg">
 					<!-- 注释部分应由ajax请求获取 -->
-					<li class="tip-content">
+					<!-- <li class="tip-content">
 						<a href="detail.html">
 							<div class="tip">
 								<span class='authen'>已认证</span>
@@ -88,7 +88,7 @@
 							</div>
 							<div class="otherInfo"><span>地区：法国巴黎</span><span>来自：么么哒</span><span>评论数：20</span></div>
 						</a>
-					</li>
+					</li> -->
 					
 				</ul>
 			</div>

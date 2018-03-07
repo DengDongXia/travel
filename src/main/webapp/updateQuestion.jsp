@@ -28,7 +28,7 @@
 						<li><a class="scroll" href="index.jsp"><i class="fa fa-home"></i>首页</a></li>
 						<li><a href="strategy.jsp"><i class="fa fa-star"> </i> 特色定制</a></li>
 						<li><a href="personal.jsp"><i class="fa fa-meh-o"> </i>个人中心</a></li>
-						<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>
+						<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>
 					</ul>
 				 </div>
 			</div>

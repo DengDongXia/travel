@@ -8,7 +8,13 @@
 		where questionAnswer.questionID=#{questionID}
 		limit #{start},#{showLimit}
 	</select>
-
+	
+	<select id="getAnswerListPageNumber"  parameterType="dto.answer.ShowAnswerInput" resultType="_int">
+		select CEIL(count(*)/#{showLimit})
+		from questionAnswer inner join user on user.id=questionAnswer.userID
+		where questionAnswer.questionID=#{questionID}
+	</select>
+	
 	<insert id="addAnswer" parameterType="dto.answer.AddAnswer">
 		insert into questionAnswer values(null,#{userID},#{questionID},#{time},#{context})
 	</insert>

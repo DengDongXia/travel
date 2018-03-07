@@ -6,7 +6,7 @@ $().ready(function() {
 var isLogin; //记录用户的登录状态
 function getUser(argument) {
 	$.ajax({
-		// url: 'data/isLogin.json',
+		// url: 'data/isLogin.jso	',
 		url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
@@ -14,13 +14,16 @@ function getUser(argument) {
 	})
 	.done(function(data) {
 		isLogin = data.isLogin;
-		if(data.isLogin == true ){
+		dealingUserData(data);
+		getEssay();    //获取文章详情
+		getComments(1);  //获取该文章的评论
+		/*if(data.isLogin == true ){
 			dealingUserData(data);
 			getEssay();    //获取文章详情
 			getComments(1);  //获取该文章的评论
 		}else{
 			window.location.href = 'http://localhost:8080/travel/login.jsp';
-		}
+		}*/
 	})
 	.fail(function() {
 		console.log("error");
@@ -43,27 +46,9 @@ function dealingUserData(data) {
 		userRole = data.content.userRole;   //1表示为管理员
 		userId = data.content.id;
 		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
-		personal += "<li id='logout'><a href=''><i class='fa fa-sign-out'> </i>注销</a></li>";
+		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
-	$('#logout').click(function(event) {
-		$.ajax({
-			url: 'http://localhost:8080/travel/user/logout',
-			type: 'post',
-			dataType: 'json',
-			contentType:'application/json'
-		})
-		.done(function(data) {
-			// 后端跳转页面
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			// console.log("complete");
-		});
-		
-	});
 }
 
 // 页面加载后进行异步请求文章数据
@@ -104,7 +89,7 @@ function dealingEssayData(data) {
 	// 插入文章作者信息
 	$("#authorPicture").append("<img src='"+data.personPictureURL+"'>");
 	// $("#authorPicture").parent().append("<span>"+data.eassayPersonName+"</span>");
-	$("#authorPicture").parent().append("<span>么么哒（缺接口）</span>");
+//	$("#authorPicture").parent().append("<span>么么哒（缺接口）</span>");
 	// 插入文章具体信息
 	$("#eassayTag").append("<span class='tag'>"+data.country+"</span><span>"+data.time+"</span>");
 	// 当文章已进行认证时
@@ -178,7 +163,7 @@ function deleteComment(obj,commentId) {
 	$.ajax({
 		// url: 'data/deleteComment.json',
 		url: 'http://localhost:8080/travel/manager/comment/delete',
-		type: 'get',
+		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
 		data: JSON.stringify({
@@ -251,46 +236,50 @@ function accussComment(obj,commentId){
 // 评论输入框获得焦点后，触发一下函数
 $('#comment-input').focus(function(event) {
 	if(isLogin == false){
+		$('#comment-input').blur();
+		alert("请先登录再进行评论");
 		window.location.href = "http://localhost:8080/travel/login.jsp";
-	}else{
-		$("#send").click(function() {
-/*			// 获取当前评论时间
-			var myDate = new Date();
-			//获取当前年
-			var year=myDate.getFullYear();
-			//获取当前月
-			var month=myDate.getMonth()+1;
-			//获取当前日
-			var date=myDate.getDate(); */
-			$.ajax({
-				// url: 'data/deleteComment.json',
-				url: 'http://localhost:8080/travel/comments/add',
-				type: 'post',
-				dataType: 'json',
-				contentType:'application/json',
-				data: JSON.stringify({
-					"userID":userId,
-					"essayID":getUrlEssayId('essayId'),
-					"context": $("#comment-input").val(),
-/*					"time":year+":"+month+":"+date,*/
-				}),
-			})
-			.done(function(data) {
-				if(data.commentsResult == true){
-					alert("评论成功");
-				}else{
-					alert("评论失败");
-				}
-			})
-			.fail(function() {
-				console.log("error");
-			})
-			.always(function() {
-				console.log("complete");
-			});
-		});
 	}
 });
 
+//点击提交评论按钮
+$("#send").click(function() {
+	/*			// 获取当前评论时间
+				var myDate = new Date();
+				//获取当前年
+				var year=myDate.getFullYear();
+				//获取当前月
+				var month=myDate.getMonth()+1;
+				//获取当前日
+				var date=myDate.getDate(); */
+				$.ajax({
+					// url: 'data/deleteComment.json',
+					url: 'http://localhost:8080/travel/comments/add',
+					type: 'post',
+					dataType: 'json',
+					contentType:'application/json',
+					data: JSON.stringify({
+						"userID":userId,
+						"essayID":getUrlEssayId('essayId'),
+						"context": $("#comment-input").val(),
+	/*					"time":year+":"+month+":"+date,*/
+					}),
+				})
+				.done(function(data) {
+					if(data.commentsResult == true){
+						alert("评论成功");
+						$('#comment-input').val('');  //设置文本框为空
+						getComments(1);
+					}else{
+						alert("评论失败");
+					}
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+			});
 
 

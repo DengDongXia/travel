@@ -37,7 +37,7 @@ function getAuthorData() {
 function getUserData(id) {
 	$.ajax({
 		// url: 'data/isLogin.json',
-		url: 'http://localhost:8080/travel/manager/user/seacher',
+		url: 'http://localhost:8080/travel/user/isLogin',
 		type: 'post',
 		dataType: 'json',
 		contentType:'application/json',
@@ -47,7 +47,7 @@ function getUserData(id) {
 	})
 	.done(function(data) {
 			$("#userPic").append("<img src='"+data.content.pictureURL+"'>");
-			$("#userInfo").append("<p class='name'><label>昵称：</label>"+data.content.name+"</p><p class='integral'><label>积分：</label><span>"+data.content.account+"</span></p>");
+			$("#userInfo").append("<p class='name'><label>昵称：</label>"+data.content.name+"</p></p>");
 			$("#userInfo").append("<p class='integral'><label>个性签名：</label>"+data.content.quote+"</p>");
 	})
 	.fail(function() {
@@ -98,7 +98,7 @@ function getEssay(nowPage) {
 		$.each(data.content, function(index, val) {
 			 var link = "<a href='detail.jsp?essayId="+val.essayID+"'>";
 			 var text = link+"<div class='content'><h4>"+val.essayHeader+"</h4><p><span class='tag'>"+val.essayCountry+"</span><span>来自 "+val.essayPersonName+"</span></p></div></a>";
-			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='write-strategy.jsp?essayId="+val.essayID+"'><span class='edit'>编辑</span></a></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
+			 var other = "<div class='about'><p><span class='delete' id='delete'>删除</span><a target='_blank' href='updateStrategy.jsp?essayId="+val.essayID+"'><span class='edit'>编辑</span></a></p><p>评论数: <span>"+val.commentCount+"</span></p></div>";
 			 $("#list-bg").append("<li>"+text+other+"</li>");
 		});
 		// 当点击删除按钮时，触发删除事件,将要删除的列表的id传回后台
@@ -106,7 +106,6 @@ function getEssay(nowPage) {
 			deleteEssayObj($(this));
 		});	
 		// 增加按钮
-		if(data.content.length > 5){
 			$('#pageButton').remove();  
 			var button = "<p id='pageButton'><span id='firstPage'>首页</span><span id='lastPage'>上一页</span><span id='nextPage'>下一页</span><span id='endPage'>尾页</span>共"+data.pageNumber+"页<p>";
 			 $("#list-bg").append(button);
@@ -130,7 +129,6 @@ function getEssay(nowPage) {
 				}
 				getEssay(nowEssayPage);
 			});
-		}
 	})
 	.fail(function() {
 		console.log("error");
@@ -158,6 +156,8 @@ function deleteEssayObj(obj) {
 		// 判断是否删除成功，如若成功则删除对应的文章
 		if(data.essayDeleteResult == true){
 			obj.parent().parent().parent().remove();
+			//重新请求个人文章
+			getEssay(1);
 		}else{
 			alert("删除失败");
 		}
@@ -222,7 +222,6 @@ function getQuestion(nowPage) {
 		});*/
 
 		// 增加按钮
-		if(data.content.length > 5){
 			$('#pageButton').remove();  
 			var button = "<p id='pageButton'><span id='firstPage'>首页</span><span id='lastPage'>上一页</span><span id='nextPage'>下一页</span><span id='endPage'>尾页</span>共"+data.pageNumber+"页<p>";
 			 $("#list-bg").append(button);
@@ -241,12 +240,11 @@ function getQuestion(nowPage) {
 				else if($(this).is('#firstPage')){
 					nowQuestionPage = 1;
 				}
-				else{
+				else{	
 					nowQuestionPage = data.pageNumber;
 				}
 				getQuestion(nowQuestionPage);
 			});
-		}
 	})
 	.fail(function() {
 		console.log("error");
@@ -274,6 +272,8 @@ function deleteQuestionObj(obj) {
 		// 判断是否删除成功，如若成功则删除对应的文章
 		if(data.questionDeleteResult == true){
 			obj.parent().parent().parent().remove();
+			//重新请求特色定制
+			getQuestion(1);
 		}else{
 			alert("删除失败");
 		}
@@ -359,36 +359,40 @@ $('#changeData').click(function(event) {
 
 //点击修改按钮时
 $('#changeUserData').click(function(event) {
-	if($('#username').val() == '' || $('#quote').val(quote) == ''){
+	if($('#username').val() == '' || $('#quote').val() == ''){
 		alert("请将表单填写完整再提交");
 		return;
 	}
-	// 上传图片模块
-	$.ajaxFileUpload({
-			url: 'http://localhost:8080/travel/picture/submit', //用于文件上传的服务器端请求地址
-			secureuri: false, //是否需要安全协议，一般设置为false
-			fileElementId: 'userPic', //文件上传域的ID
-			dataType: 'json', //返回值类型 一般设置为json
-			contentType:'application/json',
-			data: JSON.stringify({
-				"picture": $('#userPic').attr('name'),
-			}),
-			success: function (data, status)  //服务器成功响应处理函数
-			{
-				if(data.saveResult == true){
-					submitForm(data.pictureURL);   //提交表单
-				}else{
-					submitForm(data.pictureURL);   //提交表单
+	if($('#pic').val() == ''){
+		submitForm(pic);   //提交表单
+	}else{
+		// 上传图片模块
+		$.ajaxFileUpload({
+				url: 'http://localhost:8080/travel/picture/submit', //用于文件上传的服务器端请求地址
+				secureuri: false, //是否需要安全协议，一般设置为false
+				fileElementId: 'pic', //文件上传域的ID
+				dataType: 'json', //返回值类型 一般设置为json
+				contentType:'application/json',
+				data: JSON.stringify({
+					"picture": $('#pic').attr('name'),
+				}),
+				success: function (data, status)  //服务器成功响应处理函数
+				{
+					if(data.saveResult == true){
+						submitForm(data.pictureURL);   //提交表单
+					}else{
+						submitForm(data.pictureURL);   //提交表单
+					}
+				},
+				error: function (data, status, e)//服务器响应失败处理函数
+				{
+					alert("图片上传失败，表单无法成功提交");
 				}
-			},
-			error: function (data, status, e)//服务器响应失败处理函数
-			{
-				alert("图片上传失败，表单无法成功提交");
-			}
-		});
+			});
+	}
 });
 
-function submitForm(path) {
+function submitForm(pic) {
 	// 将数据传到后台
 	$.ajax({
 			url: 'http://localhost:8080/travel/user/updatePersonMessage',
@@ -396,10 +400,10 @@ function submitForm(path) {
 			dataType: 'json',
 			contentType:'application/json',
 			data: JSON.stringify({
-				"userID":userId,
+				"userId":userId,
 				"name": $('#username').val(),
 				"quote":$('#quote').val(),
-				"pictureURL": path
+				"pictureURL": pic
 			}),
 		})
 		.done(function(data) {
@@ -423,7 +427,7 @@ function submitForm(path) {
 /*修改个人资料部分*/
 
 /*点击注销按钮，触发注销事件*/
-$('#logout').click(function(event) {
+/*$('#logout').click(function(event) {
 	$.ajax({
 			url: 'http://localhost:8080/travel/user/logout',
 			type: 'post',
@@ -439,5 +443,5 @@ $('#logout').click(function(event) {
 		.always(function() {
 			// console.log("complete");
 		});
-});
+});*/
 /*点击注销按钮，触发注销事件*/

@@ -169,7 +169,7 @@ function submitForm() {
 /*添加管理员部分*/
 
 /*点击注销按钮，触发注销事件*/
-$('#logout').click(function(event) {
+/*$('#logout').click(function(event) {
 	$.ajax({
 			url: 'http://localhost:8080/travel/user/logout',
 			type: 'post',
@@ -185,5 +185,5 @@ $('#logout').click(function(event) {
 		.always(function() {
 			// console.log("complete");
 		});
-});
+});*/
 /*点击注销按钮，触发注销事件*/

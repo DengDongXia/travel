@@ -10,15 +10,15 @@
 	</update>
 	
 	<update id="updateManagerMessage" parameterType="dto.manager.UpdateManagerInput">
-		update user set email=#{email},name=#{name},quote=#{quote},pictureURL=#{pictureURL} where managerID=#{managerID}
+		update user set email=#{email},name=#{name},quote=#{quote},pictureURL=#{pictureURL} where id=#{managerID}
 	</update>
 	
-	<select id="getUserByCondition" parameterType="string" resultType="dto.manager.UserSearchResult">
-		select id as userID,name as userName,locked as userStates,pictureURL as userPicture,account as userAccount from account inner join user on account.userID=user.id
+	<select id="getUserByCondition" parameterType="string" resultType="dto.manager.UserSearchResult" useCache="false" flushCache="true">
+		select id as userID,name as userName,locked as userStatus,pictureURL as userPicture,account as userAccount from account inner join user on account.userID=user.id
 		where user.id=#{_parameter} or user.email=#{_parameter} or user.name=#{_parameter}
 	</select>
 	
-	<update id="updateUserMessage" parameterType="dto.manager.UserSearchResult">
+	<update id="updateUserMessage" parameterType="dto.manager.UserSearchResult" >
 		update user set name=#{userName},locked=#{userStatus}  where user.id=#{userID}
 	</update>
 	

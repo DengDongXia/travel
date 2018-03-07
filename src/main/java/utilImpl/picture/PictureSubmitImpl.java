@@ -55,15 +55,9 @@ public class PictureSubmitImpl implements PictureSubmit
 	{
 		String randomString = String.valueOf(((int)(Math.random()*1000)));
 		String hashString=null;
-		try
-		{
-			hashString = Base64.encodeBase64String(((MessageDigest.getInstance("MD5").digest(picture.getData()))));
-			hashString=hashString.substring(10);
-		}
-		catch (NoSuchAlgorithmException e)
-		{
-			e.printStackTrace();
-		}
+		/*hashString = Base64.encodeBase64String(((MessageDigest.getInstance("MD5").digest(picture.getData()))));
+		hashString=hashString.substring(10);*/
+		hashString=String.valueOf(System.currentTimeMillis());
 		String result=hashString+randomString;
 		return result;
 	}

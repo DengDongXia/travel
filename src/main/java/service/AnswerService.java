@@ -27,5 +27,11 @@ public interface AnswerService
 	 */
 	public abstract boolean addAnswerByInput(AddAnswer input);
 
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
+	int getAnswerListPageNumber(ShowAnswerInput input);
 
 }

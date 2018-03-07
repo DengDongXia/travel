@@ -50,7 +50,7 @@ public interface SuperManagerService
 	 * @param input 管理员信息修改的相关数据对象
 	 * @return 修改的结果
 	 */
-	public abstract Map<String,Boolean> updateManagerMessage(UpdateManagerInput input);
+	public abstract Map<String,Boolean> updateManagerMessage(UpdateManagerInput input,HttpSession session);
 	
 	
 	

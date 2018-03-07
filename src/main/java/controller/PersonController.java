@@ -32,9 +32,11 @@ public class PersonController
 	
 	@RequestMapping("/question")
 	@ResponseBody
-	public Map<String,List<ShowQuestion>> getQuestionListByInput(@RequestBody SearchQuestionListInput input)
+	public Map<String,Object> getQuestionListByInput(@RequestBody SearchQuestionListInput input)
 	{
-		Map<String,List<ShowQuestion>> result =new HashMap<String,List<ShowQuestion>>();
+		Map<String,Object> result =new HashMap<String,Object>();
+		input.setStart();
+		result.put("pageNumber", questionService.getPageNumber(input));
 		result.put("content", questionService.getQuestionList(input));
 		return result;
 	}
@@ -44,6 +46,7 @@ public class PersonController
 	public Map<String,Object> showEssayByUser(@RequestBody SearchEssayByUser input)
 	{
 		Map<String,Object> result =new HashMap<String,Object>();
+		System.out.println(input.getShowLimit());
 		input.setStart();
 		result.put("content",essayService.getEssayContentList(input));
 		result.put("pageNumber",essayService.getPageNumbers(input));

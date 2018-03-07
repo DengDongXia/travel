@@ -95,10 +95,18 @@ public class UserController
 	
 	@RequestMapping("/updatePersonMessage")
 	@ResponseBody
-	public Map<String,Boolean> updatePersonMessage(@RequestBody UpdateUserMessageInput input)
+	public Map<String,Boolean> updatePersonMessage(@RequestBody UpdateUserMessageInput input,HttpSession session)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("updateResult", updateMessageService.updateUserMessage(input));
+		User user=(User)session.getAttribute("user");
+		boolean updateResult=updateMessageService.updateUserMessage(input);
+		if(updateResult)
+		{
+			user.setName(input.getName());
+			user.setQuote(input.getQuote());
+			user.setPictureURL(input.getPictureURL());
+		}
+		result.put("updateResult",updateResult);
 		return result;
 	}
 	
