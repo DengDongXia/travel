@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import service.ManagerService;
 import util.password.PasswordSecurity;
 import dao.manager.Managers;
+import domain.complain.Complain;
 import domain.user.User;
+import dto.comment.CommentComplainSearchInput;
 import dto.comment.ManagerComment;
 import dto.eassy.EssayUpdateInput;
 import dto.eassy.ManagerEssay;
@@ -145,14 +147,27 @@ public class ManagerServiceImpl implements ManagerService
 		return manager.updateEssayByManager(essayInput);
 	}
 	
-	public ManagerComment getCommentByCommentID(int commentID)
+	public List<ManagerComment> getCommentByCommentID(CommentComplainSearchInput commentInput)
 	{
-		return manager.getCommentByCommentID(commentID);
+		return manager.getCommentByCommentID(commentInput);
 	}
 	
 	public boolean deleteComment(int commentID)
 	{
-		return manager.deleteComment(commentID);
+		boolean result=manager.deleteComment(commentID);
+		if(result)
+				manager.updateComplainState(commentID);//用于更新其相应的审核状态
+		return result;
+	}
+
+	public int getComplainPageNumber(CommentComplainSearchInput commentInput)
+	{
+		return manager.getComplainPageNumber(commentInput);
+	}
+
+	public boolean saveComplain(int commentID)
+	{
+		return manager.updateComplainState(commentID);
 	}
 	
 }

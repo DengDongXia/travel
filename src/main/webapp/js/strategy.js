@@ -31,7 +31,12 @@ function dealingUserData(data) {
 		var register = "<li><a target='_blank' href='http://localhost:8080/travel/register.jsp'><i class='fa fa-plus'> </i>注册</a></li>";
 		$('#top-menu').append(login+register);
 	}else{
-		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		var personal;
+		if(data.content.userRole==1){
+			personal = "<li><a href='adminPersonal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}else{
+		    personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}
 		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}

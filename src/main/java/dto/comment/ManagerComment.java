@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class ManagerComment
 {
-	private int id;//评论的ID
+	/*private int id;//评论的ID
 	private int userID;//评论的用户ID
 	private String userName;//评论的用户昵称
 	private String userPicture;//评论的用户的图像
@@ -62,5 +62,41 @@ public class ManagerComment
 	public void setTime(Date time)
 	{
 		this.time = time;
+	}*/
+	private String essayHeader;//文章的标题
+	private String commentContext;//评论的内容
+	private int essayID;//文章的ID
+	private int commentId;//评论的ID
+	public String getEssayHeader()
+	{
+		return essayHeader;
+	}
+	public void setEssayHeader(String essayHeader)
+	{
+		this.essayHeader = essayHeader;
+	}
+	public String getCommentContext()
+	{
+		return commentContext;
+	}
+	public void setCommentContext(String commentContext)
+	{
+		this.commentContext = commentContext;
+	}
+	public int getEssayID()
+	{
+		return essayID;
+	}
+	public void setEssayID(int essayID)
+	{
+		this.essayID = essayID;
+	}
+	public int getCommentId()
+	{
+		return commentId;
+	}
+	public void setCommentId(int commentId)
+	{
+		this.commentId = commentId;
 	}
 }

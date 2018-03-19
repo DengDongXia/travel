@@ -45,7 +45,13 @@ function dealingUserData(data) {
 	}else{
 		userRole = data.content.userRole;   //1表示为管理员
 		userId = data.content.id;
-		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		var personal;
+		if(data.content.userRole==1){
+			personal = "<li><a href='adminPersonal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}else{
+		    personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}
+//		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
 		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}
@@ -138,8 +144,8 @@ function dealingCommentData(data) {
 		if(userRole == 1){
 			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='delete'>删除</span><span class='date'>"+val.commentDate+"<span></p>";
 		}else if(userRole == 3){
-			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='date'>"+val.commentDate+"<span></p>";
-			// text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='tip'>举报</span><span class='date'>"+val.commentDate+"<span></p>";
+			// text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='date'>"+val.commentDate+"<span></p>";
+			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='tip'>举报</span><span class='date'>"+val.commentDate+"<span></p>";
 		}	
 		$("#comments").append("<li>"+text+"</li>");
 	});
@@ -151,10 +157,10 @@ function dealingCommentData(data) {
 		deleteComment($(this),commentId); //删除该评论
 	});
 	// 给举报键绑定举报事件
-	/*$('.tip').click(function(event) {
+	$('.tip').click(function(event) {
 		var commentId = $(this).parents('li').find('#commentID').text();   //获取该评论id号
 		accussComment($(this),commentId);  //举报该评论
-	});*/
+	});
 	
 }
 
@@ -204,12 +210,12 @@ $('#getCommentButton').find('span').click(function(event) {
 	getComments(nowPage);
 });
 
- /*//举报该评论
+ //举报该评论
 function accussComment(obj,commentId){
 	$.ajax({
-		url: 'data/deleteComment.json',
-		// url: 'http://localhost:8080/travel/manager/comment/delete',
-		type: 'get',
+//		url: 'data/deleteComment.json',
+		 url: 'http://localhost:8080/travel/comments/complain',
+		type: 'POST',
 		dataType: 'json',
 		contentType:'application/json',
 		data: JSON.stringify({
@@ -218,9 +224,10 @@ function accussComment(obj,commentId){
 	})
 	.done(function(data) {
 		if(data.complainResult == true){
-			obj.parents('li').remove();  //移除这条评论
+			alert("举报成功");
+//			obj.parents('li').remove();  //移除这条评论
 		}else{
-			alert("删除失败");
+			alert("举报失败");
 		}
 	})
 	.fail(function() {
@@ -229,7 +236,7 @@ function accussComment(obj,commentId){
 	.always(function() {
 		console.log("complete");
 	});
-}*/
+}
 
 /*以上为评论部分内容*/
 

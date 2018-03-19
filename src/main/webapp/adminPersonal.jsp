@@ -73,6 +73,7 @@
 						<h5>所有功能</h5>
 						<p id="strategy" class="choose">文章管理</p>
 						<p id="my-question">用户管理</p>
+						<p id="accuseComment">被举报评论管理</p>
 					</div>
 					<div class="col-md-10 list-content" id="list-content">
 						<!-- 文章管理部分内容 -->

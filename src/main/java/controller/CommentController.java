@@ -3,20 +3,15 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Part;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.CommentService;
-import service.PictureSubmit;
-import util.picture.Picture;
 import domain.comment.Comment;
+import dto.comment.CommentComplain;
 import dto.comment.SearchCommentListInput;
 /**
  * 用于评论相关的控制器
@@ -32,7 +27,7 @@ public class CommentController
 	
 	@RequestMapping("/complain")
 	@ResponseBody
-	public Map<String,Boolean> personComplainComment(@RequestBody Comment input)
+	public Map<String,Boolean> personComplainComment(@RequestBody CommentComplain input)
 	{
 		return commentService.userComplain(input);
 	}

@@ -39,7 +39,13 @@ function dealingUserData(data) {
 	}else{
 		userRole = data.content.userRole;   //1表示为管理员
 		userId = data.content.id;
-		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		var personal;
+		if(data.content.userRole==1){
+			personal = "<li><a href='adminPersonal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}else{
+		    personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
+		}
+//		var personal = "<li><a href='personal.jsp'><i class='fa fa-meh-o'> </i>"+data.content.name+"</a></li>";
 		personal += "<li id='logout'><a href='http://localhost:8080/travel/user/logout'><i class='fa fa-sign-out'> </i>注销</a></li>";
 		$('#top-menu').append(personal);
 	}

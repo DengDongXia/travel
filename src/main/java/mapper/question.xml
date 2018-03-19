@@ -41,4 +41,14 @@
 		WHERE question.id=#{_parameter}
 	</select>
 	
+	<select id="getQuestionPersonId" parameterType="_int" resultType="_int">
+		SELECT userID
+		FROM question
+		WHERE id=#{_parameter}	
+	</select>
+	
+	<update id="setAnswer" parameterType="dto.answer.QuestionAnswerInput">
+		update question set answerID=#{commentId},state=true where id=#{questionID}
+	</update>
+	
 </mapper>

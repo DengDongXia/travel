@@ -2,6 +2,7 @@ package dao.comment;
 
 import java.util.List;
 
+import dto.comment.CommentComplain;
 import dto.comment.SearchCommentListInput;
 import dto.comment.UserCommentResult;
 
@@ -18,7 +19,7 @@ public interface Comment
 	 * @param input 用户举报某条评论的输入对象
 	 * @return 执行的结果
 	 */
-	public abstract boolean userComplain(domain.comment.Comment input);
+	public abstract boolean userComplain(CommentComplain input);
 
 	/**
 	 * 用户相关文章的查找列表的分页数目
@@ -40,4 +41,11 @@ public interface Comment
 	 * @return 新增的结果
 	 */
 	public abstract boolean addEssayComment(domain.comment.Comment input);
+	
+	/**
+	 * 用于判断举报情况是否已经存在,并进行过相应的审核
+	 * 避免管理员重复审核同一评论和数据库中插入同一举报内容的情况存在
+	 * @Param 用户的举报的输入情况
+	 */
+	public abstract boolean isExistComplain(CommentComplain input);
 }

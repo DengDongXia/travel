@@ -2,7 +2,9 @@ package dao.manager;
 
 import java.util.List;
 
+import domain.complain.Complain;
 import domain.user.User;
+import dto.comment.CommentComplainSearchInput;
 import dto.comment.ManagerComment;
 import dto.eassy.EssayUpdateInput;
 import dto.eassy.ManagerEssay;
@@ -85,7 +87,7 @@ public interface Managers
 	 * @param commentID 评论的ID
 	 * @return 评论的相关内容
 	 */
-	public abstract ManagerComment getCommentByCommentID(int commentID);
+	public abstract List<ManagerComment> getCommentByCommentID(CommentComplainSearchInput commentInput);
 	
 	/**
 	 * 用于管理员根据评论的ID删除相应的信息
@@ -93,4 +95,17 @@ public interface Managers
 	 * @return 删除的结果
 	 */
 	public abstract boolean deleteComment(int commentID);
+	
+	/**
+	 * 用于设置其相关的举报的管理员审核情况
+	 * @param complain 管理员的审核的情况的封装对象
+	 */
+	public abstract boolean updateComplainState(int commentID);
+	
+	/**
+	 * 用于获取其评论的相关的可显示的页面的数目
+	 * @param commentInput 评论的输入情况
+	 * @return 可显示的页面数目
+	 */
+	int getComplainPageNumber(CommentComplainSearchInput commentInput);
 }

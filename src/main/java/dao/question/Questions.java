@@ -3,6 +3,7 @@ package dao.question;
 import java.util.List;
 
 import domain.question.Question;
+import dto.answer.QuestionAnswerInput;
 import dto.question.DeleteQuestionInput;
 import dto.question.SearchQuestionListInput;
 import dto.question.ShowQuestion;
@@ -65,5 +66,19 @@ public interface Questions
 	 * @return 提问的详细内容
 	 */
 	public abstract ShowQuestionDetail getQuestionDetailsByQuestionID(String questionID);
+	
+	/**
+	 * 用于获取其文章发布人的用户的ID
+	 * @param questionID 文章的ID
+	 * @return 用户发布人的ID
+	 */
+	int getQuestionPersonId(int questionID);
+	
+	/**
+	 * 用于设置用户相关的提问的回答
+	 * @param input 采纳的回答的输入对象
+	 * @return 其相应的设置的结果
+	 */
+	public boolean setAnswer(QuestionAnswerInput input);
 	
 }

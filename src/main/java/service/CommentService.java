@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import domain.comment.Comment;
+import dto.comment.CommentComplain;
 import dto.comment.SearchCommentListInput;
 import dto.comment.UserCommentResult;
 
@@ -19,7 +20,7 @@ public interface CommentService
 	 * @param input 用户举报的输入对象
 	 * @return 举报的结果
 	 */
-	public abstract Map<String,Boolean> userComplain(Comment input);
+	public abstract Map<String,Boolean> userComplain(CommentComplain input);
 	
 	/**
 	 * 根据输入的条件，查找其文章相关的评论的分页数目

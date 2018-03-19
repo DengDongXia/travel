@@ -3,6 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.QuestionService;
 import domain.question.Question;
+import dto.answer.QuestionAnswerInput;
 import dto.question.DeleteQuestionInput;
 import dto.question.SearchQuestionListInput;
 import dto.question.ShowQuestionDetail;
@@ -90,7 +93,23 @@ public class QuestionController
 		return result;
 	}
 	
+	@RequestMapping("/compare")
+	@ResponseBody
+	public Map<String,Boolean> comparePerson(@RequestBody Map<String,Integer> id,HttpSession session)
+	{
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		int questionID=id.get("questionID");
+		result.put("compareResult", questionService.compareResult(questionID,session));
+		return result;
+	}	
 	
-	
+	@RequestMapping("/setAnswer")
+	@ResponseBody
+	public Map<String,Boolean> questionAnswerSet(@RequestBody QuestionAnswerInput input)
+	{
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		result.put("answerResult", questionService.setAnswer(input));
+		return result;
+	}
 	
 }

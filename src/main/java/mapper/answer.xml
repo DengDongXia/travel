@@ -3,7 +3,7 @@
 <mapper namespace="dao.answer.Answer">
 		
 	<select id="getAnswerListByInput" parameterType="dto.answer.ShowAnswerInput" resultType="dto.answer.ShowAnswerResult">
-		select pictureURL as answerPersonPictureURL,name as answerName,context as answerContext,time as answertime
+		select questionAnswer.id as commentID,pictureURL as answerPersonPictureURL,name as answerName,context as answerContext,time as answertime
 		from questionAnswer inner join user on user.id=questionAnswer.userID
 		where questionAnswer.questionID=#{questionID}
 		limit #{start},#{showLimit}

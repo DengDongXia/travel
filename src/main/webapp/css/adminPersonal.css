@@ -101,3 +101,19 @@
 	margin-right: 10px;
 }
 /*用户管理部分样式*/
+
+/*被举报评论的样式*/
+#managerContext h4{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#managerComment{
+	text-align: left;
+	color: #666;
+	line-height: 30px;
+	font-size: 16px;
+}
+
+/*被举报评论的样式*/

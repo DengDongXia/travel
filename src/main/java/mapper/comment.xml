@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.comment.Comment">
-
-	<insert id="userComplain" parameterType="domain.comment.Comment" >
-		insert into essayComment(userID,essayID,context,time) values(#{userID},#{essayID},#{context},#{time})
+	<insert id="userComplain" parameterType="dto.comment.CommentComplain" >
+		insert into complain(commentID) values(#{commentID})
 	</insert>
-	
+	<select id="isExistComplain" parameterType="dto.comment.CommentComplain" resultType="_boolean">
+		select count(*)
+		from complain
+		where commentID=#{commentID}
+	</select>
 	<select id="getCommentPageNumber" parameterType="dto.comment.SearchCommentListInput" resultType="_int">
 		select CEIL(count(*)/#{showLimit}) from essayComment where essayID=#{essayID}
 	</select>

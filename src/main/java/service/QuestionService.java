@@ -2,7 +2,10 @@ package service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import domain.question.Question;
+import dto.answer.QuestionAnswerInput;
 import dto.question.DeleteQuestionInput;
 import dto.question.SearchQuestionListInput;
 import dto.question.ShowQuestion;
@@ -60,4 +63,18 @@ public interface QuestionService
 	 */
 	public abstract ShowQuestionDetail getQuestionDetails(String questionID);
 	
+	/**
+	 * 用于比较用户的相关的ID和文章发布人的ID的情况
+	 * @param questionID 文章的ID
+	 * @param session 当前用户的session对象
+	 * @return 其比较的结果
+	 */
+	boolean compareResult(int questionID,HttpSession session);
+	
+	/**
+	 * 用于设置其相关的问题的采纳的答案
+	 * @param input 采纳的输入对象
+	 * @return 其相应的结果
+	 */
+	boolean setAnswer(QuestionAnswerInput input);
 }

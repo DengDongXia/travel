@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import dto.comment.CommentComplainSearchInput;
 import dto.comment.ManagerComment;
 import dto.eassy.EssayUpdateInput;
 import dto.eassy.ManagerEssay;
@@ -64,17 +65,31 @@ public interface ManagerService
 	public abstract boolean updateEssayByManager(EssayUpdateInput essayInput);
 	
 	/**
-	 * 根据评论的ID，搜索出相应的信息
+	 * 搜索出管理员相关的评论的信息
 	 * @param commentID 评论的ID
 	 * @return 相应的内容信息
 	 */
-	public abstract ManagerComment getCommentByCommentID(int commentID);
-
+	public abstract List<ManagerComment> getCommentByCommentID(CommentComplainSearchInput commentInput);
+	
+	/**
+	 * 用于搜索用户举报的评论的相关信息的数目
+	 * @param commentInput 输入情况
+	 * @return 举报的评论的可显示的列表数目
+	 */
+	public abstract int getComplainPageNumber(CommentComplainSearchInput commentInput);
+	
 	/**
 	 * 用于管理员根据评论的ID删除相关的评论
 	 * @param commentID 删除相应的评论记录
 	 * @return 执行的结果
 	 */
 	public abstract boolean deleteComment(int commentID);
+	
+	/**
+	 * 用于保存用户的相关举报的情况
+	 * @param commentID 评论的ID
+	 * @return 其举报的审核结果
+	 */
+	boolean saveComplain(int commentID);
 	
 }

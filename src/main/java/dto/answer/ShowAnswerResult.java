@@ -13,6 +13,15 @@ public class ShowAnswerResult
 	private String answerName;//用户的昵称
 	private String answerContext;//回答的内容
 	private String answertime;//回答的时间
+	private int commentID;//回答的ID
+	public int getCommentID()
+	{
+		return commentID;
+	}
+	public void setCommentID(int commentID)
+	{
+		this.commentID = commentID;
+	}
 	public String getAnswerPersonPictureURL()
 	{
 		return answerPersonPictureURL;

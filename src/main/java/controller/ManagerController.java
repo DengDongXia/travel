@@ -9,12 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ManagerService;
 import service.SuperManagerService;
-import dto.comment.ManagerComment;
+import dto.comment.CommentComplainSearchInput;
 import dto.eassy.EssayUpdateInput;
 import dto.eassy.SearchEassyCondition;
 import dto.manager.UpdateManagerInput;
@@ -107,9 +106,23 @@ public class ManagerController
 	
 	@RequestMapping("/comment/search")
 	@ResponseBody
-	public ManagerComment getCommentByManager(@RequestParam int commentID)
+	public Map<String,Object> getCommentByManager(@RequestBody CommentComplainSearchInput commentInput)
 	{
-		return managerService.getCommentByCommentID(commentID);
+		commentInput.setStart();//设置其相应的limit的语句的起始参数
+		Map<String,Object> result=new HashMap<String,Object>();
+		result.put("pageNumber",managerService.getComplainPageNumber(commentInput));
+		result.put("content", managerService.getCommentByCommentID(commentInput));
+		return result;
+	}
+	
+	@RequestMapping("/comment/correct")
+	@ResponseBody
+	public Map<String,Boolean> saveCommentComplain(@RequestBody Map<String,Integer> id)
+	{
+		int commentID=id.get("commentID");
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		result.put("commentDeleteResult",managerService.saveComplain(commentID));
+		return result;
 	}
 	
 	@RequestMapping("/comment/delete")

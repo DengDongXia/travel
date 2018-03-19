@@ -4,12 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import service.QuestionService;
 import dao.question.Questions;
 import domain.question.Question;
+import domain.user.User;
+import dto.answer.QuestionAnswerInput;
 import dto.question.DeleteQuestionInput;
 import dto.question.SearchQuestionListInput;
 import dto.question.ShowQuestion;
@@ -54,6 +58,18 @@ public class QuestionServiceImpl implements QuestionService
 	public ShowQuestionDetail getQuestionDetails(String questionID)
 	{
 		return questions.getQuestionDetailsByQuestionID(questionID);
+	}
+
+	public boolean compareResult(int questionID, HttpSession session)
+	{
+		User user=(User)session.getAttribute("user");
+		boolean result=user.getId()==questions.getQuestionPersonId(questionID);
+		return result;
+	}
+
+	public boolean setAnswer(QuestionAnswerInput input)
+	{
+		return questions.setAnswer(input);
 	}
 	
 	

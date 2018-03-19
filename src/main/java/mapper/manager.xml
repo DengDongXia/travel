@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.manager.Managers">
 	<select id="getManagerByEmail" parameterType="string" resultType="domain.user.User">
-		select * from user inner join userrole on user.id=userrole.userId where user.email=#{_parameter} and roleID=1
+		SELECT user.id AS id,user.email AS email,user.name AS NAME,user.password AS PASSWORD,user.timestamp AS TIMESTAMP,user.quote AS QUOTE,user.locked AS locked,user.pictureURL AS pictureURL,userrole.roleID AS userRole
+		FROM USER INNER JOIN userrole ON userrole.userID=user.id
+		WHERE user.email=#{_parameter} AND roleID=1
 	</select>
-	
 	<update id="updateManagerStatus" parameterType="string" >
 		update user set locked=true where id=#{_parameter}
 	</update>
@@ -64,14 +65,24 @@
 		update essay set state=#{state},validate=#{validate},managerState=true where id=#{id}
 	</update>
 	
-	<select id="getCommentByCommentID" parameterType="_int" resultType="dto.comment.ManagerComment">
-		select id,userID,time,context,name as userName,pictureURL as userPicture from essayComment inner join user on user.id=essayComment.userID where essayComment.id=#{_parameter}
+	<select id="getCommentByCommentID" parameterType="dto.comment.CommentComplainSearchInput" resultType="dto.comment.ManagerComment">
+		SELECT essayComment.context AS commentContext,complain.commentID AS commentId,essay.essayHeader AS essayHeader,essay.id AS essayID
+		FROM complain INNER JOIN essayComment ON complain.commentId=essayComment.id INNER JOIN essay ON essay.id=essayComment.essayID
+		WHERE complain.state=false
+		ORDER BY complain.commentID desc
+		limit #{start},#{showLimit}
 	</select>
-	
+	<select id="getComplainPageNumber" parameterType="dto.comment.CommentComplainSearchInput" resultType="_int">
+		select CEIL(count(*)/#{showLimit})
+		FROM complain INNER JOIN essayComment ON complain.commentId=essayComment.id INNER JOIN essay ON essay.id=essayComment.essayID
+		WHERE complain.state=false
+	</select>
 	<delete id="deleteComment" parameterType="_int" >
 		delete from essayComment where id=#{_parameter}
 	</delete>
 	
-	
+	<update id="updateComplainState" parameterType="_int">
+		update complain set state=true where commentID=#{_parameter}
+	</update>
 	
 </mapper>

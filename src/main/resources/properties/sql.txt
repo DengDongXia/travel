@@ -1,105 +1,112 @@
 create database travel;
 
--- ÓÃÓÚ´´½¨ÓÃ»§±í
+-- ç”¨äºåˆ›å»ºç”¨æˆ·è¡¨
 create table user
 (
-	id int not null auto_increment comment 'ÓÃ»§µÄID',
-	email varchar(50) null comment 'ÓÃ»§µÄÓÊÏä£¬µ¥ÓÃ»§Îª¹ÜÀíÔ±µÄÊ±ºò£¬ÔÊĞíÆäÖµÎªnull',
-	name varchar(100) not null comment 'êÇ³Æ',
-	password varchar(32) not null comment 'ÃÜÂë',
-	timestamp varchar(13) not null comment 'Ê±¼ä´Á£¬ÓÃÓÚ¼ÓÃÜÃÜÂë',
-	quote varchar(200) null default '¹ş¹ş¹ş¹ş!' comment '¸öĞÔÇ©Ãû',
-	pictureURL varchar(200) not null default '' comment 'ÓÃ»§Í¼ÏñµÄURL'
-	locked boolean default false comment 'ÕËºÅËø¶¨×´Ì¬£¬trueÎªËø¶¨',
+	id int not null auto_increment comment 'ç”¨æˆ·çš„ID',
+	email varchar(50) null comment 'ç”¨æˆ·çš„é‚®ç®±ï¼Œå•ç”¨æˆ·ä¸ºç®¡ç†å‘˜çš„æ—¶å€™ï¼Œå…è®¸å…¶å€¼ä¸ºnull',
+	name varchar(100) not null comment 'æ˜µç§°',
+	password varchar(32) not null comment 'å¯†ç ',
+	timestamp varchar(13) not null comment 'æ—¶é—´æˆ³ï¼Œç”¨äºåŠ å¯†å¯†ç ',
+	quote varchar(200) null default 'å“ˆå“ˆå“ˆå“ˆ!' comment 'ä¸ªæ€§ç­¾å',
+	pictureURL varchar(200) not null default '' comment 'ç”¨æˆ·å›¾åƒçš„URL'
+	locked boolean default false comment 'è´¦å·é”å®šçŠ¶æ€ï¼Œtrueä¸ºé”å®š',
 	primary key(id)
 )engine=InnoDB default charset=utf8;
 
--- ÓÃÓÚ´´½¨½ÇÉ«±í
+-- ç”¨äºåˆ›å»ºè§’è‰²è¡¨
 create table role
 (
-	id int not null auto_increment comment '½ÇÉ«ÀàĞÍµÄID',
-	name varchar(50) not null comment '½ÇÉ«Ãû',
-	available boolean default true comment '½ÇÉ«µÄÊ¹ÓÃ¿ÉÊ¹ÓÃ×´Ì¬£¬true±íÊ¾¿ÉÓÃ',
+	id int not null auto_increment comment 'è§’è‰²ç±»å‹çš„ID',
+	name varchar(50) not null comment 'è§’è‰²å',
+	available boolean default true comment 'è§’è‰²çš„ä½¿ç”¨å¯ä½¿ç”¨çŠ¶æ€ï¼Œtrueè¡¨ç¤ºå¯ç”¨',
 	primary key (id)
 )engine=InnoDB default charset=utf8;
 
--- ²åÈëÏà¹ØµÄ½ÇÉ«Êı¾İ
-insert into role(name) values('¹ÜÀíÔ±'),('³¬¼¶¹ÜÀíÔ±'),('ÓÃ»§');
+-- æ’å…¥ç›¸å…³çš„è§’è‰²æ•°æ®
+insert into role(name) values('ç®¡ç†å‘˜'),('è¶…çº§ç®¡ç†å‘˜'),('ç”¨æˆ·');
 
--- ÓÃÓÚ´´½¨ÓÃ»§½ÇÉ«ÖĞ¼ä±í
+-- ç”¨äºåˆ›å»ºç”¨æˆ·è§’è‰²ä¸­é—´è¡¨
 create table userRole
 (
-	userID int not null comment 'ÓÃ»§µÄID',
-	roleID int not null comment 'ÓÃ»§½ÇÉ«µÄID',
+	userID int not null comment 'ç”¨æˆ·çš„ID',
+	roleID int not null comment 'ç”¨æˆ·è§’è‰²çš„ID',
 	primary key(userID,roleID)
 )engine=InnoDB default charset=utf8;
 
--- ¹¥ÂÔ±í
+-- æ”»ç•¥è¡¨
 create table essay
 (
-	id int not null auto_increment comment '¹¥ÂÔµÄID',
-	userID int not null comment '¹¥ÂÔ·¢²¼ÈËµÄID',
-	state boolean not null default false comment 'ÎÄÕÂµÄÉóºË×´Ì¬£¬Ä¬ÈÏÎªÎ´ÉóºË',
-	country varchar(30) null comment '¹¥ÂÔËùÃèÊöµÄ¹ú¼Ò',
-	validate boolean not null default false comment 'µ±µØÂÃÓÎÈÏÖ¤×´Ì¬£¬Ä¬ÈÏÎªÎ´ÈÏÖ¤',
-	time datetime not null comment '¹¥ÂÔµÄ·¢²¼Ê±¼ä',
-	context text not null comment '¹¥ÂÔµÄÄÚÈİ',
-	essayHeader varchar(100) not null comment 'ÎÄÕÂµÄ±êÌâ',
-	managerState boolean not null default false comment '¹ÜÀíÔ±Éó²éµÄµÇ¼ÇÇé¿ö£¬true±íÊ¾ÒÑ¾­Éó²é£¬false±íÊ¾»¹Ã»Éó²é';
-	pictureURL varchar(200) not null default '/default' comment 'ÎÄÕÂ±êÌâµÄÕÕÆ¬',
+	id int not null auto_increment comment 'æ”»ç•¥çš„ID',
+	userID int not null comment 'æ”»ç•¥å‘å¸ƒäººçš„ID',
+	state boolean not null default false comment 'æ–‡ç« çš„å®¡æ ¸çŠ¶æ€ï¼Œé»˜è®¤ä¸ºæœªå®¡æ ¸',
+	country varchar(30) null comment 'æ”»ç•¥æ‰€æè¿°çš„å›½å®¶',
+	validate boolean not null default false comment 'å½“åœ°æ—…æ¸¸è®¤è¯çŠ¶æ€ï¼Œé»˜è®¤ä¸ºæœªè®¤è¯',
+	time datetime not null comment 'æ”»ç•¥çš„å‘å¸ƒæ—¶é—´',
+	context text not null comment 'æ”»ç•¥çš„å†…å®¹',
+	essayHeader varchar(100) not null comment 'æ–‡ç« çš„æ ‡é¢˜',
+	managerState boolean not null default false comment 'ç®¡ç†å‘˜å®¡æŸ¥çš„ç™»è®°æƒ…å†µï¼Œtrueè¡¨ç¤ºå·²ç»å®¡æŸ¥ï¼Œfalseè¡¨ç¤ºè¿˜æ²¡å®¡æŸ¥';
+	pictureURL varchar(200) not null default '/default' comment 'æ–‡ç« æ ‡é¢˜çš„ç…§ç‰‡',
 	primary key (id)
 )engine=InnoDB default charset=utf8;
 
--- ¹¥ÂÔÆÀÂÛ±í
+-- æ”»ç•¥è¯„è®ºè¡¨
 create table essayComment
 (
-	id int not null auto_increment comment 'ÆÀÂÛµÄID',
-	userID int not null comment 'ÆÀÂÛÈËµÄÓÃ»§ID',
-	essayID int not null comment '¹¥ÂÔµÄID',
-	context text not null comment '¹¥ÂÔÆÀÂÛµÄÄÚÈİ',
-	time datetime not null comment '¹¥ÂÔÆÀÂÛµÄÊ±¼ä',
+	id int not null auto_increment comment 'è¯„è®ºçš„ID',
+	userID int not null comment 'è¯„è®ºäººçš„ç”¨æˆ·ID',
+	essayID int not null comment 'æ”»ç•¥çš„ID',
+	context text not null comment 'æ”»ç•¥è¯„è®ºçš„å†…å®¹',
+	time datetime not null comment 'æ”»ç•¥è¯„è®ºçš„æ—¶é—´',
 	primary key (id)
 )engine=InnoDB default charset=utf8;
 
--- ÌáÎÊ±í
+-- æé—®è¡¨
 create table question
 (
-	id int not null auto_increment comment 'ÌáÎÊµÄID',
-	userID int not null comment 'ÌáÎÊ·¢²¼ÈËµÄÓÃ»§ID',
-	time datetime not null comment 'ÌáÎÊµÄ·¢²¼Ê±¼ä',
-	state boolean not null default false comment 'ÌáÎÊµÄ×´Ì¬£¬false±íÊ¾Î´Íê³É',
-	context text not null comment 'ÌáÎÊµÄÄÚÈİ',
-	questionHeader varchar(300) not null comment 'ÌáÎÊµÄ±êÌâ',
-	answerID int null comment 'Ëù²ÉÄÉµÄ»Ø´ğµÄID',
+	id int not null auto_increment comment 'æé—®çš„ID',
+	userID int not null comment 'æé—®å‘å¸ƒäººçš„ç”¨æˆ·ID',
+	time datetime not null comment 'æé—®çš„å‘å¸ƒæ—¶é—´',
+	state boolean not null default false comment 'æé—®çš„çŠ¶æ€ï¼Œfalseè¡¨ç¤ºæœªå®Œæˆ',
+	context text not null comment 'æé—®çš„å†…å®¹',
+	questionHeader varchar(300) not null comment 'æé—®çš„æ ‡é¢˜',
+	answerID int null comment 'æ‰€é‡‡çº³çš„å›ç­”çš„ID',
 	primary key (id)
 )engine=InnoDB default charset=utf8;
 
--- ÌáÎÊ»Ø´ğ±í
+-- æé—®å›ç­”è¡¨
 create table questionAnswer
 (
-	id int not null auto_increment comment '»Ø´ğµÄID',
-	userID int not null comment '»Ø´ğµÄÓÃ»§µÄID',
-	questionID int not null comment 'ÌáÎÊµÄID',
-	time datetime not null comment '»Ø´ğµÄ·¢²¼Ê±¼ä',
-	context text not null comment '»Ø´ğµÄÄÚÈİ',
+	id int not null auto_increment comment 'å›ç­”çš„ID',
+	userID int not null comment 'å›ç­”çš„ç”¨æˆ·çš„ID',
+	questionID int not null comment 'æé—®çš„ID',
+	time datetime not null comment 'å›ç­”çš„å‘å¸ƒæ—¶é—´',
+	context text not null comment 'å›ç­”çš„å†…å®¹',
 	primary key (id)
 )engine=InnoDB default charset=utf8;
 
--- ÓÃ»§»ı·Ö±í
+-- ç”¨æˆ·ç§¯åˆ†è¡¨
 create table account
 (
-	userID int not null comment 'ÓÃ»§µÄID',
-	account int not null default 0 comment 'ÓÃ»§µÄ»ı·Ö',
+	userID int not null comment 'ç”¨æˆ·çš„ID',
+	account int not null default 0 comment 'ç”¨æˆ·çš„ç§¯åˆ†',
 	primary key (userID)
 )engine=InnoDB default charset=utf8;
 
--- ÓÃÓÚ´´½¨ÓÃ»§¾Ù±¨µÄĞÅÏ¢µÄ¼ÇÂ¼±í
+/*
+-- ç”¨äºåˆ›å»ºç”¨æˆ·ä¸¾æŠ¥çš„ä¿¡æ¯çš„è®°å½•è¡¨
 create table complain
 (
-	commentID int not null comment 'Ëù½øĞĞ¾Ù±¨µÄÆÀÂÛµÄID',
-	userID int not null comment 'Ëù½øĞĞ¾Ù±¨µÄÓÃ»§µÄID',
-	reason text not null comment 'Ëù½øĞĞ¾Ù±¨µÄÔ­Òò',
-	state boolean not null default false comment '¸Ã¾Ù±¨ĞÅÏ¢µÄ´¦ÀíÇé¿ö',
+	commentID int not null comment 'æ‰€è¿›è¡Œä¸¾æŠ¥çš„è¯„è®ºçš„ID',
+	userID int not null comment 'æ‰€è¿›è¡Œä¸¾æŠ¥çš„ç”¨æˆ·çš„ID',
+	reason text not null comment 'æ‰€è¿›è¡Œä¸¾æŠ¥çš„åŸå› ',
+	state boolean not null default false comment 'è¯¥ä¸¾æŠ¥ä¿¡æ¯çš„å¤„ç†æƒ…å†µ',
 	primary key(commentID,userID)
 )engine=InnoDB default charset=utf8;
-
+*/
+-- ç”¨äºåˆ›å»ºç”¨æˆ·ä¸¾æŠ¥çš„ä¿¡æ¯çš„è®°å½•è¡¨
+create table complain
+(
+	commentID int not null comment 'æ‰€è¿›è¡Œä¸¾æŠ¥çš„è¯„è®ºçš„ID',
+	state boolean not null default false comment 'è¯¥ä¸¾æŠ¥ä¿¡æ¯çš„å¤„ç†æƒ…å†µ',
+)engine=InnoDB default charset=utf8;
