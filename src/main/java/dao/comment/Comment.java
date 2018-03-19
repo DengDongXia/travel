@@ -48,4 +48,11 @@ public interface Comment
 	 * @Param 用户的举报的输入情况
 	 */
 	public abstract boolean isExistComplain(CommentComplain input);
+	
+	/**
+	 * 用于用户增加相应的积分
+	 * @param input 用户的输入情况
+	 * @return 其相应的积分增加的结果
+	 */
+	boolean addEssayAccount(domain.comment.Comment input);
 }

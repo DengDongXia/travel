@@ -14,7 +14,7 @@ public class User
 	private String quote;//用户个性签名
 	private boolean locked;//用户锁定状态
 	private String pictureURL;//用户图像的URL
-	private String account;//用户的积分
+	private int account;//用户的积分
 	private int userRole;//用户的角色
 	public int getUserRole()
 	{
@@ -24,11 +24,11 @@ public class User
 	{
 		this.userRole = userRole;
 	}
-	public String getAccount()
+	public int getAccount()
 	{
 		return account;
 	}
-	public void setAccount(String account)
+	public void setAccount(int account)
 	{
 		this.account = account;
 	}

@@ -51,4 +51,27 @@
 		update question set answerID=#{commentId},state=true where id=#{questionID}
 	</update>
 	
+	<update id="setAccount" parameterType="dto.answer.QuestionAnswerInput">
+		UPDATE account SET account=
+		(
+			SELECT * 
+			FROM	
+			(
+			SELECT account+3<!-- 采纳之后增加的分数在+后面进行修改 -->
+			FROM account
+			WHERE  userID=
+				(
+					SELECT userID
+					FROM questionAnswer
+					WHERE id=#{commentId}
+				)
+			)AS newAccount
+		)
+		WHERE userID=(
+				SELECT userID
+				FROM questionAnswer
+				WHERE id=#{commentId}
+				)
+	</update>
+	
 </mapper>

@@ -69,7 +69,10 @@ public class QuestionServiceImpl implements QuestionService
 
 	public boolean setAnswer(QuestionAnswerInput input)
 	{
-		return questions.setAnswer(input);
+		boolean result=questions.setAnswer(input);
+		if(result)
+			result=questions.setAccount(input);
+		return result;
 	}
 	
 	

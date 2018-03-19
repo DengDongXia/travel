@@ -25,6 +25,20 @@
 		insert into essayComment values(null,#{userID},#{essayID},#{context},#{time})
 	</insert>
 	
+	<update id="addEssayAccount" parameterType="domain.comment.Comment">
+		 UPDATE account SET account=
+		(
+			SELECT * 
+			FROM	
+			(
+				SELECT account+3<!-- 采纳之后增加的分数在+后面进行修改 -->
+				FROM account
+				WHERE  userID=#{userID}
+			)AS newAccount
+		)
+		WHERE userID=#{userID}
+	</update>
+	
 </mapper>
 
 

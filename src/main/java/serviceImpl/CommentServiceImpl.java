@@ -48,7 +48,10 @@ public class CommentServiceImpl implements CommentService
 		String time=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").format(new Date());
 		time=time.substring(0, time.length()-2);//用于省去末尾的毫秒的情况
 		input.setTime(time);
-		return comments.addEssayComment(input);
+		boolean result=comments.addEssayComment(input);
+		if(result&&input.getContext().length()>=50)//评论超过50字时增加评论用户的积分
+			result=comments.addEssayAccount(input);
+		return result;
 	}
 	
 }

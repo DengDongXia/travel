@@ -81,4 +81,11 @@ public interface Questions
 	 */
 	public boolean setAnswer(QuestionAnswerInput input);
 	
+	/**
+	 * 用于修改其用户相应的积分的情况
+	 * @param input 用户的输入情况
+	 * @return 其相应的修改的结果
+	 */
+	public boolean setAccount(QuestionAnswerInput input);
+	
 }

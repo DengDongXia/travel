@@ -233,7 +233,7 @@ function search() {
 		    }else{
 		    	text += "<label id='chageStatus'>冻结账号</label>";
 		    }
-			/*text += "<label id='clear'>积分清零</label></span>";*/
+			text += "<label id='clear'>积分清零</label></span>";
 		$("#user-info-bg").append("<li>"+text+"</li>");
 		// 给操作的两个按钮绑定事件
 		$('#chageStatus').click(function(event) {
