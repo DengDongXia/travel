@@ -8,6 +8,7 @@ var userId;
 var name;  //保存用户昵称·
 var quote; //保存个性签名
 var pic;  //保存头像路径
+var account;   //保存用户的积分 
 function getAuthorData() {
 	$.ajax({
 		// url: 'data/isLogin.json',
@@ -21,8 +22,12 @@ function getAuthorData() {
 			name = data.content.name;
 			quote = data.content.quote;
 			pic = data.content.pictureURL;
+			account = data.content.account;
 			getUserData(userId);
 			getEssay(1);    //加载该用户对应已发表的攻略
+		}else{
+			alert("请先登录");
+			windon.location.href="http://localhost:8080/travel/login.jsp";
 		}
 	})
 	.fail(function() {
@@ -47,7 +52,7 @@ function getUserData(id) {
 	})
 	.done(function(data) {
 			$("#userPic").append("<img src='"+data.content.pictureURL+"'>");
-			$("#userInfo").append("<p class='name'><label>昵称：</label>"+data.content.name+"</p></p>");
+			$("#userInfo").append("<p class='name'><label>昵称：</label>"+data.content.name+"</p><p class='integral'>积分：<span>"+data.content.account+"</span></p> </p>");
 			$("#userInfo").append("<p class='integral'><label>个性签名：</label>"+data.content.quote+"</p>");
 	})
 	.fail(function() {
@@ -300,6 +305,11 @@ function getId(obj,name) {
 
 /*提交问题（特色定制）*/
 $('#submitQuestion').click(function(event) {
+	//判断积分是否足够用于发布特色定制
+	if(account<50){
+		alert("你的积分不足50，无权发表特色定制");
+		return;
+	}
 	// 判断每个文本框是否有内容
 	if($('#questionTitle').val() == '' || $('#questionContent').val() == ''){
 		alert("请将要进行的特色定制的标题和内容均填上");

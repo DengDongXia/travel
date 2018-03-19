@@ -113,6 +113,7 @@ function setData(data) {
 		var other = "<div class='otherInfo'><span>地区："+val.eassyCountry+"</span><span>来自："+val.eassyPersonName+"</span><span>评论数："+val.eassyCommentCount+"</span></div>";
 		var liPart = "<li class='tip-content'><a href='detail.jsp?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div>"+other+"</a></li>";
 		ul.append(liPart);
+		var imgObj = ul.children("li:last-child").find;
 	});
 	// 修改切换页面的按钮
 	$('#switchPage').children().remove();  //移除原来的按钮

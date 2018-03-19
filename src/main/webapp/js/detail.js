@@ -17,13 +17,6 @@ function getUser(argument) {
 		dealingUserData(data);
 		getEssay();    //获取文章详情
 		getComments(1);  //获取该文章的评论
-		/*if(data.isLogin == true ){
-			dealingUserData(data);
-			getEssay();    //获取文章详情
-			getComments(1);  //获取该文章的评论
-		}else{
-			window.location.href = 'http://localhost:8080/travel/login.jsp';
-		}*/
 	})
 	.fail(function() {
 		console.log("error");
@@ -94,8 +87,6 @@ function dealingEssayData(data) {
 	$('#headerPic').append('<img src="'+data.essayPictureURL+'">');
 	// 插入文章作者信息
 	$("#authorPicture").append("<img src='"+data.personPictureURL+"'>");
-	// $("#authorPicture").parent().append("<span>"+data.eassayPersonName+"</span>");
-//	$("#authorPicture").parent().append("<span>么么哒（缺接口）</span>");
 	// 插入文章具体信息
 	$("#eassayTag").append("<span class='tag'>"+data.country+"</span><span>"+data.time+"</span>");
 	// 当文章已进行认证时
@@ -139,7 +130,7 @@ function getComments(nowPage) {
 var sumPage;  //记录评论的总页数
 function dealingCommentData(data) {
 	$.each(data.content, function(index, val) {
-		var text = "<p><span>"+val.commentPersonName+": </span><span>"+val.commentContext+"</span></p>";
+		var text = "<div class='commentContent'><span>"+val.commentPersonName+": </span>"+val.commentContext+"</div>";
 		// 当用户为管理员时
 		if(userRole == 1){
 			text += "<p class='commentOtherInfo'><span id='commentID'>"+val.commentID+"</span><span class='delete'>删除</span><span class='date'>"+val.commentDate+"<span></p>";

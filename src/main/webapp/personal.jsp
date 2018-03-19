@@ -49,9 +49,9 @@
 							<p id="changeData">修改资料</p>
 						</div>
 						<div class="col-md-8 info" id="userInfo">
-							<!-- <p class="name">昵称：么么么哒</p>
-							<p class="integral">
-								积分：<span>10</span></p> -->
+							<!-- <p class="name">昵称：么么么哒</p>-->
+							<!-- <p class="integral">
+								积分：<span>10</span></p>  -->
 						</div>
 						<!-- <div class="col-md-6"></div> -->
 						<div class="col-md-2">

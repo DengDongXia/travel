@@ -25,8 +25,8 @@ function getAuthorData() {
 			email = data.content.email;
 			$("#userPic").append("<img src='"+data.content.pictureURL+"'>");
 			var messages="<p class='name'><label>昵称：</label>"+data.content.name+"</p>";
-			if(data.content.account !=null)
-				messages+="<p class='integral'><label>积分：</label><span>"+data.content.account+"</span></p>";
+			/*if(data.content.account !=null)
+				messages+="<p class='integral'><label>积分：</label><span>"+data.content.account+"</span></p>";*/
 			$("#userInfo").append(messages);
 			$("#userInfo").append("<p class='integral'><label>个性签名：</label>"+data.content.quote+"</p>");
 			getEssay(1);    //加载该用户对应已发表的攻略

@@ -183,4 +183,8 @@
 .delete:hover,.tip:hover{
 	color: #F94B4B;
 }
+
+.commentContent{
+	word-wrap:break-word;
+}
 /*评论方面的样式*/

@@ -61,10 +61,11 @@ function search(nowPage,condition) {
 		    }else{
 		    	text += "<span class='user-status'>冻结</span>";
 		    }
-		    text += "<span class='func'><label id='chageStatus'>暂无操作</label></span>";
+		    text += "<span class='func'><label id='chageStatus' class='deleteManager'>删除</label></span>";
 			$("#user-info-bg").append("<li>"+text+"</li>");
 		});
-		
+		//为删除按钮绑定事件
+		deleteManager();
 		addButton(data);  //添加按钮
 	})
 	.fail(function(data) {
@@ -72,6 +73,36 @@ function search(nowPage,condition) {
 	})
 	.always(function() {
 		// console.log("complete");
+	});
+}
+
+function deleteManager(){
+	$('.deleteManager')click(function(event) {
+		var managerId = $(this).parents('li').find('.number').text();//获取管理员id
+		$.ajax({
+			url: 'http://localhost:8080/travel/manager/superManager/deleteManager.json',
+			type: 'post',
+			dataType: 'json',
+			contentType:'application/json',
+			data: JSON.stringify({
+				"managerId":managerId
+			}),
+		})
+		.done(function(data) {
+			// 判断是否删除成功
+			if(data.deleteResult == true){
+				alert("删除成功");
+				$(this).parents("li").remove();   //移除该行
+			}else{
+				alert("删除失败");
+			}
+		})
+		.fail(function(data) {
+			alert("删除出错");
+		})
+		.always(function() {
+			// console.log("complete");
+		});
 	});
 }
 
