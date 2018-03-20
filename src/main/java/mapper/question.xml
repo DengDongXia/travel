@@ -74,4 +74,18 @@
 				)
 	</update>
 	
+	<update id="decrementAccount" parameterType="domain.question.Question">
+		UPDATE account SET account=
+		(
+			SELECT * 
+			FROM	
+			(
+			SELECT account-5<!-- 进行特色定制之后减少的积分在后面进行修改 -->
+			FROM account
+			WHERE  userID=#{userID}
+			)AS newAccount
+		)
+		WHERE userID=#{userID}
+	</update>
+	
 </mapper>

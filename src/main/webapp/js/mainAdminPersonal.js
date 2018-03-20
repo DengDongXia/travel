@@ -77,10 +77,10 @@ function search(nowPage,condition) {
 }
 
 function deleteManager(){
-	$('.deleteManager')click(function(event) {
+	$('.deleteManager').click(function(event) {
 		var managerId = $(this).parents('li').find('.number').text();//获取管理员id
 		$.ajax({
-			url: 'http://localhost:8080/travel/manager/superManager/deleteManager.json',
+			url: 'http://localhost:8080/travel/manager/superManager/deleteManager',
 			type: 'post',
 			dataType: 'json',
 			contentType:'application/json',

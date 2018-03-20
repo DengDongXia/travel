@@ -24,7 +24,7 @@ public interface QuestionService
 	 * @param input 用户的提问对象
 	 * @return 提问的结果
 	 */
-	public abstract boolean addQuestion(Question input);
+	public abstract boolean addQuestion(Question input,HttpSession session);
 	
 	/**
 	 * 根据用户的输入的参数，获取其对应的分页的数目

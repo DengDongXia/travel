@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -47,6 +48,14 @@ public class SuperManagerController
 		return superManagerService.getAllManager(limit);
 	}
 	
+	@RequestMapping("/deleteManager")
+	@ResponseBody
+	public Map<String,Boolean> deleteManager(@RequestBody Map<String,Integer> id)
+	{
+		Map<String,Boolean> result=new HashMap<String,Boolean>();
+		result.put("deleteResult", superManagerService.deleteManager(id.get("managerId")));
+		return result;
+	}
 	
 	
 }

@@ -55,4 +55,25 @@ public interface SuperManagers
 	 * @return 可以分页的数目
 	 */
 	public abstract int getPageNumber(ManagerShow limit);
+	
+	/**
+	 * 用于超级管理员根据管理员的相关信息删除管理员的记录
+	 * @param id 管理员的id
+	 * @return 删除的结果
+	 */
+	boolean deleteManagerUser(int id);
+	
+	/**
+	 * 用于超级管理员根据管理员的相关信息删除管理员的用户角色记录
+	 * @param id 管理员的id
+	 * @return 删除的结果
+	 */
+	boolean deleteManagerRole(int id);
+	
+	/**
+	 * 用于根据用户的ID判断是否为管理员
+	 * @param id 用户的ID
+	 * @return 其用户角色的ID
+	 */
+	int IsUserManager(int id);
 }

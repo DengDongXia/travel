@@ -33,9 +33,9 @@ public class QuestionController
 	
 	@RequestMapping("/add")
 	@ResponseBody
-	public Map<String,Boolean> addQuestion(@RequestBody Question input)
+	public Map<String,Boolean> addQuestion(@RequestBody Question input,HttpSession session)
 	{
-		boolean addResult=questionService.addQuestion(input);
+		boolean addResult=questionService.addQuestion(input,session);
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
 		result.put("questionAddResult", addResult);
 		return result;

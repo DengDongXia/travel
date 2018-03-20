@@ -52,6 +52,10 @@ public interface SuperManagerService
 	 */
 	public abstract Map<String,Boolean> updateManagerMessage(UpdateManagerInput input,HttpSession session);
 	
-	
-	
+	/**
+	 * 用于超级管理员根据根据管理员的Id删除相应的管理员记录
+	 * @param id 管理员的Id
+ 	 * @return 删除的结果
+	 */
+	boolean deleteManager(int id);
 }

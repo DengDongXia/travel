@@ -37,4 +37,18 @@
 		where roleID=1
 	</select>
 	
+	<select id="IsUserManager" parameterType="_int" resultType="_int">
+		select roleID
+		from userrole
+		where userID=#{_parameter}
+	</select>
+	
+	<delete id="deleteManagerUser" parameterType="_int">
+		delete from user where id=#{_parameter}
+	</delete>
+	
+	<delete id="deleteManagerRole" parameterType="_int">
+		delete from userrole where userID=#{_parameter}
+	</delete>
+	
 </mapper>

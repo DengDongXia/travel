@@ -88,4 +88,11 @@ public interface Questions
 	 */
 	public boolean setAccount(QuestionAnswerInput input);
 	
+	
+	/**
+	 * 用于减少用户进行特色定制的积分
+	 * @param input 进行特色定制的用户的输入情况
+	 * @return 其积分的减少
+	 */
+	boolean decrementAccount(Question input);
 }

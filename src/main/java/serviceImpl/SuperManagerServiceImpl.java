@@ -203,4 +203,16 @@ public class SuperManagerServiceImpl implements SuperManagerService
 		}
 		return result;
 	}
+
+	public boolean deleteManager(int id)
+	{
+		boolean result=false;
+		if(superManager.IsUserManager(id)==1)//用于判断超级管理员要进行删除的是否为管理员
+		{
+			result=superManager.deleteManagerUser(id);
+			if(result)
+				superManager.deleteManagerRole(id);
+		}
+		return result;
+	}
 }
