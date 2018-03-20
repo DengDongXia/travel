@@ -76,9 +76,11 @@ function search(nowPage,condition) {
 	});
 }
 
+//删除管理员
 function deleteManager(){
 	$('.deleteManager').click(function(event) {
 		var managerId = $(this).parents('li').find('.number').text();//获取管理员id
+		var that = $(this);
 		$.ajax({
 			url: 'http://localhost:8080/travel/manager/superManager/deleteManager',
 			type: 'post',
@@ -91,8 +93,7 @@ function deleteManager(){
 		.done(function(data) {
 			// 判断是否删除成功
 			if(data.deleteResult == true){
-				alert("删除成功");
-				$(this).parents("li").remove();   //移除该行
+				that.parents("li").remove();   //移除该行
 			}else{
 				alert("删除失败");
 			}

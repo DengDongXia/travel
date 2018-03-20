@@ -329,9 +329,10 @@ $('#submitQuestion').click(function(event) {
 		.done(function(data) {
 			// 判断是否删除成功，如若成功则删除对应的文章
 			if(data.questionAddResult == true){
-				$('#custom-made-question').hide();
+				window.location.href = "http://localhost:8080/travel/personal.jsp";
+			/*	$('#custom-made-question').hide();
 				getQuestion(1); //加载该用户对应已发表的特色定制
-			}else{
+*/			}else{
 				alert("发表出错");
 			}
 
