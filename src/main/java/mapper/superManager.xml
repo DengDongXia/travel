@@ -35,6 +35,9 @@
 		select CEIL(count(*)/#{limit}) 
 		from user inner join userrole on user.id=userrole.userID 
 		where roleID=1
+		<if test="condition != null and condition !='' "> 
+			and (name=#{condition} or email=#{condition} or id=#{condition})
+		</if> 
 	</select>
 	
 	<select id="IsUserManager" parameterType="_int" resultType="_int">

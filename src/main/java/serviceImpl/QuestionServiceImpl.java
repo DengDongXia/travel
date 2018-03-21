@@ -55,7 +55,8 @@ public class QuestionServiceImpl implements QuestionService
 	
 	public boolean deleteQuestionAndQuestionAnswerByInput(DeleteQuestionInput input)
 	{
-		boolean result =questions.deleteQuestionByInput(input)&&questions.deleteQuestionAnswerByInput(input);
+		questions.deleteQuestionAnswerByInput(input);
+		boolean result =questions.deleteQuestionByInput(input);
 		return result;
 	}
 	

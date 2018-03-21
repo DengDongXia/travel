@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="getEssayContentList" parameterType="dto.eassy.SearchEassyCondition" resultType="dto.eassy.ManagerEssay">
-		select essay.id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,SUBSTRING(context,1,100)as eassyContent,name as eassyPersonName
+		select essay.id as eassyID,userID as eassyPersonID, essay.pictureURL as eassyPicture,essayHeader as eassyHeader,country as eassyCountry,context as eassyContent,name as eassyPersonName
 		,user.pictureURL as eassyPersonPicture,validate as eassyState,(select count(*)  from essaycomment where essay.id=essaycomment.essayID) as eassyCommentCount
 		from essay inner join user on user.id=essay.userID
 		where essay.state=true

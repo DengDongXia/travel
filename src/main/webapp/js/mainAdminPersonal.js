@@ -18,7 +18,7 @@ function getAuthorData() {
 			if(data.content.userRole != 2){
 				window.location.href = 'http://localhost:8080/travel/login.jsp';
 			}else{
-				search(1,''); //获取所有用户
+//				search(1,''); //获取所有用户
 			}
 		}
 	})
@@ -53,20 +53,26 @@ function search(nowPage,condition) {
 		}),
 	})
 	.done(function(data) {
-		$.each(data.content, function(index, val) {
-			var text = "<span class='number'>"+val.managerID+"</span><span class='user-pic'><div class='img-bg' id='userPic'><img src='"+val.managerPicture+"'></div></span>";
-		    text += "<span class='user-name'>"+val.managerName+"</span>";
-		    if(val.managerStatus == false){
-		    	text += "<span class='user-status'>正常</span>";
-		    }else{
-		    	text += "<span class='user-status'>冻结</span>";
-		    }
-		    text += "<span class='func'><label id='chageStatus' class='deleteManager'>删除</label></span>";
-			$("#user-info-bg").append("<li>"+text+"</li>");
-		});
-		//为删除按钮绑定事件
-		deleteManager();
-		addButton(data);  //添加按钮
+		//移除按钮
+		$('#pageButton').remove();
+		if(data.content.length>0){
+			$.each(data.content, function(index, val) {
+				var text = "<span class='number'>"+val.managerID+"</span><span class='user-pic'><div class='img-bg' id='userPic'><img src='"+val.managerPicture+"'></div></span>";
+			    text += "<span class='user-name'>"+val.managerName+"</span>";
+			    if(val.managerStatus == false){
+			    	text += "<span class='user-status'>正常</span>";
+			    }else{
+			    	text += "<span class='user-status'>冻结</span>";
+			    }
+			    text += "<span class='func'><label id='chageStatus' class='deleteManager'>删除</label></span>";
+				$("#user-info-bg").append("<li>"+text+"</li>");
+			});
+			//为删除按钮绑定事件
+			deleteManager();
+			addButton(data);  //添加按钮
+		}else{
+			$("#user-info-bg").append("<li style='text-align:center'>没有查找到任何数据</li>");
+		}
 	})
 	.fail(function(data) {
 		alert("查找出错");

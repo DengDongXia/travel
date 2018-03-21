@@ -105,7 +105,7 @@
 			<span class="page">10</span>
 			<span class="page" id="nextPage">下一页</span> -->
 		</div>
-		<div class="row"><footer>页脚备注</footer></div>
+		<!-- <div class="row"><footer>页脚备注</footer></div> -->
 	</div>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>

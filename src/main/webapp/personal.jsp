@@ -139,7 +139,7 @@
 		</div>
 		
 		<!-- 脚部信息 -->
-		<div class="row"><footer>页脚备注</footer></div>
+		<!-- <div class="row"><footer>页脚备注</footer></div> -->
 
 		<!-- 遮罩层部分，进行特色定制 -->
 		<div id="custom-made-question" class="custom-made-question">

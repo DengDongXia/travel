@@ -62,7 +62,8 @@ public class EssayController
 	public Map<String,Boolean> deleteEssayByUser(@RequestBody EssayDeleteInput input)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("essayDeleteResult",!(essayService.deleteEssayByUser(input)&&essayService.deleteEssayCommentByUser(input)));
+		essayService.deleteEssayCommentByUser(input);//删除相应的评论
+		result.put("essayDeleteResult",essayService.deleteEssayByUser(input));
 		return result;
 	}
 	

@@ -97,7 +97,7 @@
 			<div class="col-md-1"></div>
 		</div>
 
-		<div class="row"><footer>页脚备注</footer></div>
+		<!-- <div class="row"><footer>页脚备注</footer></div> -->
 	</div>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/detail.js"></script>

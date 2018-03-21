@@ -75,7 +75,7 @@
 		</div>
 		
 		<!-- 脚部信息 -->
-		<div class="row"><footer>页脚备注</footer></div>
+		<!-- <div class="row"><footer>页脚备注</footer></div> -->
 
 		<!-- 新增管理员部分 -->
 		<div class="addAdminBg" id='changDataBg'>

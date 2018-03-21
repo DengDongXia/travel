@@ -109,7 +109,9 @@ function setData(data) {
 			imgPart += "<span class='authen'>已认证</span>";
 		}
 		    imgPart += "<div class='img-part'><img src='"+val.eassyPicture+"' alt='攻略一图片'/><h2 class='get'>查看攻略</h2></div> ";
-		var textPart = "<div class='tip-text'><h3>"+val.eassyHeader+"</h3><h4>"+val.eassyContent+"</h4></div>";
+		var Content=val.eassyContent.replace(/<\/?.+?>/g,"");   //删除文本中的html标签
+		var eassycontent=Content.replace(/&nbsp;/g,"");     //删除文本中的空格&nbsp;
+		var textPart = "<div class='tip-text'><h3>"+val.eassyHeader+"</h3><h4>"+eassycontent+"</h4></div>";
 		var other = "<div class='otherInfo'><span>地区："+val.eassyCountry+"</span><span>来自："+val.eassyPersonName+"</span><span>评论数："+val.eassyCommentCount+"</span></div>";
 		var liPart = "<li class='tip-content'><a href='detail.jsp?essayId="+val.eassyID+"'><div class='tip'>"+imgPart+textPart+"</div>"+other+"</a></li>";
 		ul.append(liPart);

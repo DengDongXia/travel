@@ -57,7 +57,7 @@ public class QuestionController
 	public Map<String,Boolean> userDeleteQuestion(@RequestBody DeleteQuestionInput input)
 	{
 		Map<String,Boolean> result=new HashMap<String,Boolean>();
-		result.put("questionDeleteResult",!questionService.deleteQuestionAndQuestionAnswerByInput(input));
+		result.put("questionDeleteResult",questionService.deleteQuestionAndQuestionAnswerByInput(input));
 		return result;
 	}
 	

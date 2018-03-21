@@ -115,7 +115,7 @@
 		</div>
 		
 		<!-- 脚部信息 -->
-		<div class="row"><footer>页脚备注</footer></div>
+<!-- 		<div class="row"><footer>页脚备注</footer></div> -->
 
 		<!-- 遮罩层部分，进行资料修改 -->
 		<div id="changDataBg" class="custom-made-question">
